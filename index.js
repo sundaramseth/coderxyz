@@ -23,8 +23,8 @@ mongoose.connect(process.env.MANGO,{
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:5173', // Replace with your actual frontend URL
-    credentials: true // If sending cookies or Authorization headers
+    origin: 'https://coderxyz.com', // Replace with your actual frontend URL
+    credentials: false // If sending cookies or Authorization headers
 }));
 
 app.use(express.json());
