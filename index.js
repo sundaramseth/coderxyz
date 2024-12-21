@@ -24,7 +24,7 @@ const app = express();
 
 app.use(cors({
     origin: 'https://coderxyz.com', // Replace with your actual frontend URL
-    credentials: false // If sending cookies or Authorization headers
+    credentials: true // If sending cookies or Authorization headers
 }));
 
 app.use(express.json());
