@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import userRoutes from './routes/users.route.js'
@@ -9,22 +10,33 @@ import commentRoutes from './routes/comment.route.js'
 
 dotenv.config();
 
-mongoose.connect(process.env.MANGO).then(
+mongoose.connect(process.env.MANGO,{  
+    useNewUrlParser: true,
+    useUnifiedTopology: true,}).then(
     ()=>{
         console.log('MongoDb is connected')
     }).catch((err)=>{
         console.log(err)
+        process.exit(1); // Crash gracefully if the connection fails
     });
 
 const app = express();
 
+app.use(cors());
+
 app.use(express.json());
 app.use(cookieParser());
 
-app.listen(3000, ()=>{
-    console.log('Server is running on port 3000 !')
-})
+const PORT = process.env.PORT || 3000;
 
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+
+
+app.get('/',(req,res)=>{
+    res.send('Hello World')
+});
 app.use('/api/user',userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/post',postRoutes);
@@ -39,3 +51,6 @@ app.use((err, req, res, next)=>{
         message
     });
 });
+
+// Export the app for Vercel
+export default app
