@@ -2,11 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
-import userRoutes from './routes/users.route.js'
-import authRoutes from './routes/auth.route.js'
+import userRoutes from './api/routes/users.route.js'
+import authRoutes from './api/routes/auth.route.js'
 import cookieParser from 'cookie-parser';
-import postRoutes from './routes/post.route.js'
-import commentRoutes from './routes/comment.route.js'
+import postRoutes from './api/routes/post.route.js'
+import commentRoutes from './api/routes/comment.route.js'
 
 dotenv.config();
 
@@ -52,5 +52,4 @@ app.use((err, req, res, next)=>{
     });
 });
 
-// Export the app for Vercel
-export default app
+export default app;
