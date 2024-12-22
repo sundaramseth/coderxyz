@@ -4,12 +4,14 @@ import OAuth from "../OAuth";
 import { useEffect, useState } from 'react';
 
 export default function HomePageMain() {
+
+    const API_URL = import.meta.env.VITE_API_URL;
     const [posts, setPosts] = useState([]);
 
 
     useEffect(() => {
         const fetchPosts = async () => {
-          const res = await fetch(`/api/post/getPosts?sort='asc'`);
+          const res = await fetch(`${API_URL}/api/post/getPosts?sort='asc'`);
           const data = await res.json();
           setPosts(data.posts);
         };

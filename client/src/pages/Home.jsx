@@ -9,11 +9,12 @@ export default function Home() {
   const [posts, setPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
 
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     try {
       const fetchPosts = async () => {
-        const res = await fetch(`/api/post/getPosts?limit=10`);
+        const res = await fetch(`${API_URL}/api/post/getPosts?limit=10`);
         const data = await res.json();
         // Sort by createdAt in descending order (newest first)
         setPosts( data.posts.sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn)));
@@ -31,7 +32,7 @@ export default function Home() {
   const handleShowMoreForPost =  async () =>{
     const startIndex = posts.length;
     try {
-      const res = await fetch(`/api/post/getPosts?startIndex=${startIndex}`); 
+      const res = await fetch(`${API_URL}/api/post/getPosts?startIndex=${startIndex}`); 
       const data = await res.json();
       if(res.ok){
         setPosts((prev)=>[...prev, ...data.posts]);

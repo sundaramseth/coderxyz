@@ -5,18 +5,21 @@ import {  FaDotCircle } from "react-icons/fa";
 import { LuUserPlus } from "react-icons/lu";
 export default function HomeRightSection() {
 
+     const API_URL = import.meta.env.VITE_API_URL;
+
     const [showMore, setShowMore] = useState(true);
     
     const [showMoreUser, setShowMoreUser] = useState(true);
     const [users, setAllUsers] = useState([]);
     const [posts, setPosts] = useState([]);
 
+
     console.log(users)
     
   useEffect(() => {
     try {
       const fetchPosts = async () => {
-        const res = await fetch(`/api/post/getPosts?limit=5`);
+        const res = await fetch(`${API_URL}/api/post/getPosts?limit=5`);
         const data = await res.json();
         setPosts(data.posts);
         if(data.posts.length < 5){
@@ -32,7 +35,7 @@ export default function HomeRightSection() {
   const handleShowMoreForPost =  async () =>{
     const startIndex = posts.length;
     try {
-      const res = await fetch(`/api/post/getPosts?startIndex=${startIndex}`); 
+      const res = await fetch(`${API_URL}/api/post/getPosts?startIndex=${startIndex}`); 
       const data = await res.json();
       if(res.ok){
         setPosts((prev)=>[...prev, ...data.posts]);
@@ -48,7 +51,7 @@ export default function HomeRightSection() {
   useEffect(()=>{
     const fetchPost = async () =>{
         try {
-            const res = await fetch(`/api/user/getusers?limit=5`);
+            const res = await fetch(`${API_URL}/api/user/getusers?limit=5`);
             const data = await res.json();
             if(res.ok){
               setAllUsers(data.users);
@@ -67,7 +70,7 @@ export default function HomeRightSection() {
   const handleShowMore =  async () =>{
     const startIndex = users.length;
     try {
-      const res = await fetch(`/api/user/getusers?startIndex=${startIndex}`); 
+      const res = await fetch(`${API_URL}/api/user/getusers?startIndex=${startIndex}`); 
       const data = await res.json();
       if(res.ok){
         setAllUsers((prev)=>[...prev, ...data.users]);

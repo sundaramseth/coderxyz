@@ -18,6 +18,9 @@ import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/st
 
 export default function StartPost() {
 
+  
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const navigate = useNavigate();
     
   const {currentUser} = useSelector(state => state.user);
@@ -68,7 +71,7 @@ export default function StartPost() {
   const handleSubmit = async(e)=>{
     e.preventDefault();
     try {
-      const res = await fetch('/api/userpost/create',{
+      const res = await fetch(`${API_URL}/api/userpost/create`,{
       method:'POST',
       headers:{
         'Content-Type':'application/json'

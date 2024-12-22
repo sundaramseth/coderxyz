@@ -12,6 +12,9 @@ import { useEffect, useState } from "react";
 
 export default function Header() {
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
+
   // const path = useLocation().pathname;
   const dispatch= useDispatch();
   const location = useLocation();
@@ -32,7 +35,7 @@ export default function Header() {
 
   const handleSignOut = async () =>{
     try{
-      const res = await fetch('/api/user/signout',{
+      const res = await fetch(`${API_URL}/api/user/signout`,{
         method:'POST',
       });
 

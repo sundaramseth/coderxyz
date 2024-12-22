@@ -13,6 +13,8 @@ export default function OAuth() {
     const navigate = useNavigate();
 
 
+
+
 const handleGoogleClick = async () =>{
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({prompt:'select_account'})

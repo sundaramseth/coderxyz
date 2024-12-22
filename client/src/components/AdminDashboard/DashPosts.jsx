@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 export default function DashPosts() {
   
-
+  const API_URL = import.meta.env.VITE_API_URL;
     const {currentUser} = useSelector((state)=> state.user)
     const [userPosts, setUserPosts] = useState([]);
     const [showMore, setShowMore] = useState(true);
@@ -15,7 +15,7 @@ export default function DashPosts() {
     useEffect(()=>{
     const fetchPost = async () =>{
         try {
-            const res = await fetch(`/api/post/getPosts?userId=${currentUser._id}`);
+            const res = await fetch(`${API_URL}/api/post/getPosts?userId=${currentUser._id}`);
             const data = await res.json();
             if(res.ok){
                 setUserPosts(data.posts);
@@ -35,7 +35,7 @@ export default function DashPosts() {
   const handleShowMore =  async () =>{
     const startIndex = userPosts.length;
     try {
-      const res = await fetch(`/api/post/getPosts?userId=${currentUser._id}&startIndex=${startIndex}`); 
+      const res = await fetch(`${API_URL}/api/post/getPosts?userId=${currentUser._id}&startIndex=${startIndex}`); 
       const data = await res.json();
       if(res.ok){
         setUserPosts((prev)=>[...prev, ...data.posts]);
@@ -51,7 +51,7 @@ export default function DashPosts() {
   const handleDeletepost = async ()=>{
     setShowModal(false);
     try {
-      const res = await fetch(`/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,{
+      const res = await fetch(`${API_URL}/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,{
         method:'DELETE'
       });
       const data = await res.json();

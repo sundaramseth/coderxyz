@@ -22,6 +22,8 @@ export default function UpdatePost() {
   const [publishError, setPublishError] = useState(null);
   const { postId } = useParams();
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const navigate = useNavigate();
     const { currentUser } = useSelector((state) => state.user);
 
@@ -51,7 +53,7 @@ export default function UpdatePost() {
     useEffect(() => {
       try {
         const fetchPost = async () => {
-          const res = await fetch(`/api/post/getposts?postId=${postId}`);
+          const res = await fetch(`${API_URL}/api/post/getposts?postId=${postId}`);
           const data = await res.json();
           if(res.ok) {
             setPublishError(null);
@@ -111,7 +113,7 @@ export default function UpdatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`/api/post/updatepost/${postId}/${currentUser._id}`, {
+      const res = await fetch(`${API_URL}/api/post/updatepost/${postId}/${currentUser._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

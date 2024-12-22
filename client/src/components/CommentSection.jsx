@@ -6,8 +6,9 @@ import Comment from './Comment';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
 const CommentSection = ({postId}) => {
-
-     const {currentUser} = useSelector(state => state.user);
+  
+    const API_URL = import.meta.env.VITE_API_URL;
+    const {currentUser} = useSelector(state => state.user);
     const [comment,setComment] = useState('');
 
 
@@ -29,7 +30,7 @@ const CommentSection = ({postId}) => {
 
 
      try {
-      const res  = await fetch('/api/comment/create',{
+      const res  = await fetch(`${API_URL}/api/comment/create`,{
         method:'POST',
         headers:{
           'Content-Type':'application/json',
@@ -55,7 +56,7 @@ const CommentSection = ({postId}) => {
     useEffect(()=>{
         try {
           const getComments = async () =>{
-          const res = await fetch(`/api/comment/getPostComments/${postId}`);
+          const res = await fetch(`${API_URL}/api/comment/getPostComments/${postId}`);
           if(res.ok){
             const data = await res.json();
             setComments(data);
@@ -77,7 +78,7 @@ const CommentSection = ({postId}) => {
           return;
         }
 
-        const res = await fetch(`/api/comment/likeComment/${commentId}` , {
+        const res = await fetch(`${API_URL}/api/comment/likeComment/${commentId}` , {
           method:'PUT',
         });
 
@@ -121,7 +122,7 @@ const CommentSection = ({postId}) => {
             return;
           }
 
-          const res = await fetch(`/api/comment/deleteComment/${commentId}`,{
+          const res = await fetch(`${API_URL}/api/comment/deleteComment/${commentId}`,{
             method:'DELETE',
           });
           if (res.ok) {

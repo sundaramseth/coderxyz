@@ -10,10 +10,12 @@ export default function RecentPostCard({ post }) {
     const [user,setUser] = useState({});
     const [comments,setComments] = useState([]);
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
       useEffect(()=>{
           try {
             const getUser = async () =>{
-          const res = await fetch(`/api/user/${post.userId}`);
+          const res = await fetch(`${API_URL}/api/user/${post.userId}`);
           const data = await res.json();
           if(res.ok){
             setUser(data);
@@ -33,7 +35,7 @@ export default function RecentPostCard({ post }) {
     
           try {
             const getComments = async () =>{
-            const res = await fetch(`/api/comment/getPostComments/${post._id}`);
+            const res = await fetch(`${API_URL}/api/comment/getPostComments/${post._id}`);
             if(res.ok){
               const data = await res.json();
               setComments(data);

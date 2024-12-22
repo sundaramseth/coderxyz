@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 
 export default function DashProfile() {
   
+  const API_URL = import.meta.env.VITE_API_URL;
   
 
   const {currentUser, error, loading} = useSelector(state => state.user);
@@ -92,7 +93,7 @@ console.log(error)
 
     try{
       dispatch(updateStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+      const res = await fetch(`${API_URL}/api/user/update/${currentUser._id}`, {
         method:'PUT',
         headers:{
           'Content-Type':'application/json'
@@ -118,7 +119,7 @@ console.log(error)
   setShowModel(false);
   try{
    dispatch(deleteUserStart());
-   const res = await fetch(`api/user/delete/${currentUser._id}`,{
+   const res = await fetch(`${API_URL}/api/user/delete/${currentUser._id}`,{
     method:'DELETE',
    });
    const data = await res.json();
@@ -134,7 +135,7 @@ console.log(error)
 
   const handleSignOut = async () =>{
     try{
-      const res = await fetch('/api/user/signout',{
+      const res = await fetch(`${API_URL}/api/user/signout`,{
         method:'POST',
       });
 

@@ -10,11 +10,13 @@ export default function SavedPosts() {
 const { currentUser } = useSelector((state) => state.user);
 const [posts, setPosts] = useState([]);
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 useEffect(() => {
 try {
     const fetchPosts = async () => {
-    const res = await fetch(`/api/post/getsavedpost/${currentUser._id}`);
+    const res = await fetch(`${API_URL}/api/post/getsavedpost/${currentUser._id}`);
     const data = await res.json();
     // Sort by createdAt in descending order (newest first)
     setPosts(data);

@@ -28,12 +28,15 @@ export default function PostPage() {
   const [comments,setComments] = useState([]);
   const [openMediaModal, setMediaOpenModal] = useState(false);
   const [saveyourPost, setSaveYourPost] = useState(false);
+
+  const API_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
 
       try {
         const fetchPost = async () => {
         setLoading(false);
-        const res = await fetch(`/api/post/getposts?slug=${postSlug}`);
+        const res = await fetch(`${API_URL}/api/post/getposts?slug=${postSlug}`);
         const data = await res.json();
 
         if (!res.ok) {
@@ -50,7 +53,7 @@ export default function PostPage() {
             setSaveYourPost(true);
           }
 
-          const res2 = await fetch(`/api/post/getauthorposts/${data.posts[0].userId}`);
+          const res2 = await fetch(`${API_URL}/api/post/getauthorposts/${data.posts[0].userId}`);
           const data2 = await res2.json();
           if (res2.ok) {
             setRecentPostAuthor(data2);
@@ -74,7 +77,7 @@ export default function PostPage() {
         return;
       }
 
-      const res = await fetch(`/api/post/likepost/${postId}`, {
+      const res = await fetch(`${API_URL}/api/post/likepost/${postId}`, {
         method: "PUT",
       });
 
@@ -105,7 +108,7 @@ export default function PostPage() {
   useEffect(()=>{
     try {
       const getComments = async () =>{
-      const res = await fetch(`/api/comment/getPostComments/${post && post._id}`);
+      const res = await fetch(`${API_URL}/api/comment/getPostComments/${post && post._id}`);
       if(res.ok){
         const data = await res.json();
         setComments(data);
@@ -124,7 +127,7 @@ export default function PostPage() {
 useEffect(()=>{
   try {
     const getUser = async () =>{
-  const res = await fetch(`/api/user/${post && post.userId}`);
+  const res = await fetch(`${API_URL}/api/user/${post && post.userId}`);
   const data = await res.json();
   if(res.ok){
     setUser(data);
@@ -142,7 +145,7 @@ getUser();
 useEffect(() => {
   try {
     const fetchRecentPosts = async () => {
-      const res = await fetch(`/api/post/getPosts?limit=5`);
+      const res = await fetch(`${API_URL}/api/post/getPosts?limit=5`);
       const data = await res.json();
       if (res.ok) {
         setRecentPost(data.posts);
@@ -162,7 +165,7 @@ const savePost = async(userId, postId)=>{
       return;
     }
 
-    const res = await fetch(`/api/post/savepost/${postId}/${userId}`, {
+    const res = await fetch(`${API_URL}/api/post/savepost/${postId}/${userId}`, {
       method:'POST',
       headers:{
         'Content-Type':'application/json'
@@ -194,7 +197,7 @@ const unsavePost = async(userId, postId)=>{
       return;
     }
 
-    const res = await fetch(`/api/post/unsavepost/${postId}/${userId}`, {
+    const res = await fetch(`/${API_URL}api/post/unsavepost/${postId}/${userId}`, {
       method:'DELETE',
       });
       const data = await res.json();
@@ -429,7 +432,7 @@ const unsavePost = async(userId, postId)=>{
         <Modal.Body>
         <ShareSocial 
           title={'share on social media'} 
-     url ={`http://www.coderxyz.com${location.pathname}`}
+     url ={`https://coderxyz.com${location.pathname}`}
      socialTypes={['facebook','twitter','reddit','linkedin', 'whatsapp','telegram','email']}
      style={style}
    />
