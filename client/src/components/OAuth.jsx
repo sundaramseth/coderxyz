@@ -12,36 +12,35 @@ export default function OAuth() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-
-
-
-const handleGoogleClick = async () =>{
-    const provider = new GoogleAuthProvider();
-    provider.setCustomParameters({prompt:'select_account'})
-
-    try{
-        const resultFromGoogle = await signInWithPopup(auth, provider)
-        const res = await fetch('/api/auth/google',{
-            method:'POST',
-            headers:{'Content-Type': 'application/json'},
-            body:JSON.stringify({
-                name:resultFromGoogle.user.displayName,
-                email:resultFromGoogle.user.email,
-                googlePhotoUrl:resultFromGoogle.user.photoURL
+    const handleGoogleClick = async () => {
+        const provider = new GoogleAuthProvider();
+        provider.setCustomParameters({ prompt: 'select_account' });
+      
+        try {
+          const resultFromGoogle = await signInWithPopup(auth, provider);
+      
+          const res = await fetch('https://coderxyz.onrender.com/api/auth/google', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: resultFromGoogle.user.displayName,
+              email: resultFromGoogle.user.email,
+              googlePhotoUrl: resultFromGoogle.user.photoURL,
             }),
-        })
-        const data = await res.json();
-        if(res.ok){
+          });
+      
+          const data = await res.json();
+          if (res.ok) {
             dispatch(signInSuccess(data));
             navigate('/');
+          }
+      
+          console.log(resultFromGoogle);
+        } catch (error) {
+          console.log(error);
         }
-
-        console.log(resultFromGoogle)    
-    
-    }catch(error){
-     console.log(error);
-    }
-}
+      };
+      
 
   return (
    <Button type="button" outline pill color='gray' onClick={handleGoogleClick}>
