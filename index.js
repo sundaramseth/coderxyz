@@ -22,9 +22,11 @@ mongoose.connect(process.env.MANGO,{
 
 const app = express();
 
+const allowedOrigins = ['https://coderxyz.com', 'http://localhost:5173']; // Add frontend domains here
+
 app.use(cors({
-    origin: 'https://coderxyz.com', // Replace with your actual frontend URL
-    credentials: true // If sending cookies or Authorization headers
+    origin: allowedOrigins,
+    credentials: true,
 }));
 
 app.use(express.json());
