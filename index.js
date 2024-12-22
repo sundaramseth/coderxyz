@@ -27,6 +27,8 @@ const allowedOrigins = ['https://coderxyz.com', 'http://localhost:5173']; // Add
 app.use(cors({
     origin: allowedOrigins,
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow these headers
 }));
 
 app.use(express.json());
