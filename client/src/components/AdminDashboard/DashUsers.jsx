@@ -8,6 +8,7 @@ import { HiOutlineBan, HiOutlineCheckCircle, HiOutlineExclamationCircle } from '
 export default function DashUsers() {
   
   const API_URL = import.meta.env.VITE_API_URL;
+  const token = localStorage.getItem('token');
     const {currentUser} = useSelector((state)=> state.user)
     const [users, setUsers] = useState([]);
     const [showMore, setShowMore] = useState(true);
@@ -56,7 +57,11 @@ export default function DashUsers() {
     setShowModal(false);
     try {
       const res = await fetch(`${API_URL}/api/user/delete/${userIdToDelete}`,{
-        method:'DELETE'
+        method:'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Include the token
+        },
       });
       const data = await res.json();
       if(!res.ok){

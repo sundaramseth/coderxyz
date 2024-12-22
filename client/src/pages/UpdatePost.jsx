@@ -23,6 +23,7 @@ export default function UpdatePost() {
   const { postId } = useParams();
 
   const API_URL = import.meta.env.VITE_API_URL;
+  const token = localStorage.getItem('token'); 
 
   const navigate = useNavigate();
     const { currentUser } = useSelector((state) => state.user);
@@ -117,6 +118,7 @@ export default function UpdatePost() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Include the token
         },
         body: JSON.stringify(formData),
       });
@@ -210,6 +212,7 @@ export default function UpdatePost() {
           value={formData.content}
           placeholder="write your content ...."
           modules={modules}
+          formats={formats}
           onChange={(value) => {
             setFormData({ ...formData, content: value });
           }}

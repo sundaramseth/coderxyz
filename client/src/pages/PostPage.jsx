@@ -31,6 +31,8 @@ export default function PostPage() {
 
   const API_URL = import.meta.env.VITE_API_URL;
 
+  const token = localStorage.getItem('token'); // Retrieve token stored after login
+  
   useEffect(() => {
 
       try {
@@ -79,6 +81,10 @@ export default function PostPage() {
 
       const res = await fetch(`${API_URL}/api/post/likepost/${postId}`, {
         method: "PUT",
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Include the token
+        },
       });
 
       if (res.ok) {
@@ -158,6 +164,7 @@ useEffect(() => {
 }, []);
 
 
+
 const savePost = async(userId, postId)=>{
   try {
     if (!currentUser) {
@@ -167,8 +174,9 @@ const savePost = async(userId, postId)=>{
 
     const res = await fetch(`${API_URL}/api/post/savepost/${postId}/${userId}`, {
       method:'POST',
-      headers:{
-        'Content-Type':'application/json'
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`, // Include the token
       },
       // body:JSON.stringify(formData),
       });
@@ -199,6 +207,10 @@ const unsavePost = async(userId, postId)=>{
 
     const res = await fetch(`/${API_URL}api/post/unsavepost/${postId}/${userId}`, {
       method:'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`, // Include the token
+      },
       });
       const data = await res.json();
 

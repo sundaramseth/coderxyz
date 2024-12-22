@@ -29,7 +29,7 @@ export default function DashProfile() {
   const [showModel, setShowModel] = useState(false);
 
   //   console.log(imageFileUpoadProgress, imageFileUploadError)
-
+  const token = localStorage.getItem('token'); 
 console.log(error)
   const dispatch = useDispatch();
   const handleImageChange = (e)  =>{
@@ -95,8 +95,9 @@ console.log(error)
       dispatch(updateStart());
       const res = await fetch(`${API_URL}/api/user/update/${currentUser._id}`, {
         method:'PUT',
-        headers:{
-          'Content-Type':'application/json'
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Include the token
         },
         body:JSON.stringify(formData)
       });
@@ -121,6 +122,10 @@ console.log(error)
    dispatch(deleteUserStart());
    const res = await fetch(`${API_URL}/api/user/delete/${currentUser._id}`,{
     method:'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`, // Include the token
+    },
    });
    const data = await res.json();
    if(!res.ok){
@@ -137,6 +142,10 @@ console.log(error)
     try{
       const res = await fetch(`${API_URL}/api/user/signout`,{
         method:'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Include the token
+        },
       });
 
       const data = await res.json();
