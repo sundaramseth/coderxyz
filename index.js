@@ -44,10 +44,28 @@ app.listen(PORT, () => {
 app.get('/',(req,res)=>{
     res.send('Hello World')
 });
-app.use('/api/user',userRoutes);
+
+const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1]; // Bearer <token>
+  
+    if (!token) {
+      return res.status(401).json({ success: false, message: 'Unauthorized: No token provided' });
+    }
+  
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+      if (err) {
+        return res.status(403).json({ success: false, message: 'Forbidden: Invalid token' });
+      }
+      req.user = user;
+      next();
+    });
+  };
+
+app.use('/api/user',userRoutes,authenticateToken);
 app.use('/api/auth', authRoutes);
-app.use('/api/post',postRoutes);
-app.use('/api/comment',commentRoutes);
+app.use('/api/post',postRoutes,authenticateToken);
+app.use('/api/comment',commentRoutes,authenticateToken);
 
 app.use((err, req, res, next)=>{
     const statusCode = err.statusCode || 500;
