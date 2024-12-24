@@ -31,7 +31,10 @@ export default function PostPage() {
 
   const API_URL = import.meta.env.VITE_API_URL;
 
-  const token = localStorage.getItem('token'); // Retrieve token stored after login
+  const token = localStorage.getItem('token'); 
+  
+  console.log(token);
+  // Retrieve token stored after login
   
   useEffect(() => {
 
