@@ -86,7 +86,7 @@ export default function PostPage() {
         method: "PUT",
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Include the token
+          'Authorization': `Bearer ${token}`,// Include the token
         },
       });
 
@@ -179,7 +179,7 @@ const savePost = async(userId, postId)=>{
       method:'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`, // Include the token
+        'Authorization': `Bearer ${token}`, // Include the token
       },
       // body:JSON.stringify(formData),
       });
@@ -212,7 +212,7 @@ const unsavePost = async(userId, postId)=>{
       method:'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`, // Include the token
+        'Authorization': `Bearer ${token}`, // Include the token
       },
       });
       const data = await res.json();
