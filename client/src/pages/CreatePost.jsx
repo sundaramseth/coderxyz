@@ -93,7 +93,7 @@ export default function CreatePost() {
       method:'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`, // Include the token
+         'Authorization': `Bearer ${token}`, // Include the token
       },
       body:JSON.stringify(formData),
       });

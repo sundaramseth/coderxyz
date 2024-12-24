@@ -118,7 +118,7 @@ export default function UpdatePost() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Include the token
+           'Authorization': `Bearer ${token}`, // Include the token
         },
         body: JSON.stringify(formData),
       });

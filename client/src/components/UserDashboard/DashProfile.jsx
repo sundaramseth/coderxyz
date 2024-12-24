@@ -97,7 +97,7 @@ console.log(error)
         method:'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Include the token
+           'Authorization': `Bearer ${token}`, // Include the token
         },
         body:JSON.stringify(formData)
       });
@@ -124,7 +124,7 @@ console.log(error)
     method:'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`, // Include the token
+       'Authorization': `Bearer ${token}`, // Include the token
     },
    });
    const data = await res.json();
@@ -144,7 +144,7 @@ console.log(error)
         method:'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Include the token
+           'Authorization': `Bearer ${token}`, // Include the token
         },
       });
 

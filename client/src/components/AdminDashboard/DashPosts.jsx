@@ -57,7 +57,7 @@ export default function DashPosts() {
         method:'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Include the token
+           'Authorization': `Bearer ${token}`, // Include the token
         },
       });
       const data = await res.json();

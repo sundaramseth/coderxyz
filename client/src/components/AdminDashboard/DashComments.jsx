@@ -61,7 +61,7 @@ export default function DashComments() {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`, // Include the token
+             'Authorization': `Bearer ${token}`, // Include the token
           },
         }
       );
