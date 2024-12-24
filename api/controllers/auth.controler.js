@@ -52,6 +52,7 @@ export const signin = async(req, res, next)=>{
         }
 
         const token = jwt.sign({id:validUser._id, isAdmin:validUser.isAdmin}, process.env.JWT_SECRET);
+        localStorage.setItem('token', token); 
         
         const{password:pass, ...rest} = validUser._doc;
 
@@ -88,6 +89,7 @@ export const googleAuth = async(req, res, next) =>{
         });
         await newUser.save();
         const token = jwt.sign({id:newUser._id, isAdmin:newUser.isAdmin}, process.env.JWT_SECRET);
+        localStorage.setItem('token', token); 
         const {password, ...rest} = newUser._doc;
         res.status(200).cookie('access_token', token,{
             httpOnly:true,
