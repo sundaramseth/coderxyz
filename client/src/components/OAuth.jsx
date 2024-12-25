@@ -30,14 +30,9 @@ export default function OAuth() {
           });
       
           const data = await res.json();
-          const token = resultFromGoogle._tokenResponse.idToken;
+   
           // console.log(resultFromGoogle._tokenResponse.idToken);
-          if (token) {
-            localStorage.setItem('token', token); // Store token in localStorage
-            console.log('Token stored:', token);
-          } else {
-              console.error('Login failed, no token received.');
-        }
+  
           if (res.ok) {
             dispatch(signInSuccess(data));
             navigate('/');
