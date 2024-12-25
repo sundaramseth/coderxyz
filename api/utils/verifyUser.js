@@ -6,7 +6,7 @@ export const verifyToken = (req, res, next) =>{
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]; // Extract the token
 
-    const JWT_SECRETS = import.meta.env.JWT_SECRET;
+    const JWT_SECRETS = process.env.JWT_SECRET;
     // const token = req.cookies.access_token;
     if (!token) {
         return res.status(401).json({ message: 'Unauthorized - No token provided' });
