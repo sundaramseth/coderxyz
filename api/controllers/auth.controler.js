@@ -62,7 +62,7 @@ export const signin = async(req, res, next)=>{
             httpOnly: true,
             secure: isProduction, // Use HTTPS in production
             sameSite: 'none', // Required for cross-origin requests
-            domain: isProduction ? 'coderxyz.com' : undefined, // Set domain only for production
+            domain: isProduction ? '.coderxyz.com' : undefined, // Set domain only for production
         }).json(rest);
     }
     catch(error){
@@ -87,7 +87,7 @@ export const googleAuth = async(req, res, next) =>{
             httpOnly: true,
             secure: isProduction, // Use HTTPS in production
             sameSite: 'none', // Required for cross-origin requests
-            domain: isProduction ? 'coderxyz.com' : undefined, // Set domain only for production
+            domain: isProduction ? '.coderxyz.com' : undefined, // Set domain only for production
         }).json(rest);
     }else{
         const generatePassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
@@ -108,7 +108,7 @@ export const googleAuth = async(req, res, next) =>{
             httpOnly: true,
             secure: isProduction, // Use HTTPS in production
             sameSite: 'none', // Required for cross-origin requests
-            domain: isProduction ? 'coderxyz.com' : undefined, // Set domain only for production
+            domain: isProduction ? '.coderxyz.com' : undefined, // Set domain only for production
         }).json(rest);
     }
     }catch(error){
