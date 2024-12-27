@@ -58,7 +58,7 @@ export const signin = async(req, res, next)=>{
 
             res.status(200).cookie('access_token', token,{
                 httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
+                secure: true,
                 sameSite: 'none', // Use 'none' for cross-origin
             }).json(rest);
     }
@@ -80,7 +80,7 @@ export const googleAuth = async(req, res, next) =>{
         // console.log(token)
         res.status(200).cookie('access_token', token,{
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: true,
             sameSite: 'none', // Use 'none' for cross-origin
         }).json(rest);
     }else{
@@ -98,7 +98,7 @@ export const googleAuth = async(req, res, next) =>{
         const {password, ...rest} = newUser._doc;
         res.status(200).cookie('access_token', token,{
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure:true,
             sameSite: 'none', // Use 'none' for cross-origin
         }).json(rest);
     }
