@@ -59,7 +59,7 @@ export const signin = async(req, res, next)=>{
             res.status(200).cookie('access_token', token,{
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
-                sameSite: 'lax', // Use 'none' for cross-origin
+                sameSite: 'none', // Use 'none' for cross-origin
             }).json(rest);
     }
     catch(error){
@@ -81,7 +81,7 @@ export const googleAuth = async(req, res, next) =>{
         res.status(200).cookie('access_token', token,{
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax', // Use 'none' for cross-origin
+            sameSite: 'none', // Use 'none' for cross-origin
         }).json(rest);
     }else{
         const generatePassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
@@ -99,7 +99,7 @@ export const googleAuth = async(req, res, next) =>{
         res.status(200).cookie('access_token', token,{
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax', // Use 'none' for cross-origin
+            sameSite: 'none', // Use 'none' for cross-origin
         }).json(rest);
     }
     }catch(error){
