@@ -31,8 +31,6 @@ app.use(cookieParser());
 app.use(cors({
     origin: ['https://coderxyz.com', 'http://localhost:5173'], // Add your frontend URLs
     credentials: true, // Allow credentials (cookies)
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 // Routes

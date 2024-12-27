@@ -60,7 +60,7 @@ export const signin = async(req, res, next)=>{
                 httpOnly:true,
                 // secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
                 sameSite: 'strict', // Adjust as per your frontend and backend domains
-            }).json(rest, { success: true, message: 'Login successful' });
+            }).json(rest);
     }
     catch(error){
     next(error);
@@ -81,7 +81,7 @@ export const googleAuth = async(req, res, next) =>{
         res.status(200).cookie('access_token', token,{
             httpOnly:true,
             sameSite: 'strict', 
-        }).json(rest, { success: true, message: 'Login successful' });
+        }).json(rest);
     }else{
         const generatePassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
         const hashedPassword = bcryptjs.hashSync(generatePassword, 10);
@@ -98,7 +98,7 @@ export const googleAuth = async(req, res, next) =>{
         res.status(200).cookie('access_token', token,{
             httpOnly:true,
             sameSite: 'strict', 
-        }).json(rest, { success: true, message: 'Signup successful' });
+        }).json(rest);
     }
     }catch(error){
        next(error)
