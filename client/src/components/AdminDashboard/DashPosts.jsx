@@ -6,8 +6,7 @@ import { HiOutlineExclamationCircle } from 'react-icons/hi';
 export default function DashPosts() {
   
   const API_URL = import.meta.env.VITE_API_URL;
-  const token = localStorage.getItem('token'); 
-  
+
     const {currentUser} = useSelector((state)=> state.user)
     const [userPosts, setUserPosts] = useState([]);
     const [showMore, setShowMore] = useState(true);
@@ -55,9 +54,9 @@ export default function DashPosts() {
     try {
       const res = await fetch(`${API_URL}/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,{
         method:'DELETE',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-           'Authorization': `Bearer ${token}`, // Include the token
         },
       });
       const data = await res.json();

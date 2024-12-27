@@ -20,7 +20,6 @@ export default function CreatePost() {
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
 
-  const token = localStorage.getItem('token'); 
 
   var category = ["LifeStyle", "Programming", "Science", "Technology", "News", "Jobs", "Informative", "Entertainment", "Products", "Maths"];
 
@@ -91,9 +90,9 @@ export default function CreatePost() {
     try {
       const res = await fetch(`${API_URL}/api/post/create`,{
       method:'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-         'Authorization': `Bearer ${token}`, // Include the token
       },
       body:JSON.stringify(formData),
       });

@@ -28,8 +28,7 @@ export default function DashProfile() {
   const [updateUserError, setUpdateUserError] = useState(null);
   const [showModel, setShowModel] = useState(false);
 
-  //   console.log(imageFileUpoadProgress, imageFileUploadError)
-  const token = localStorage.getItem('token'); 
+
 console.log(error)
   const dispatch = useDispatch();
   const handleImageChange = (e)  =>{
@@ -95,9 +94,9 @@ console.log(error)
       dispatch(updateStart());
       const res = await fetch(`${API_URL}/api/user/update/${currentUser._id}`, {
         method:'PUT',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-           'Authorization': `Bearer ${token}`, // Include the token
         },
         body:JSON.stringify(formData)
       });
@@ -122,10 +121,10 @@ console.log(error)
    dispatch(deleteUserStart());
    const res = await fetch(`${API_URL}/api/user/delete/${currentUser._id}`,{
     method:'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-       'Authorization': `Bearer ${token}`, // Include the token
-    },
+    credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
    });
    const data = await res.json();
    if(!res.ok){
@@ -142,9 +141,9 @@ console.log(error)
     try{
       const res = await fetch(`${API_URL}/api/user/signout`,{
         method:'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-           'Authorization': `Bearer ${token}`, // Include the token
         },
       });
 

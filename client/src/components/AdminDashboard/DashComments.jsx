@@ -13,7 +13,7 @@ export default function DashComments() {
   const [showModal, setShowModal] = useState(false);
   const [commentIdToDelete, setCommentIdToDelete] = useState('');
   
-  const token = localStorage.getItem('token');
+
   useEffect(() => {
     const fetchComments = async () => {
       try {
@@ -59,10 +59,10 @@ export default function DashComments() {
         `${API_URL}/api/comment/deleteComment/${commentIdToDelete}`,
         {
           method: 'DELETE',
+          credentials: 'include',
           headers: {
-            'Content-Type': 'application/json',
-             'Authorization': `Bearer ${token}`, // Include the token
-          },
+         'Content-Type': 'application/json',
+         },
         }
       );
       const data = await res.json();

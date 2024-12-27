@@ -7,8 +7,7 @@ import { useSelector } from "react-redux";
 export default function Comment({comment, onLike, onEdit, onDelete}) {
    
   const API_URL = import.meta.env.VITE_API_URL;
-  
-  const token = localStorage.getItem('token'); 
+
 
   const [user,setUser] = useState({});
   const {currentUser} = useSelector((state)=>state.user);
@@ -46,11 +45,11 @@ export default function Comment({comment, onLike, onEdit, onDelete}) {
       try {
         const res = await fetch(`${API_URL}/api/comment/editComment/${comment._id}`,{
           method:'PUT',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
-             'Authorization': `Bearer ${token}`, // Include the token
           },
-          body: JSON.stringify({
+              body: JSON.stringify({
             content:editedContent,
           })
         });

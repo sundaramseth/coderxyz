@@ -52,11 +52,14 @@ export const signin = async(req, res, next)=>{
         }
 
         const token = jwt.sign({id:validUser._id, isAdmin:validUser.isAdmin}, process.env.JWT_SECRET);
+        // console.log(token)
         
         const{password:pass, ...rest} = validUser._doc;
 
             res.status(200).cookie('access_token', token,{
-                httpOnly:true
+                httpOnly:true,
+                // secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+                sameSite: 'strict', // Adjust as per your frontend and backend domains
             }).json(rest);
     }
     catch(error){
@@ -74,8 +77,10 @@ export const googleAuth = async(req, res, next) =>{
      if(user){
         const token = jwt.sign({id:user._id, isAdmin:user.isAdmin }, process.env.JWT_SECRET)
         const {password, ...rest} = user._doc;
+        // console.log(token)
         res.status(200).cookie('access_token', token,{
             httpOnly:true,
+            sameSite: 'strict', 
         }).json(rest);
     }else{
         const generatePassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
@@ -88,9 +93,11 @@ export const googleAuth = async(req, res, next) =>{
         });
         await newUser.save();
         const token = jwt.sign({id:newUser._id, isAdmin:newUser.isAdmin}, process.env.JWT_SECRET);
+        localStorage.setItem('token', token); 
         const {password, ...rest} = newUser._doc;
         res.status(200).cookie('access_token', token,{
             httpOnly:true,
+            sameSite: 'strict', 
         }).json(rest);
     }
     }catch(error){

@@ -31,9 +31,6 @@ export default function PostPage() {
 
   const API_URL = import.meta.env.VITE_API_URL;
 
-  const token = localStorage.getItem('token'); 
-  
-  console.log(token);
   // Retrieve token stored after login
   
   useEffect(() => {
@@ -84,9 +81,9 @@ export default function PostPage() {
 
       const res = await fetch(`${API_URL}/api/post/likepost/${postId}`, {
         method: "PUT",
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,// Include the token
         },
       });
 
@@ -177,9 +174,9 @@ const savePost = async(userId, postId)=>{
 
     const res = await fetch(`${API_URL}/api/post/savepost/${postId}/${userId}`, {
       method:'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, // Include the token
       },
       // body:JSON.stringify(formData),
       });
@@ -202,17 +199,18 @@ const savePost = async(userId, postId)=>{
 
 
 const unsavePost = async(userId, postId)=>{
+
   try {
     if (!currentUser) {
       navigate("/signin");
       return;
     }
 
-    const res = await fetch(`/${API_URL}api/post/unsavepost/${postId}/${userId}`, {
+    const res = await fetch(`${API_URL}/api/post/unsavepost/${postId}/${userId}`, {
       method:'DELETE',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, // Include the token
       },
       });
       const data = await res.json();

@@ -116,9 +116,9 @@ export default function UpdatePost() {
     try {
       const res = await fetch(`${API_URL}/api/post/updatepost/${postId}/${currentUser._id}`, {
         method: 'PUT',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-           'Authorization': `Bearer ${token}`, // Include the token
         },
         body: JSON.stringify(formData),
       });
