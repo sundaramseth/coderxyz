@@ -57,9 +57,9 @@ export const signin = async(req, res, next)=>{
         const{password:pass, ...rest} = validUser._doc;
 
             res.status(200).cookie('access_token', token,{
-                httpOnly:true,
-                // secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-                sameSite: 'strict', // Adjust as per your frontend and backend domains
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'lax', // Use 'none' for cross-origin
             }).json(rest);
     }
     catch(error){
@@ -79,8 +79,9 @@ export const googleAuth = async(req, res, next) =>{
         const {password, ...rest} = user._doc;
         // console.log(token)
         res.status(200).cookie('access_token', token,{
-            httpOnly:true,
-            sameSite: 'strict', 
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax', // Use 'none' for cross-origin
         }).json(rest);
     }else{
         const generatePassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
@@ -96,8 +97,9 @@ export const googleAuth = async(req, res, next) =>{
         localStorage.setItem('token', token); 
         const {password, ...rest} = newUser._doc;
         res.status(200).cookie('access_token', token,{
-            httpOnly:true,
-            sameSite: 'strict', 
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax', // Use 'none' for cross-origin
         }).json(rest);
     }
     }catch(error){
