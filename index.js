@@ -30,7 +30,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-    origin: ['https://coderxyz.com', 'http://localhost:5173',"https://adhyatma-ce6a3.web.app"], // Add your frontend URLs
+    origin: ['https://coderxyz.com', 'http://localhost:5173','https://adhyatma-ce6a3.web.app'], // Add your frontend URLs
     credentials: true, // Allow credentials (cookies)
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Explicitly allow required methods
     allowedHeaders: ['Content-Type', 'Authorization'], // Include required headers
