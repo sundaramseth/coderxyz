@@ -60,7 +60,7 @@ export const signin = async(req, res, next)=>{
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
             sameSite: 'none', // Required for cross-origin requests
-            domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
+            // domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
         }).json(rest);
         
     }
@@ -84,7 +84,7 @@ export const googleAuth = async(req, res, next) =>{
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
             sameSite: 'none', // Required for cross-origin requests
-            domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
+            // domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
         }).json(rest);
 
         console.log('Cookie set:', res.getHeader('Set-Cookie'));
@@ -107,7 +107,7 @@ export const googleAuth = async(req, res, next) =>{
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
             sameSite: 'none', // Required for cross-origin requests
-            domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
+            // domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
         }).json(rest);
         
     }
