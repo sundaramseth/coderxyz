@@ -32,6 +32,7 @@ export default function OAuth() {
           });
       
           const data = await res.json();
+          localStorage.setItem('token', data.token); // Store token locally
    
           // console.log(resultFromGoogle._tokenResponse.idToken);
   
