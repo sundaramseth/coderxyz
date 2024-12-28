@@ -16,7 +16,7 @@ export default function DashPosts() {
     useEffect(()=>{
     const fetchPost = async () =>{
         try {
-            const res = await fetch(`${API_URL}/api/post/getPosts?userId=${currentUser._id}`);
+            const res = await fetch(`${API_URL}/api/post/getPosts?userId=${currentUser.rest._id}`);
             const data = await res.json();
             if(res.ok){
                 setUserPosts(data.posts);
@@ -29,14 +29,14 @@ export default function DashPosts() {
         }
     }
 
-    if(currentUser.isAdmin) fetchPost();
+    if(currentUser.rest.isAdmin) fetchPost();
 
-  },[currentUser._id]);
+  },[currentUser.rest._id]);
   
   const handleShowMore =  async () =>{
     const startIndex = userPosts.length;
     try {
-      const res = await fetch(`${API_URL}/api/post/getPosts?userId=${currentUser._id}&startIndex=${startIndex}`); 
+      const res = await fetch(`${API_URL}/api/post/getPosts?userId=${currentUser.rest._id}&startIndex=${startIndex}`); 
       const data = await res.json();
       if(res.ok){
         setUserPosts((prev)=>[...prev, ...data.posts]);
@@ -52,7 +52,7 @@ export default function DashPosts() {
   const handleDeletepost = async ()=>{
     setShowModal(false);
     try {
-      const res = await fetch(`${API_URL}/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,{
+      const res = await fetch(`${API_URL}/api/post/deletepost/${postIdToDelete}/${currentUser.rest._id}`,{
         method:'DELETE',
         credentials: 'include',
         headers: {
@@ -74,7 +74,7 @@ export default function DashPosts() {
 
     return (
     <div className="mywidth table-auto overflow-x-auto md:mx-auto p-3">
-         {currentUser.isAdmin && userPosts.length>0 ? (  
+         {currentUser.rest.isAdmin && userPosts.length>0 ? (  
           <>
             <Table hoverable className="shadow-md" >
                 <Table.Head>

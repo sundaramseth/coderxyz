@@ -192,20 +192,20 @@ console.log(error)
               />
             )}
       
-        <img src={imageFileUrl || currentUser.profilePicture} alt="user"
+        <img src={imageFileUrl || currentUser.rest.profilePicture} alt="user"
          className={`rounded-full w-full h-full object-cover border-8 border-[lightgray] ${imageFileUpoadProgress && imageFileUpoadProgress < 100 && 'opacity-50'}`} />
         </div>
         {imageFileUploadError && <Alert color='failure'>
           {imageFileUploadError}
           </Alert> }
       
-       <TextInput type="text" id='username' placeholder='username' defaultValue={currentUser.username} onChange={handleChange} />
+       <TextInput type="text" id='username' placeholder='username' defaultValue={currentUser.rest.username} onChange={handleChange} />
 
-       <TextInput type="text" id='about' placeholder='Tell me about your self!' defaultValue={currentUser.about} onChange={handleChange} />
+       <TextInput type="text" id='about' placeholder='Tell me about your self!' defaultValue={currentUser.rest.about} onChange={handleChange} />
        
-       <TextInput type="text" id="location" placeholder="Your Location" defaultValue={currentUser.location} onChange={handleChange}  />
+       <TextInput type="text" id="location" placeholder="Your Location" defaultValue={currentUser.rest.location} onChange={handleChange}  />
 
-       <TextInput type="email" id='email' placeholder="email" defaultValue={currentUser.email} onChange={handleChange} />
+       <TextInput type="email" id='email' placeholder="email" defaultValue={currentUser.rest.email} onChange={handleChange} />
 
    
 
@@ -216,7 +216,7 @@ console.log(error)
         <Button type='submit' gradientDuoTone='purpleToBlue' outline disabled={loading || imageFileUploading}>
             {loading?'Loading...': 'Update'}
         </Button>
-        {currentUser.isAdmin && (
+        {currentUser.rest.isAdmin && (
           <Link to={'/create-post'}>
           <Button gradientDuoTone='purpleToPink' className="w-full">
              Create a Post

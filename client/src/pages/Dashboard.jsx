@@ -29,7 +29,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen flex flex-col md:flex-row py-20">
    
-   {currentUser && currentUser.isAdmin && (
+   {currentUser && currentUser.rest.isAdmin && (
       <div className="mg:w-56">
           <DashSideBar />
       </div>

@@ -36,7 +36,7 @@ const CommentSection = ({postId}) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body:JSON.stringify({content:comment, postId, userId:currentUser._id})
+        body:JSON.stringify({content:comment, postId, userId:currentUser.rest._id})
        });
        const data = await res.json();
        if(res.ok){
@@ -157,10 +157,10 @@ const CommentSection = ({postId}) => {
                 Signed in as:
             </p>
             <div className="flex justify-center items-center gap-2">
-            <img src={currentUser.profilePicture} alt={currentUser.username} className='w-7 h-7' />
+            <img src={currentUser.rest.profilePicture} alt={currentUser.rest.username} className='w-7 h-7' />
            
            <Link to={'/dashboard?tab=profile'} className='text-sm text-cyan-700 hover:underline'>
-            @ {currentUser.email}
+            @ {currentUser.rest.email}
            </Link>
            
            </div>

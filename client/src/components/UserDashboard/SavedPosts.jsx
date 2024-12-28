@@ -12,11 +12,12 @@ const [posts, setPosts] = useState([]);
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+console.log(currentUser.rest._id)
 
 useEffect(() => {
 try {
     const fetchPosts = async () => {
-    const res = await fetch(`${API_URL}/api/post/getsavedpost/${currentUser._id}`);
+    const res = await fetch(`${API_URL}/api/post/getsavedpost/${currentUser.rest._id}`);
     const data = await res.json();
     // Sort by createdAt in descending order (newest first)
     setPosts(data);
@@ -26,7 +27,7 @@ try {
 } catch (error) {
     console.log(error.message);
 }
-}, [currentUser._id]);
+}, [currentUser.rest._id]);
 
 
     
@@ -76,15 +77,15 @@ try {
       <img 
     className="border rounded-full w-14 relative bottom-6 left-3"
       alt='user'
-      src={currentUser?.profilePicture}
+      src={currentUser.rest?.profilePicture}
       /></Link>
       </div>
 
       <div className="pl-2">
-      <h1 className="text-lg font-semibold">{currentUser.username}</h1>
-      <p className="text-sm text-gray-800 dark:text-gray-300 pt-px">{currentUser.about}</p>
+      <h1 className="text-lg font-semibold">{currentUser.rest.username}</h1>
+      <p className="text-sm text-gray-800 dark:text-gray-300 pt-px">{currentUser.rest.about}</p>
       <p className="text-gray-500 text-xs pt-px pb-2">
-      {currentUser.location}
+      {currentUser.rest.location}
       </p>
       </div>
 

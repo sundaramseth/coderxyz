@@ -51,7 +51,7 @@ export default function PostPage() {
           setPost(data.posts[0]);
           setLoading(false);
           setError(false);
-          if(data.posts[0].usersavedpost.includes(currentUser._id)){
+          if(data.posts[0].usersavedpost.includes(currentUser.rest._id)){
             setSaveYourPost(true);
           }
 
@@ -276,10 +276,10 @@ const unsavePost = async(userId, postId)=>{
               <div className="flex flex-row justify-center items-center gap-2">
               <p className="text-md font-semibold">Save Post</p>
               {saveyourPost ? (
-               <BsBookmarkHeartFill className="cursor-pointer hover:text-red-600 h-5 font-bold" onClick={()=>unsavePost(currentUser._id, post._id)} />
+               <BsBookmarkHeartFill className="cursor-pointer hover:text-red-600 h-5 font-bold" onClick={()=>unsavePost(currentUser.rest._id, post._id)} />
 
               ):(
-                <BsBookmarkHeart className="cursor-pointer hover:text-red-600 h-5 font-bold" onClick={()=>savePost(currentUser._id, post._id)} />
+                <BsBookmarkHeart className="cursor-pointer hover:text-red-600 h-5 font-bold" onClick={()=>savePost(currentUser.rest._id, post._id)} />
               )}
 
               </div>
@@ -338,7 +338,7 @@ const unsavePost = async(userId, postId)=>{
                   type="button"
                   className={`text-gray-400 hover:text-blue-500 ${
                     currentUser &&
-                    post?.likes?.includes(currentUser._id) &&
+                    post?.likes?.includes(currentUser.rest._id) &&
                     "!text-blue-500"
                   }`}
                 >

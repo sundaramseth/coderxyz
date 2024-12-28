@@ -31,11 +31,11 @@ export default function DashUsers() {
         }
     }
 
-    if(currentUser.isAdmin){
+    if(currentUser.rest.isAdmin){
         fetchPost();
     } 
 
-  },[currentUser._id]);
+  },[currentUser.rest._id]);
   
   const handleShowMore =  async () =>{
     const startIndex = users.length;
@@ -78,7 +78,7 @@ export default function DashUsers() {
 
     return (
     <div className="mywidth table-auto overflow-x-auto md:mx-auto p-3">
-         {currentUser.isAdmin && users.length>0 ? (  
+         {currentUser.rest.isAdmin && users.length>0 ? (  
           <>
             <Table hoverable className="shadow-md" >
                 <Table.Head>

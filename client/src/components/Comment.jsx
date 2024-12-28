@@ -121,7 +121,7 @@ export default function Comment({comment, onLike, onEdit, onDelete}) {
                 onClick={() => onLike(comment._id)}
                 className={`text-gray-400 hover:text-blue-500 ${
                   currentUser &&
-                  comment?.likes?.includes(currentUser._id) &&
+                  comment?.likes?.includes(currentUser.rest._id) &&
                   '!text-blue-500'
                 }`}
               >
@@ -133,7 +133,7 @@ export default function Comment({comment, onLike, onEdit, onDelete}) {
           }
         </p>
         {
-          currentUser && (currentUser._id === comment.userId || currentUser.isAdmin) && (
+          currentUser && (currentUser.rest._id === comment.userId || currentUser.rest.isAdmin) && (
            <>
             <button 
             type="button"

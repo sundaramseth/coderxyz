@@ -49,7 +49,7 @@ export default function DashSideBar() {
         <Sidebar.ItemGroup className="flex flex-col gap-1">
 
 
-          {currentUser && currentUser.isAdmin && (
+          {currentUser && currentUser.rest.isAdmin && (
             <Link to='/dashboard?tab=dash'>
               <Sidebar.Item
                 active={tab === 'dash' || !tab}
@@ -62,7 +62,7 @@ export default function DashSideBar() {
           )}
 
             <Link to='/dashboard?tab=profile'>
-            <Sidebar.Item active={tab === 'profile'} icon={HiUser} label={currentUser.isAdmin? 'Admin':'User'} labelColor='dark' as='div'>
+            <Sidebar.Item active={tab === 'profile'} icon={HiUser} label={currentUser.rest.isAdmin? 'Admin':'User'} labelColor='dark' as='div'>
                 Profile
              </Sidebar.Item>
              </Link>
@@ -73,7 +73,7 @@ export default function DashSideBar() {
              </Sidebar.Item>
              </Link>
 
-             {currentUser.isAdmin && (
+             {currentUser.rest.isAdmin && (
              <Link to='/dashboard?tab=posts'>
              <Sidebar.Item  active={tab === 'posts'} icon={HiDocumentText} as='div'>
                 Posts
@@ -82,7 +82,7 @@ export default function DashSideBar() {
              
              )}
 
-             {currentUser.isAdmin && (
+             {currentUser.rest.isAdmin && (
              <Link to='/dashboard?tab=comments'>
              <Sidebar.Item  active={tab === 'comments'} icon={HiOutlineChat} as='div'>
                 Comments
@@ -92,7 +92,7 @@ export default function DashSideBar() {
              )}
 
 
-           {currentUser.isAdmin && (
+           {currentUser.rest.isAdmin && (
              <Link to='/dashboard?tab=users'>
              <Sidebar.Item  active={tab === 'users'} icon={HiOutlineUserGroup} as='div'>
                 Users

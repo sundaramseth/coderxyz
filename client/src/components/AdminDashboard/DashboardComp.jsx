@@ -70,7 +70,7 @@ export default function DashboardComp() {
             }
           };
 
-        if (currentUser.isAdmin) {
+        if (currentUser.rest.isAdmin) {
             fetchUsers();
             fetchPosts();
             fetchComments();

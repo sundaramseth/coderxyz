@@ -114,7 +114,7 @@ export default function UpdatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${API_URL}/api/post/updatepost/${postId}/${currentUser._id}`, {
+      const res = await fetch(`${API_URL}/api/post/updatepost/${postId}/${currentUser.rest._id}`, {
         method: 'PUT',
         credentials: 'include',
         headers: {
