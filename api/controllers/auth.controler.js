@@ -58,7 +58,7 @@ export const signin = async(req, res, next)=>{
 
         res.status(200).cookie('access_token', token, {
             httpOnly: true,
-            // secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
+            secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
             sameSite: 'none', // Required for cross-origin requests
             // domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
         }).json({ token, rest});
@@ -84,7 +84,7 @@ export const googleAuth = async(req, res, next) =>{
         // console.log(token)
         res.status(200).cookie('access_token', token, {
             httpOnly: true,
-            // secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
+            secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
             sameSite: 'none', // Required for cross-origin requests
             // domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
         }).json({ token, rest});
@@ -107,7 +107,7 @@ export const googleAuth = async(req, res, next) =>{
        
         res.status(200).cookie('access_token', token, {
             httpOnly: true,
-            // secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
+            secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
             sameSite: 'none', // Required for cross-origin requests
             // domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
         }).json({ token, rest});
