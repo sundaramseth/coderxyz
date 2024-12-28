@@ -11,7 +11,7 @@ router.delete('/deletepost/:postId/:userId', verifyToken, deletepost);
 router.put('/updatepost/:postId/:userId', verifyToken, updatepost);
 router.put('/likepost/:postId', verifyToken, likePost);
 router.post('/savepost/:postId/:userId', verifyToken, savePost);
-router.get('/getsavedpost/:userId', verifyToken, getSavePost);
+router.get('/getsavedpost/:userId', getSavePost);
 router.delete('/unsavepost/:postId/:userId', verifyToken, unsavepost);
 
 export default router;
