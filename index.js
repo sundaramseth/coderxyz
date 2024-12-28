@@ -28,11 +28,13 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
+
 app.use(cors({
     origin: ['https://coderxyz.com', 'http://localhost:5173'], // Add your frontend URLs
     credentials: true, // Allow credentials (cookies)
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Explicitly allow required methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Include required headers
 }));
-
 // Routes
 app.get('/', (req, res) => {
     res.send('Hello World');

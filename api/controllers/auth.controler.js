@@ -56,14 +56,13 @@ export const signin = async(req, res, next)=>{
         
         const{password:pass, ...rest} = validUser._doc;
 
-        const isProduction = process.env.NODE_ENV === 'production';
-
         res.status(200).cookie('access_token', token, {
             httpOnly: true,
-            secure: isProduction, // Use HTTPS in production
+            secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
             sameSite: 'none', // Required for cross-origin requests
-            domain: isProduction ? '.coderxyz.com' : undefined, // Set domain only for production
+            domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
         }).json(rest);
+        
     }
     catch(error){
     next(error);
@@ -81,14 +80,13 @@ export const googleAuth = async(req, res, next) =>{
         const token = jwt.sign({id:user._id, isAdmin:user.isAdmin }, process.env.JWT_SECRET)
         const {password, ...rest} = user._doc;
         // console.log(token)
-        const isProduction = process.env.NODE_ENV === 'production';
-
         res.status(200).cookie('access_token', token, {
             httpOnly: true,
-            secure: isProduction, // Use HTTPS in production
+            secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
             sameSite: 'none', // Required for cross-origin requests
-            domain: isProduction ? '.coderxyz.com' : undefined, // Set domain only for production
+            domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
         }).json(rest);
+        
     }else{
         const generatePassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
         const hashedPassword = bcryptjs.hashSync(generatePassword, 10);
@@ -102,14 +100,14 @@ export const googleAuth = async(req, res, next) =>{
         const token = jwt.sign({id:newUser._id, isAdmin:newUser.isAdmin}, process.env.JWT_SECRET);
         localStorage.setItem('token', token); 
         const {password, ...rest} = newUser._doc;
-        const isProduction = process.env.NODE_ENV === 'production';
-
+       
         res.status(200).cookie('access_token', token, {
             httpOnly: true,
-            secure: isProduction, // Use HTTPS in production
+            secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
             sameSite: 'none', // Required for cross-origin requests
-            domain: isProduction ? '.coderxyz.com' : undefined, // Set domain only for production
+            domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
         }).json(rest);
+        
     }
     }catch(error){
        next(error)
