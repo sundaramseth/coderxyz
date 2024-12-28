@@ -86,6 +86,8 @@ export const googleAuth = async(req, res, next) =>{
             sameSite: 'none', // Required for cross-origin requests
             domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
         }).json(rest);
+
+        console.log('Cookie set:', res.getHeader('Set-Cookie'));
         
     }else{
         const generatePassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
