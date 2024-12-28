@@ -47,6 +47,14 @@ app.use('/api/comment', commentRoutes);
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
+    if (req.method === 'OPTIONS') {
+        res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*'); // Allow the specific origin
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Allowed methods
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allowed headers
+        res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials
+        return res.status(204).end(); // Respond with 204 (No Content)
+    }
+    next();
     const statusCode = err.statusCode || 500;
     const message = err.message || 'Internal Server Error';
     res.status(statusCode).json({
