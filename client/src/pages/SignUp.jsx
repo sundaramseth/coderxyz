@@ -28,6 +28,7 @@ const handleSubmit = async(e) =>{
   setErrorMessage(null); 
   const res = await fetch(`${API_URL}/api/auth/signup`, {
     method: 'POST',
+    credentials: 'include', // Includes cookies
     headers:{'Content-Type':'application/json'},
     body: JSON.stringify(formData),
    });

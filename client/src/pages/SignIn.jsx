@@ -31,6 +31,7 @@ const handleSubmit = async(e) =>{
    dispatch(signInStart());
   const res = await fetch(`${API_URL}/api/auth/signin`, {
     method: 'POST',
+    credentials: 'include', // Includes cookies
     headers:{'Content-Type':'application/json'},
     body: JSON.stringify(formData),
    });
