@@ -144,8 +144,8 @@ export default function HomeRightSection() {
         <div key={user._id} className="py-3 ml-2 flex flex-row gap-1 border-b border-b-gray-100 dark:border-b-gray-600 ">
           <div className="flex flex-row w-full justify-between items-center text-left">
           
-          <div className="w-auto">
-           <img src={user.profilePicture}  className="w-10"/>
+          <div className="w-auto rounded-full">
+           <img src={user.profilePicture}  className="w-10 rounded-full"/>
           </div>
 
           <div className="w-3/5">

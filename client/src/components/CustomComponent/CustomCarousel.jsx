@@ -14,7 +14,7 @@ const CustomCarousel = () => {
     dots: false,
     speed: 100,
     slidesToShow: 8,
-    slidesToScroll: 1,
+    slidesToScroll: 2,
     infinite: true,
     autoplay: false,
     autoplaySpeed: 1000,
@@ -40,7 +40,7 @@ const CustomCarousel = () => {
         breakpoint: 480,
         settings: {
           slidesToShow: 4,
-          slidesToScroll: 1
+          slidesToScroll: 4
         }
       }
     ]
@@ -61,10 +61,10 @@ const CustomCarousel = () => {
   return (
     <div className="w-full mt-2" style={{ position: 'relative'}}>
      <Slider {...settings}>
-     {category.map((slide, index) => (
+     {category.map((slide) => (
       <>
-        <div className="mx-1">
-          <Button  key={index} color="gray" value={slide} className='w-full cursor-pointer' 
+        <div className="mx-1" key={slide}>
+          <Button   color="gray" value={slide} className='w-full cursor-pointer' 
              onClick={()=>searchByTag(slide.toLowerCase())}>
             {slide}
            </Button>

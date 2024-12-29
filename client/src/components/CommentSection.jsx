@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Comment from './Comment';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
-
+import { Badge } from "flowbite-react";
 const CommentSection = ({postId}) => {
   
     const API_URL = import.meta.env.VITE_API_URL;
@@ -157,7 +157,7 @@ const CommentSection = ({postId}) => {
                 Signed in as:
             </p>
             <div className="flex justify-center items-center gap-2">
-            <img src={currentUser.rest.profilePicture} alt={currentUser.rest.username} className='w-7 h-7' />
+            <img src={currentUser.rest.profilePicture} alt={currentUser.rest.username} className='w-7 h-7 rounded-full' />
            
            <Link to={'/dashboard?tab=profile'} className='text-sm text-cyan-700 hover:underline'>
             @ {currentUser.rest.email}
@@ -209,11 +209,10 @@ const CommentSection = ({postId}) => {
       :
       (
         <>
-          <div className="text-sm my-5 flex items-center gap-1">
+          <div className="text-sm my-5 flex items-center gap-1 font-semibold">
           <p>Comments</p>
-          <div className="border border-gray-400 py-1 px-2 rounded-sm">
-            <p>{comments.length}</p>
-          </div>
+
+          <Badge color="gray">{comments.length}</Badge>
         </div>
         
         {comments.map((comment) =>

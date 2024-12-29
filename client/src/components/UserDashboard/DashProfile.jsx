@@ -92,7 +92,7 @@ console.log(error)
 
     try{
       dispatch(updateStart());
-      const res = await fetch(`${API_URL}/api/user/update/${currentUser._id}`, {
+      const res = await fetch(`${API_URL}/api/user/update/${currentUser.rest._id}`, {
         method:'PUT',
         credentials: 'include',
         headers: {
@@ -119,7 +119,7 @@ console.log(error)
   setShowModel(false);
   try{
    dispatch(deleteUserStart());
-   const res = await fetch(`${API_URL}/api/user/delete/${currentUser._id}`,{
+   const res = await fetch(`${API_URL}/api/user/delete/${currentUser.rest._id}`,{
     method:'DELETE',
     credentials: 'include',
       headers: {
