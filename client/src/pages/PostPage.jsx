@@ -277,10 +277,10 @@ const unsavePost = async(userId, postId)=>{
               <div className="flex flex-row justify-center items-center gap-2">
               <p className="md:text-md text-sm font-semibold">Save&nbsp;Post</p>
               {saveyourPost ? (
-               <BsBookmarkHeartFill className="cursor-pointer hover:text-red-600 h-5 font-bold" onClick={()=>unsavePost(currentUser.rest._id, post._id)} />
+               <BsBookmarkHeartFill className="cursor-pointer hover:text-red-600 h-5 font-bold" onClick={()=>unsavePost(currentUser && currentUser.rest._id, post._id)} />
 
               ):(
-                <BsBookmarkHeart className="cursor-pointer hover:text-red-600 h-5 font-bold" onClick={()=>savePost(currentUser.rest._id, post._id)} />
+                <BsBookmarkHeart className="cursor-pointer hover:text-red-600 h-5 font-bold" onClick={()=>savePost(currentUser && currentUser.rest._id, post._id)} />
               )}
 
               </div>

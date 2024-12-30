@@ -67,7 +67,7 @@ export default function Header() {
       <div className="flex flex-row w-full justify-center items-center">
       <div className="flex flex-row w-full md:w-3/4 justify-center items-center">
     
-      <div className="flex w-1/4 justify-start items-start gap-2">
+      <div className="flex w-1/4 justify-start items-start">
        <Link to='/' 
         className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold">
        <img src="/src/assets/coderxyz.png" className="w-36"  />
@@ -87,7 +87,7 @@ export default function Header() {
         />
       </form>
 
-        <div className="sm:hidden">
+        <div className="sm:hidden pl-1">
         <Link to='/searchpage'>
         <Button
         className="w-12 h-9"
