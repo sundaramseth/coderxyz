@@ -8,14 +8,20 @@ export default function Home() {
 
   const [posts, setPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     try {
       const fetchPosts = async () => {
+        setLoading(true);
         const res = await fetch(`${API_URL}/api/post/getPosts?limit=10`);
         const data = await res.json();
+
+        if(res.ok){
+          setLoading(false);
+        }
         // Sort by createdAt in descending order (newest first)
         setPosts( data.posts.sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn)));
         if(data.posts.length < 10){
@@ -68,8 +74,10 @@ export default function Home() {
 
  {/* left section */}
  <div className="flex flex-col w-full p-2">
+
+ {loading && <p className='text-xl text-gray-500'>Loading...</p>}
   
- {posts && posts.length > 0 && (
+ {!loading && posts && posts.length > 0 && (
   <>
     {posts.map((post) => (
           <BlogPostPreviewCard key={post._id} post={post} />
