@@ -70,7 +70,7 @@ export default function Header() {
       <div className="flex w-1/4 justify-start items-start">
        <Link to='/' 
         className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold">
-       <img src="/src/assets/coderxyz.png" className="w-36"  />
+       <img src="https://firebasestorage.googleapis.com/v0/b/adhyatma-ce6a3.appspot.com/o/1735565842029_coderxyz.png" className="w-36"  />
         </Link>
       </div>
 
