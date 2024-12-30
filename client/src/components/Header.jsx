@@ -10,6 +10,7 @@ import { PiSignOutFill } from "react-icons/pi";
 import { signOutUser } from "../redux/user/userSlice";
 import { useEffect, useState } from "react";
 
+
 export default function Header() {
 
   const API_URL = import.meta.env.VITE_API_URL;
@@ -69,7 +70,7 @@ export default function Header() {
       <div className="flex w-1/4 justify-start items-start gap-2">
        <Link to='/' 
         className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold">
-        Coder XYZ
+       <img src="/src/assets/coderxyz.png" className="w-36"  />
         </Link>
       </div>
 

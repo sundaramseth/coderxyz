@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link} from "react-router-dom";
 import {  FaDotCircle } from "react-icons/fa";
 import { LuUserPlus } from "react-icons/lu";
+import FooterCom from './Footer';
 export default function HomeRightSection() {
 
      const API_URL = import.meta.env.VITE_API_URL;
@@ -174,6 +175,8 @@ export default function HomeRightSection() {
      </div>
      </div>
      </div>
+
+     <FooterCom/>
 
 
     </div>

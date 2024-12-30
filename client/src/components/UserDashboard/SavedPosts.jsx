@@ -35,7 +35,7 @@ try {
       
   return (
 <div className="flex flex-col w-full items-center">
-   <div className="flex flex-col md:flex-row w-full md:w-3/5 justify-center gap-4">
+   <div className="flex md:flex-row w-full md:w-3/5 flex-col-reverse justify-center gap-4">
     
     {/* search result left section */}
       <div className='w-full'>

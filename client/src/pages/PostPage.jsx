@@ -12,6 +12,7 @@ import {ShareSocial} from 'react-share-social'
 import { BsBookmarkHeart } from "react-icons/bs";
 import { BsBookmarkHeartFill } from "react-icons/bs";
 import RecentPostCard from "../components/RecentPostCard";
+import FooterCom from "../components/Footer";
 export default function PostPage() {
   const location = useLocation();
   const { postSlug } = useParams();
@@ -235,7 +236,7 @@ const unsavePost = async(userId, postId)=>{
     );
 
   return (
-    <main className="flex flex-col md:flex-row w-full mx-auto min-h-screen py-20 justify-center gap-3">
+    <main className="flex flex-col md:flex-row w-full mx-auto min-h-screen pt-20 justify-center gap-3">
    
 
       <div className="flex flex-col md:flex-row w-full md:p-0 p-2 md:w-3/5 gap-4">
@@ -274,7 +275,7 @@ const unsavePost = async(userId, postId)=>{
 
             <div className="flex flex-row">
               <div className="flex flex-row justify-center items-center gap-2">
-              <p className="text-md font-semibold">Save Post</p>
+              <p className="md:text-md text-sm font-semibold">Save&nbsp;Post</p>
               {saveyourPost ? (
                <BsBookmarkHeartFill className="cursor-pointer hover:text-red-600 h-5 font-bold" onClick={()=>unsavePost(currentUser.rest._id, post._id)} />
 
@@ -394,7 +395,7 @@ const unsavePost = async(userId, postId)=>{
 </div>
         
       {/* Right Section  */}
-      <div className="flex flex-col w-auto p-3 md:p-0">
+      <div className="flex flex-col w-auto md:p-0">
         <div className="flex flex-col md:sticky md:top-20">
           <div className="flex flex-col md:w-60 w-full bg-white dark:bg-transparent rounded-lg border dark:border-gray-600">
             <div className="flex flex-col w-full">
@@ -432,7 +433,9 @@ const unsavePost = async(userId, postId)=>{
             </div>
           </div>
 
-          <Ads />
+          <FooterCom/>
+
+          {/* <Ads /> */}
         </div>
       </div>
 

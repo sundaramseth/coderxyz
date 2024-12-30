@@ -39,7 +39,6 @@ export default function App() {
       <Route path='/search' element={<Search />} />
       <Route path='/searchpage' element={<SearchPage />} />
     </Routes>
-    <Footer />
     </BrowserRouter>
   );
 }
