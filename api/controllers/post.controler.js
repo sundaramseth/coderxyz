@@ -1,7 +1,6 @@
 
 import Post from "../models/post.model.js";
 import { errorHandler } from "../utils/error.js";
-import mongoose from "mongoose";
 
 export const create = async (req, res, next) =>{
     if(!req.user.isAdmin){
@@ -44,7 +43,7 @@ export const getposts = async (req, res, next) => {
             { category: { $regex: req.query.searchTerm, $options: 'i' } },
           ],
         }),
-      }).sort({ createdOn: sortDirection }).skip(startIndex).limit(limit);
+      }).sort({ createdAt: sortDirection }).skip(startIndex).limit(limit);
   
       const totalPosts = await Post.countDocuments();
 
@@ -57,7 +56,7 @@ export const getposts = async (req, res, next) => {
       );
   
       const lastMonthPosts = await Post.countDocuments({
-        createdOn: { $gte: oneMonthAgo },
+        createdAt: { $gte: oneMonthAgo },
       });
   
       res.status(200).json({
