@@ -79,11 +79,11 @@ export default function DashboardComp() {
 
     return (
         <div className='p-3 md:mx-auto'>
-          <h1 className='text-4xl font-semibold p-3 mt-5 text-start'>
+          <h1 className='text-4xl font-semibold p-3 mt-5 mb-5 text-start'>
           Your story stats
           </h1>
           <div className='flex flex-row gap-4 justify-left'>
-            <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 w-full rounded-md shadow-md'>
+            <div className='flex flex-col p-3 bg-white dark:bg-slate-800 gap-4 w-full rounded-md shadow-md'>
               <div className='flex justify-between'>
                 <div className=''>
                   <h3 className='text-gray-500 text-md uppercase'>Total Subscriber</h3>
@@ -99,7 +99,7 @@ export default function DashboardComp() {
                 <div className='text-gray-500'>Last month</div>
               </div>
             </div>
-            <div className='flex flex-col p-3 dark:bg-slate-800 gap-4  w-full rounded-md shadow-md'>
+            <div className='flex flex-col p-3 bg-white dark:bg-slate-800 gap-4  w-full rounded-md shadow-md'>
               <div className='flex justify-between'>
                 <div className=''>
                   <h3 className='text-gray-500 text-md uppercase'>
@@ -117,7 +117,7 @@ export default function DashboardComp() {
                 <div className='text-gray-500'>Last month</div>
               </div>
             </div>
-            <div className='flex flex-col p-3 dark:bg-slate-800 gap-4 w-full rounded-md shadow-md'>
+            <div className='flex flex-col p-3 bg-white dark:bg-slate-800 gap-4 w-full rounded-md shadow-md'>
               <div className='flex justify-between'>
                 <div className=''>
                   <h3 className='text-gray-500 text-md uppercase'>Total Posts</h3>
@@ -137,7 +137,7 @@ export default function DashboardComp() {
           <div className='flex flex-wrap gap-4 py-3 mx-auto justify-center'>
             <div className='flex flex-col w-full md:w-auto shadow-md p-2 rounded-md bg-white dark:border-gray-700 dark:bg-gray-800'>
               <div className='flex justify-between  p-3 text-sm font-semibold'>
-                <h1 className='text-center p-2'>Recent users</h1>
+                <h1 className='text-center p-2'>Recent Subscriber</h1>
               </div>
               <Table hoverable>
                 {users &&
