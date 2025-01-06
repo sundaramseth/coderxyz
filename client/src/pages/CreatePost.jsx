@@ -22,13 +22,12 @@ export default function CreatePost() {
 
 
   var category = ["LifeStyle", "Programming", "Science", "Technology", "News", "Jobs", "Informative", "Entertainment", "Products", "Maths"];
-
   var modules = {
     toolbar: [
-      [{ size: ["small", false, "large", "huge"] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
       ["bold", "italic", "underline", "strike", "blockquote"],
       [{ list: "ordered" }, { list: "bullet" }],
-      ["link", "image"],
+      ["link", "image", "code-block"],
       [
         { list: "ordered" },
         { list: "bullet" },
@@ -44,7 +43,7 @@ export default function CreatePost() {
     "header", "height", "bold", "italic",
     "underline", "strike", "blockquote",
     "list", "color", "bullet", "indent",
-    "link", "image", "align", "size",
+    "link", "image", "align", "size","code-block"
   ];
 
 

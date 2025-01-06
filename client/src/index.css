@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* Apply background color and padding to code block content */
+.ql-syntax {
+  background-color: #282c34; /* Dark background for code block */
+  color: #f8f8f2;           /* Light text color */
+  padding: 10px;            /* Add padding inside the code block */
+  border-radius: 5px;       /* Optional: Rounded corners */
+  font-family: 'Courier New', monospace; /* Use monospace font for code */
+  font-size: 14px;          /* Adjust font size */
+  display: inline-block;    /* Adjust block width to fit the content */
+  max-width: 100%;          /* Ensure it doesn't overflow its container */
+  overflow-x: auto !important; /* Allow horizontal scrolling if needed */
+  white-space: pre-wrap;    /* Wrap lines if they exceed the container width */
+  word-break: break-word;   /* Break long words to avoid overflow */
+  box-sizing: border-box;   /* Include padding and border in the width/height */
+}
 .border-b-1{
     border-bottom: 1px solid gray;
 }
@@ -46,38 +62,23 @@ font-size: 1.05rem;
     width: inherit !important;
 }
 
-.post-content p{
-    margin-bottom: 0.5rem;
 
-}
 
 .post-content h1{
-    margin-bottom: 1.5rem;
     font-weight: 600;
     font-family: sans-serif;
-    margin: 1.5rem 0;
 
 }
 
 .post-content h2{
-    margin-bottom: 1.4rem;
     font-family: sans-serif;
-    margin: 1.5rem 0;
 }
 
 
 .post-content h3{
-    margin-bottom: 1.2rem;
     font-family: sans-serif;
-    margin: 1.5rem 0;
 }
 
-
-.post-content p{
-    margin-bottom: 1rem;
-    font-family: sans-serif;
-    margin: 1.5rem 0;
-}
 
 
 .post-content a{

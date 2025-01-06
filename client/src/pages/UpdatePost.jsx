@@ -1,6 +1,5 @@
+// Highlight.js
 import { Alert, Button, FileInput, Select, TextInput } from 'flowbite-react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import {
   getDownloadURL,
   getStorage,
@@ -14,26 +13,63 @@ import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import "highlight.js/styles/monokai-sublime.css";
+
+
+
 export default function UpdatePost() {
+
+  
   const [file, setFile] = useState(null);
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({ content: "" }); // Ensure a default value
   const [publishError, setPublishError] = useState(null);
   const { postId } = useParams();
 
+    // Function to highlight text based on language detection
+
+    // Function to get a background color based on the language
   const API_URL = import.meta.env.VITE_API_URL;
-  const token = localStorage.getItem('token'); 
 
   const navigate = useNavigate();
     const { currentUser } = useSelector((state) => state.user);
 
+    
+    useEffect(() => {
+      const fetchPost = async () => {
+        try {
+          const res = await fetch(
+            `${API_URL}/api/post/getposts?postId=${postId}`
+          );
+          const data = await res.json();
+          if (res.ok) {
+            setPublishError(null);
+            setFormData({
+              ...formData,
+              title: data.posts[0]?.title || "",
+              category: data.posts[0]?.category || "",
+              content: data.posts[0]?.content || "",
+              postImage: data.posts[0]?.postImage || "",
+            });
+          } else {
+            setPublishError(data.message);
+          }
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
+      fetchPost();
+    }, [postId]);
+    
     var modules = {
       toolbar: [
-        [{ size: ["small", false, "large", "huge"] }],
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
         ["bold", "italic", "underline", "strike", "blockquote"],
         [{ list: "ordered" }, { list: "bullet" }],
-        ["link", "image"],
+        ["link", "image", "code-block"],
         [
           { list: "ordered" },
           { list: "bullet" },
@@ -49,30 +85,8 @@ export default function UpdatePost() {
       "header", "height", "bold", "italic",
       "underline", "strike", "blockquote",
       "list", "color", "bullet", "indent",
-      "link", "image", "align", "size",
+      "link", "image", "align", "size","code-block"
     ];
-    useEffect(() => {
-      try {
-        const fetchPost = async () => {
-          const res = await fetch(`${API_URL}/api/post/getposts?postId=${postId}`);
-          const data = await res.json();
-          if(res.ok) {
-            setPublishError(null);
-            setFormData(data.posts[0]);
-          }
-          if(!res.ok) {
-            console.log(data.message);
-            setPublishError(data.message);
-            return;
-          }
-      
-        };
-  
-        fetchPost();
-      } catch (error) {
-        console.log(error.message);
-      }
-    }, [postId]);
 
   const handleUpdloadImage = async () => {
     try {
@@ -137,7 +151,7 @@ export default function UpdatePost() {
     }
   };
   return (
-    <div className='p-3 max-w-3xl mx-auto min-h-screen'>
+    <div className='p-3 pt-20 max-w-3xl mx-auto min-h-screen'>
       <h1 className='text-center text-3xl my-7 font-semibold'>Update post</h1>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
         <div className='flex flex-col gap-4 sm:flex-row justify-between'>
@@ -219,6 +233,7 @@ export default function UpdatePost() {
           style={{ height: "500px" }}
         >
         </ReactQuill>
+  
         <Button type='submit' gradientDuoTone='purpleToPink'>
           Update post
         </Button>

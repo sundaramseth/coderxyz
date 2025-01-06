@@ -3,12 +3,14 @@ import { Avatar, Button, Dropdown, Navbar,  } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { TextInput } from "flowbite-react";
 import { AiOutlineSearch, AiOutlineMoon, AiOutlineSun } from "react-icons/ai";
+import { HiViewGrid } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {toggleTheme} from '../redux/theme/themeSlice';
 import { PiSignOutFill } from "react-icons/pi";
 import { signOutUser } from "../redux/user/userSlice";
 import { useEffect, useState } from "react";
+import { MdArticle, MdBookmark, MdPerson, MdQueryStats } from "react-icons/md";
 
 
 export default function Header() {
@@ -126,28 +128,39 @@ export default function Header() {
           }
           >
             <Dropdown.Header>
-              <span className='block text-sm'>@{currentUser.rest.username}</span>
-              <span className='block text-sm font-medium truncate'>{currentUser.rest.email}</span>
+              <span className='block text-sm font-semibold'>@{currentUser.rest.username}</span>
             </Dropdown.Header>
             <Link to={'/dashboard?tab=profile'}>
-             <Dropdown.Item>
+             <Dropdown.Item icon={MdPerson}>
               Profile
              </Dropdown.Item>
             </Link>
             <Link to={'/dashboard?tab=savedpost'}>
-             <Dropdown.Item>
+             <Dropdown.Item icon={MdBookmark}>
               Library
              </Dropdown.Item>
             </Link>
-            <Dropdown.Divider />
-             <Dropdown.Item onClick={handleSignOut}>
-              <PiSignOutFill className="font-bold"/><span className="ml-2">Sign Out</span>
+            <Link to={'/dashboard?tab=posts'}>
+             <Dropdown.Item icon={MdArticle}>
+              Posts
              </Dropdown.Item>
+            </Link>
+            <Link to={'/dashboard?tab=dash'}>
+             <Dropdown.Item icon={MdQueryStats}>
+              Stats
+             </Dropdown.Item>
+            </Link>
+            <Dropdown.Divider />
+            
+          <Dropdown.Item  onClick={handleSignOut} className="flex flex-col items-start">
+           <span className="block text-sm">Sign Out</span>
+          <span className="block truncate text-xs ">{currentUser.rest.email}</span>
+          </Dropdown.Item>
+
           </Dropdown>
+
           ):(
-
-            <>
-
+        <>
       <Link to='/signup' className="">
       <Button
         color='0094FF'

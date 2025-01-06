@@ -92,7 +92,7 @@ export default function Home() {
   )}
  </div>
 
- <div className="hidden md:block">
+ <div className="hidden md:flex">
  {/* Right Section  */} 
  <HomeRightSection/>
  </div>

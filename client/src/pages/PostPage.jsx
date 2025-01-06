@@ -299,7 +299,7 @@ const unsavePost = async(userId, postId)=>{
           />
 
           <div
-            className="py-5 px-10 mx-auto w-full post-content"
+            className="py-5 px-10 mx-auto w-full  post-content"
             dangerouslySetInnerHTML={{ __html: post && post.content }}
           ></div>
 

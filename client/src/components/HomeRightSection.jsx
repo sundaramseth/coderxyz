@@ -85,10 +85,10 @@ export default function HomeRightSection() {
   }
 
   return (
-    <div className="w-auto">
-    <div className="w-full justify-center mt-5">
-    <div className="flex flex-col w-60 bg-white dark:bg-transparent mt-2 rounded-lg border dark:border-gray-600 ">
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-auto md:p-0">
+    <div className="flex flex-col sticky top-20">
+    <div className="flex flex-col md:w-60 w-full bg-white dark:bg-transparent rounded-lg border dark:border-gray-600">
+      <div className="flex flex-col w-full">
       
       <div className="p-2">
       <h1 className="text-md font-semibold text-gray-800 dark:text-gray-300 pt-px">Top Blogs Post</h1>
@@ -122,9 +122,7 @@ export default function HomeRightSection() {
      </div>
      </div>
 
-     </div>
-
-     <div className="w-full justify-center my-5 sticky top-3">
+     <div className="w-full justify-center my-5">
 
      <div className="flex flex-col w-60 bg-white dark:bg-transparent mt-2 rounded-lg border dark:border-gray-600">
     <div className="flex flex-col w-full">
@@ -177,8 +175,7 @@ export default function HomeRightSection() {
      </div>
 
      <FooterCom/>
-
-
+   </div>
     </div>
   )
 }
