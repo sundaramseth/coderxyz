@@ -53,14 +53,16 @@ export const signin = async(req, res, next)=>{
 
         const token = jwt.sign({id:validUser._id, isAdmin:validUser.isAdmin}, process.env.JWT_SECRET);
         // console.log(token)
-        
+        // localStorage.setItem('token', token); 
         const{password:pass, ...rest} = validUser._doc;
 
-            res.status(200).cookie('access_token', token,{
-                httpOnly:true,
-                // secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-                sameSite: 'strict', // Adjust as per your frontend and backend domains
-            }).json(rest);
+        res.status(200).cookie('access_token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
+            sameSite: 'none', // Required for cross-origin requests
+            // domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
+        }).json({ token, rest});
+        
     }
     catch(error){
     next(error);
@@ -77,11 +79,18 @@ export const googleAuth = async(req, res, next) =>{
      if(user){
         const token = jwt.sign({id:user._id, isAdmin:user.isAdmin }, process.env.JWT_SECRET)
         const {password, ...rest} = user._doc;
+
+        // localStorage.setItem('token', token); 
         // console.log(token)
-        res.status(200).cookie('access_token', token,{
-            httpOnly:true,
-            sameSite: 'strict', 
-        }).json(rest);
+        res.status(200).cookie('access_token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
+            sameSite: 'none', // Required for cross-origin requests
+            // domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
+        }).json({ token, rest});
+
+        console.log('Cookie set:', res.getHeader('Set-Cookie'));
+        
     }else{
         const generatePassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
         const hashedPassword = bcryptjs.hashSync(generatePassword, 10);
@@ -93,12 +102,16 @@ export const googleAuth = async(req, res, next) =>{
         });
         await newUser.save();
         const token = jwt.sign({id:newUser._id, isAdmin:newUser.isAdmin}, process.env.JWT_SECRET);
-        localStorage.setItem('token', token); 
+        // localStorage.setItem('token', token); 
         const {password, ...rest} = newUser._doc;
-        res.status(200).cookie('access_token', token,{
-            httpOnly:true,
-            sameSite: 'strict', 
-        }).json(rest);
+       
+        res.status(200).cookie('access_token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
+            sameSite: 'none', // Required for cross-origin requests
+            // domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
+        }).json({ token, rest});
+        
     }
     }catch(error){
        next(error)

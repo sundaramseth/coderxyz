@@ -1,5 +1,4 @@
 import User from "../models/users.model.js"
-import Post from "../models/post.model.js"
 import { errorHandler } from "../utils/error.js"
 import bcryptjs from 'bcryptjs'
 
@@ -40,6 +39,7 @@ export const updateUser = async (req, res, next) =>{
                 location:req.body.location,
                 email: req.body.email,
                 profilePicture: req.body.profilePicture,
+                profileBgPicture: req.body.profileBgPicture,
                 password:req.body.password
             },
         }, {new:true});
