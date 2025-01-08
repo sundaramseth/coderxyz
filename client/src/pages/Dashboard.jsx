@@ -7,6 +7,7 @@ import DashComments from "../components/AdminDashboard/DashComments.jsx";
 import DashboardComp from "../components/UserDashboard/DashboardComp.jsx";
 import SavedPosts from "../components/UserDashboard/SavedPosts.jsx";
 import DashPosts from "../components/UserDashboard/DashPosts.jsx";
+import DashSetting from "../components/UserDashboard/DashSetting.jsx";
 
 
 export default function Dashboard() {
@@ -43,6 +44,9 @@ export default function Dashboard() {
 
       {/* Dashboard */}
       {tab === 'dash' && <DashboardComp/>}
+
+        {/* Dashboard */}
+        {tab === 'settings' && <DashSetting/>}
 
     </div>
   )

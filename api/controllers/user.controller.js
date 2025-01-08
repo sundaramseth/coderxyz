@@ -35,11 +35,13 @@ export const updateUser = async (req, res, next) =>{
         const updateUser = await User.findByIdAndUpdate(req.params.userId,{
             $set:{
                 username: req.body.username,
+                channelName:req.body.channelName,
                 about:req.body.about,
                 location:req.body.location,
                 email: req.body.email,
                 profilePicture: req.body.profilePicture,
                 profileBgPicture: req.body.profileBgPicture,
+                followers:req.body.followers,
                 password:req.body.password
             },
         }, {new:true});

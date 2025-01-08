@@ -10,7 +10,7 @@ import {toggleTheme} from '../redux/theme/themeSlice';
 import { PiSignOutFill } from "react-icons/pi";
 import { signOutUser } from "../redux/user/userSlice";
 import { useEffect, useState } from "react";
-import { MdArticle, MdBookmark, MdPerson, MdQueryStats } from "react-icons/md";
+import { MdArticle, MdBookmark, MdPerson, MdQueryStats, MdSettings } from "react-icons/md";
 
 
 export default function Header() {
@@ -148,6 +148,11 @@ export default function Header() {
             <Link to={'/dashboard?tab=dash'}>
              <Dropdown.Item icon={MdQueryStats}>
               Stats
+             </Dropdown.Item>
+            </Link>
+            <Link to={'/dashboard?tab=settings'}>
+             <Dropdown.Item icon={MdSettings}>
+              Settings
              </Dropdown.Item>
             </Link>
             <Dropdown.Divider />
