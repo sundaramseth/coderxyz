@@ -19,9 +19,17 @@ export default function DashSetting() {
   const {currentUser, error, loading} = useSelector(state => state.user);
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
+
+  const [imageBgFile, setBgImageFile] = useState(null);
+  const [imageBgFileUrl, setImageBgFileUrl] = useState(null);
+
   const filePickerRef = useRef();
+
+  const filePickerRefBg = useRef();
   const [imageFileUpoadProgress, setImageFileUpoadProgress] = useState(null);
+  const [imageFileUpoadProgressBg, setImageFileUpoadProgressBg] = useState(null);
   const [imageFileUploadError, setImageFileUpoadError] = useState(null);
+  const [imageFileUploadingBg, setImageFileUploadingBg] = useState(false);
   const [imageFileUploading, setImageFileUploading] = useState(false);
   const [formData, setFormData] = useState({});
   const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
@@ -31,6 +39,8 @@ export default function DashSetting() {
 
 console.log(error)
   const dispatch = useDispatch();
+
+
   const handleImageChange = (e)  =>{
 
     const file = e.target.files[0];
@@ -41,12 +51,50 @@ console.log(error)
     }
   }
 
+  const handleBgImageChange = (e)  =>{
+
+    const file = e.target.files[0];
+
+    if(file){
+        setBgImageFile(file);
+        setImageBgFileUrl(URL.createObjectURL(file));
+    }
+  }
+
   useEffect(()=>{
     if(imageFile){
         uploadImage();
     }
-  }, [imageFile]);
+    if(imageBgFile){
+      uploadBgImage();
+    }
+  },[imageFile, imageBgFile]);
 
+  const uploadBgImage = async ()=>{
+    setImageFileUploadingBg(true);
+    const storage = getStorage(app);
+    const fileName = new Date().getTime() + imageBgFile.name;
+    const storageRef = ref(storage, fileName);
+    const uploadTask = uploadBytesResumable(storageRef,imageBgFile)
+   
+    uploadTask.on('state_changed',(snapshot)=>{
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+         setImageFileUpoadProgressBg(progress.toFixed(0));
+    },() =>
+    {
+        setImageFileUpoadError('Could not upload image (File must be less than 2MB)');
+        setImageFileUpoadProgressBg(null);
+        setBgImageFile(null);
+        setImageBgFileUrl(null);
+        setImageFileUploadingBg(false);
+    },()=>{
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL)=>{
+            setImageBgFileUrl(downloadURL);
+            setFormData({...formData, profileBgPicture: downloadURL});
+            setImageFileUploadingBg(false);
+          })
+    })
+  }
   const uploadImage = async ()=>{
     setImageFileUploading(true);
     const storage = getStorage(app);
@@ -85,7 +133,7 @@ console.log(error)
       setUpdateUserError('No change made');
     return;
     }
-    if(imageFileUploading){
+    if(imageFileUploading || imageFileUploadingBg){
       setUpdateUserError('Please wait for image to upload');
       return;
     }
@@ -166,10 +214,36 @@ console.log(error)
 
   return (
     <div className="max-w-lg mx-auto p-3 w-full">
-      <h1 className="my-7 text-center font-semibold text-xl">Profile</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <input type="file" accept="image/*" onChange={handleImageChange} hidden ref={filePickerRef} />
+
+      <input type="file" accept="image/*" onChange={handleBgImageChange} hidden ref={filePickerRefBg} />
+        <div className="relative w-full h-28 self-center cursor-pointer shadow-md overflow-hidden" 
+        onClick={()=> filePickerRefBg.current.click()}
+        >
+            {imageFileUpoadProgressBg && (
+                 <CircularProgressbar value={imageFileUpoadProgressBg || 0} 
+                 text={`${imageFileUpoadProgressBg}%`}
+                strokeWidth={5}
+                styles={{
+                    root:{
+                        width:'100%',
+                        height:'100%',
+                        position:'absolute',
+                        top:0,
+                        left:0
+                    },
+                    path:{
+                        stroke:`rgba(62,152,199, ${imageFileUpoadProgressBg/100})`
+                    }
+                }}
+              />
+            )}
       
+        <img src={imageBgFileUrl || currentUser.rest.profileBgPicture} alt="user"
+         className={`rounded-lg w-full h-full object-cover ${imageFileUpoadProgressBg && imageFileUpoadProgressBg < 100 && 'opacity-50'}`} />
+        </div>
+
+      <input type="file" accept="image/*" onChange={handleImageChange} hidden ref={filePickerRef} />
         <div className="relative w-32 h-32 self-center cursor-pointer shadow-md overflow-hidden rounded-full" 
         onClick={()=> filePickerRef.current.click()}
         >
@@ -198,7 +272,8 @@ console.log(error)
         {imageFileUploadError && <Alert color='failure'>
           {imageFileUploadError}
           </Alert> }
-      
+        <TextInput type="text" id='channelname' placeholder='channelname' defaultValue={currentUser.rest.channelName} onChange={handleChange} />
+
        <TextInput type="text" id='username' placeholder='username' defaultValue={currentUser.rest.username} onChange={handleChange} />
 
        <TextInput type="text" id='about' placeholder='Tell me about your self!' defaultValue={currentUser.rest.about} onChange={handleChange} />

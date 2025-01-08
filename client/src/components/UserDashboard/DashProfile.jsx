@@ -8,6 +8,9 @@ import { Tabs } from "flowbite-react";
 import { HiClipboardList } from "react-icons/hi";
 import { PiArticleMedium } from "react-icons/pi";
 import { LuUsers } from "react-icons/lu";
+import UserPostCard from "../CustomComponent/UserPostCard";
+
+
 
 export default function DashProfile() {
   
@@ -34,16 +37,17 @@ export default function DashProfile() {
         } catch (error) {
             console.log(error);
         }
-    }
-
-    if(currentUser.rest.isAdmin) fetchPost();
+      }
+    
+      fetchPost();
+  
 
   },[currentUser.rest._id]);
 
 
   return (
     
-    <div className="mx-auto  w-full md:w-3/4">
+    <div className="mx-auto w-full md:w-3/4 flex flex-col gap-4">
 
       {/* profile header */}
       <div className="flex flex-col w-11/12 mx-auto gap-4">
@@ -52,7 +56,7 @@ export default function DashProfile() {
           <img src={currentUser.rest.profileBgPicture} className="w-full h-48 object-cover" alt="background picture" />
         </div>
 
-        <div className="flex flex-row">
+        <div className="flex flex-row gap-4">
 
           <div className="w-1/6">
             <div className="relative w-32 h-32 self-center cursor-pointer shadow-md overflow-hidden rounded-full">
@@ -87,18 +91,25 @@ export default function DashProfile() {
       <Tabs.Item active title="Posts" icon={PiArticleMedium}>
        
         <div className="flex flex-col gap-4">
-        {currentUser.rest && userPosts.length>0 ? ( 
+
+        <div className="flex flex-row gap-2">
+            <button className="bg-gray-100 text-gray-800 active:bg-gray-400 border px-3 py-1 rounded-lg text-xs font-medium">Latest</button>
+            <button className="bg-gray-100 text-gray-800 active:bg-gray-400 px-3 py-1 rounded-lg text-xs font-medium">Top</button>
+            <button className="bg-gray-100 text-gray-800 active:bg-gray-400 px-3 py-1 rounded-lg text-xs font-medium">Oldest</button>
+          </div>
+
+          <div className="items-center grid grid-flow-row-dense grid-cols-4 gap-4">
+          {currentUser.rest && userPosts.length>0 ? ( 
           <>
            {userPosts.map((post)=>(
-            <div key={post._id} className="flex flex-row gap-4 items-center">
-            <img src={post.postImage} alt={post.title} className="w-20 h-10 object-cover bg-gray-300" />
-            <p className="font-medium text-gray-800 dark:text-white">{post.title}</p>
-          </div>
+            <UserPostCard key={post._id} post={post} />
           ))}
           </>
         ):(
            <p>You Dont have any posts yet!</p>
         )}
+          </div>
+
         </div>
       </Tabs.Item>
       <Tabs.Item title="Followers" icon={LuUsers}>
