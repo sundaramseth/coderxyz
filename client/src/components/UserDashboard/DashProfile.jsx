@@ -65,7 +65,7 @@ export default function DashProfile() {
           </div>
 
           <div className="w-full flex flex-col gap-1 justify-center items-start">
-          <h1 className="text-2xl font-semibold">{currentUser.rest.channelName && currentUser.rest.channelName || "Your Channel Name"}</h1>
+          <h1 className="text-2xl font-semibold">{currentUser.rest.channelName}</h1>
           <p className="flex flex-row justify-center items-center gap-2 text-sm"><span className="font-semibold">@{currentUser.rest.username}</span> <FaDotCircle size={5}/> {currentUser.rest.followers && currentUser.rest.followers || 0} Followers <FaDotCircle size={5}/> {userPostsLength} Posts</p>
           <p className="text-gray-500 text-sm font-medium">{currentUser.rest.about}</p>
           <div className="flex flex-row gap-2">

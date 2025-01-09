@@ -272,7 +272,7 @@ console.log(error)
         {imageFileUploadError && <Alert color='failure'>
           {imageFileUploadError}
           </Alert> }
-        <TextInput type="text" id='channelname' placeholder='channelname' defaultValue={currentUser.rest.channelName} onChange={handleChange} />
+        <TextInput type="text" id='channelName' placeholder='channel name' defaultValue={currentUser.rest.channelName} onChange={handleChange} />
 
        <TextInput type="text" id='username' placeholder='username' defaultValue={currentUser.rest.username} onChange={handleChange} />
 

@@ -18,7 +18,6 @@ const userSchema = new mongoose.Schema({
     channelName:{
         type:String,
         unique:true,
-        default: "Your Channel Name",
     },
     about:{
         type:String
