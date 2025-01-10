@@ -37,6 +37,10 @@ const userSchema = new mongoose.Schema({
         type:Array,
         default:[],
     },
+    following:{
+        type:Array,
+        default:[],
+    },
     isAdmin:{
         type:Boolean,
         default:false

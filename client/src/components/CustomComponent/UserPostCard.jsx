@@ -42,7 +42,7 @@ export default function UserPostCard({post}) {
             <div className="flex flex-col gap-4 w-full items-center bg-white dark:border-gray-700 dark:bg-gray-800 p-2 rounded-lg">
                  <Link to={`/post/${post.slug}`}>
                  <img src={post.postImage} alt={post.title} className="w-full h-28 object-cover bg-gray-300 rounded-sm" />
-                 <p className="font-medium text-gray-800 dark:text-white text-left">{truncateContent(post.title, 45)}</p>
+                 <p className="font-medium text-gray-800 dark:text-white text-left mt-2">{truncateContent(post.title, 45)}</p>
                  </Link>
         
             <div className="flex flex-row gap-2 justify-start items-center w-full">

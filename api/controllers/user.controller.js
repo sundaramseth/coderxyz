@@ -137,3 +137,24 @@ export const getUser = async (req, res, next) => {
   };
 
 
+  export const followChannel = async (req, res, next) => {
+    if (req.user.id === req.params.userId) {
+      return next(errorHandler(403, 'You cannot follow yourself'));
+    }
+    try {
+        const user = await User.findById(req.user.id);
+      const channel = await User.findById(req.params.userId);
+      if (!channel) {
+        return next(errorHandler(404, 'Channel not found'));
+      }
+      if (channel.followers.includes(req.user.id)) {
+        return next(errorHandler(400, 'You are already following this channel'));
+      }
+      channel.followers.push(req.user.id);
+      user.following.push(req.params.userId);
+      res.status(200).json('Successfully Subscribed to this channel');
+    } catch (error) {
+      next(error);
+    }
+  }
+

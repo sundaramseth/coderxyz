@@ -84,6 +84,29 @@ export default function HomeRightSection() {
     }
   }
 
+  const followAuthor = async (userId) =>{
+    alert(userId)
+    try {
+      const res = await fetch(`${API_URL}/api/user/follow/${userId}`,{
+        method:'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body:JSON.stringify({userId})
+      });
+      const data = await res.json();
+      if(!res.ok){
+       console.log(data.message);
+      }
+      else{
+        setAllUsers((prev)=>prev.filter((user)=>user._id !== userId));
+      }
+  } catch (error) {
+      console.log(error);
+  }
+}
+
   return (
     <div className="flex flex-col w-auto md:p-0">
     <div className="flex flex-col sticky top-20">
@@ -152,7 +175,7 @@ export default function HomeRightSection() {
           </div>
 
           <div className="w-1/6">
-          <LuUserPlus />
+          <LuUserPlus onClick={()=>{followAuthor(user._id)}} />
           </div>
           
           </div>          

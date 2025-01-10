@@ -113,9 +113,22 @@ export default function DashProfile() {
         </div>
       </Tabs.Item>
       <Tabs.Item title="Followers" icon={LuUsers}>
-        This is <span className="font-medium text-gray-800 dark:text-white">Settings tab's associated content</span>.
-        Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
-        control the content visibility and styling.
+      <div className="flex flex-col gap-4">
+      <div className="items-center grid grid-flow-row-dense grid-cols-4 gap-4">
+          {currentUser.rest && currentUser.rest.following.length>0 ? ( 
+          <>
+           {currentUser.rest.following.map((user)=>(
+            <div key={user._id} className="flex flex-col gap-2">
+            <h1 className="text-sm font-semibold">{user}</h1>
+            </div>
+          ))}
+          </>
+        ):(
+           <p>Not found any subscribers!</p>
+        )}
+          </div>
+          </div>
+
       </Tabs.Item>
       <Tabs.Item title="Contacts" icon={HiClipboardList}>
        <div className="flex flex-col gap-4">
