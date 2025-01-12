@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    channelName:{
+        type:String,
+        unique:true,
+    },
     about:{
         type:String
     },
@@ -27,11 +31,19 @@ const userSchema = new mongoose.Schema({
     },
     profileBgPicture:{
         type:String,
-        default:"https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
+        default:"https://t4.ftcdn.net/jpg/05/49/86/39/360_F_549863991_6yPKI08MG7JiZX83tMHlhDtd6XLFAMce.jpg",
+    },
+    followers:{
+        type:Array,
+        default:[],
+    },
+    following:{
+        type:Array,
+        default:[],
     },
     isAdmin:{
         type:Boolean,
-        default:false
+        default:true
     }
 },{timestamps:true});
 

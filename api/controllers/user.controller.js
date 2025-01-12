@@ -35,11 +35,14 @@ export const updateUser = async (req, res, next) =>{
         const updateUser = await User.findByIdAndUpdate(req.params.userId,{
             $set:{
                 username: req.body.username,
+                channelName:req.body.channelName,
                 about:req.body.about,
                 location:req.body.location,
                 email: req.body.email,
                 profilePicture: req.body.profilePicture,
                 profileBgPicture: req.body.profileBgPicture,
+                followers:req.body.followers,
+                following:req.body.following,
                 password:req.body.password
             },
         }, {new:true});
@@ -80,7 +83,7 @@ export const getUsers = async(req,res,next)=>{
         const sortDirection = req.query.sort === 'asc' ? 1: -1;
 
         const users = await User.find()
-        .sort({createdOn:sortDirection})
+        .sort({createdAt:sortDirection})
         .skip(startIndex)
         .limit(limit);
 
@@ -90,7 +93,6 @@ export const getUsers = async(req,res,next)=>{
         });
 
         const totalUsers = await User.countDocuments();
-
 
         const now = new Date();
 
@@ -133,5 +135,71 @@ export const getUser = async (req, res, next) => {
       next(error);
     }
   };
+
+
+  export const followChannel = async (req, res, next) => {
+    if (req.user.id === req.params.userId) {
+      return next(errorHandler(403, 'You cannot follow yourself'));
+    }
+    try {
+      const user = await User.findByIdAndUpdate(
+        req.user.id,
+          { $push: { following: req.params.userId } },
+          { new: true } // Return the updated document
+        );
+
+        if(!user){
+          return next(errorHandler(404, 'User not found'));
+        }      
+        const channel = await User.findByIdAndUpdate(
+          req.params.userId,
+            { $push: { followers: req.params.userId } },
+            { new: true } // Return the updated document
+          );
+
+      if (!channel) {
+        return next(errorHandler(404, 'Channel not found'));
+      }
+      if (channel.following.includes(req.user.id)) {
+        return next(errorHandler(400, 'You are already following this channel'));
+      }
+
+      res.status(200).json('Successfully Subscribed to this channel');
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  export const unfollowChannel = async (req, res, next) => {
+    if (req.user.id === req.params.userId) {
+      return next(errorHandler(403, 'You cannot unfollow yourself'));
+    }
+    try {
+          // Use $pull to remove the userId from the usersavedpost array
+        const user = await User.findByIdAndUpdate(
+          req.user.id,
+            { $pull: { following: req.params.userId } },
+            { new: true } // Return the updated document
+          );
+          
+          if(!user){
+            return next(errorHandler(404, 'User not found'));
+          }
+
+          const channel = await User.findByIdAndUpdate(
+            req.params.userId,
+              { $pull: { followers: req.params.userId } },
+              { new: true } // Return the updated document
+            );
+
+            if (!channel) {
+              return next(errorHandler(404, 'Channel not found'));
+            }
+
+      res.status(200).json("Successfully Unsubscribed from this channel");
+    } catch (error) {
+      next(error);
+    }
+  }
 
 
