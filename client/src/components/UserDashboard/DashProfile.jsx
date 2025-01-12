@@ -10,6 +10,8 @@ import { PiArticleMedium } from "react-icons/pi";
 import { LuUsers } from "react-icons/lu";
 import UserPostCard from "../CustomComponent/UserPostCard";
 
+import NetworkUserCard from "../CustomComponent/NetworkUserCard";
+
 
 
 export default function DashProfile() {
@@ -24,22 +26,40 @@ export default function DashProfile() {
 
   const [userPosts, setUserPost] = useState({});
 
+  const [user,setUser] = useState({})
+
 
   useEffect(()=>{
-    const fetchPost = async () =>{
+
         try {
+          const fetchPost = async () =>{
             const res = await fetch(`${API_URL}/api/post/getPosts?userId=${currentUser.rest._id}`);
             const data = await res.json();
             if(res.ok){
                 setUserPost(data.posts);
                 setUserPostsLength(data.posts.length);
             }
-        } catch (error) {
-            console.log(error);
+      
         }
-      }
+        fetchPost();
+      } catch (error) {
+        console.log(error);
+    }
     
-      fetchPost();
+    try {
+          const getUser = async () =>{
+          const res = await fetch(`${API_URL}/api/user/${currentUser.rest._id}`);
+          const data = await res.json();
+          if(res.ok){
+             setUser(data)
+        }
+      } 
+      getUser();
+      }
+      catch (error) {
+        console.log(error.message);
+    }
+   
   
 
   },[currentUser.rest._id]);
@@ -66,7 +86,7 @@ export default function DashProfile() {
 
           <div className="w-full flex flex-col gap-1 justify-center items-start">
           <h1 className="text-2xl font-semibold">{currentUser.rest.channelName}</h1>
-          <p className="flex flex-row justify-center items-center gap-2 text-sm"><span className="font-semibold">@{currentUser.rest.username}</span> <FaDotCircle size={5}/> {currentUser.rest.followers && currentUser.rest.followers || 0} Followers <FaDotCircle size={5}/> {userPostsLength} Posts</p>
+          <p className="flex flex-row justify-center items-center gap-2 text-sm"><span className="font-semibold">@{currentUser.rest.username}</span> <FaDotCircle size={5}/> {currentUser.rest.followers && currentUser.rest.followers.length|| 0} Followers <FaDotCircle size={5}/> {userPostsLength} Posts</p>
           <p className="text-gray-500 text-sm font-medium">{currentUser.rest.about}</p>
           <div className="flex flex-row gap-2">
             <Link to='/dashboard?tab=settings'>
@@ -112,21 +132,39 @@ export default function DashProfile() {
 
         </div>
       </Tabs.Item>
-      <Tabs.Item title="Followers" icon={LuUsers}>
-      <div className="flex flex-col gap-4">
-      <div className="items-center grid grid-flow-row-dense grid-cols-4 gap-4">
-          {currentUser.rest && currentUser.rest.following.length>0 ? ( 
+      <Tabs.Item title="My Network" icon={LuUsers} >
+      <div className="flex flex-col bg-white rounded-md">
+        <h1 className="text-md font-medium px-2 py-3 border-b">{currentUser.rest.channelName}&apos;s Networks</h1>
+        <div className="custom-tabs">
+          <Tabs aria-label="Tabs with icons" variant="underline"  className="">
+           <Tabs.Item title="Followers" className="!p-0">
+           <div className="flex flex-col">
+          {user.followers ? ( 
           <>
-           {currentUser.rest.following.map((user)=>(
-            <div key={user._id} className="flex flex-col gap-2">
-            <h1 className="text-sm font-semibold">{user}</h1>
-            </div>
+           {user.followers.map((userId)=>(
+            <NetworkUserCard key={userId} userId={userId} />
           ))}
           </>
         ):(
-           <p>Not found any subscribers!</p>
+           <p>Not found any followers!</p>
         )}
           </div>
+          </Tabs.Item>
+          <Tabs.Item title="Following" className="p-0">
+          <div className="flex flex-col">
+          {user.following ? ( 
+          <>
+           {user.following.map((userId)=>(
+            <NetworkUserCard key={userId} userId={userId} />
+          ))}
+          </>
+        ):(
+           <p>You Not following Any Channel!</p>
+        )}
+          </div>
+          </Tabs.Item>
+        </Tabs>
+        </div>
           </div>
 
       </Tabs.Item>

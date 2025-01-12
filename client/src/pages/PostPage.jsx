@@ -343,7 +343,10 @@ const unsavePost = async(userId, postId)=>{
                     "!text-blue-500"
                   }`}
                 >
-                  <FaThumbsUp className="text-md" />
+                  <FaThumbsUp className={`text-md ${
+                    currentUser &&
+                    post?.likes?.includes(currentUser.rest._id) &&
+                    "!text-blue-500"}`} />
                 </button>
                 <span className="font-sans text-sm font-semibold">Like</span>
               </div>

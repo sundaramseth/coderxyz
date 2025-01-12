@@ -10,7 +10,7 @@ import {toggleTheme} from '../redux/theme/themeSlice';
 import { PiSignOutFill } from "react-icons/pi";
 import { signOutUser } from "../redux/user/userSlice";
 import { useEffect, useState } from "react";
-import { MdArticle, MdBookmark, MdPerson, MdQueryStats, MdSettings } from "react-icons/md";
+import { MdArticle, MdBookmark, MdDarkMode, MdPerson, MdQueryStats, MdSettings } from "react-icons/md";
 
 
 export default function Header() {
@@ -103,16 +103,17 @@ export default function Header() {
       </div>
       </div>
   
-        <div className="flex w-1/2 md:w-1/4 justify-end items-center gap-2 md:order-2">
+        <div className="flex w-1/2 md:w-1/4 justify-end items-center gap-3 md:order-2">
 
         {currentUser && (
-         <Button className="w-12 h-9" 
+        <Link to={'/create-post'}>
+         <Button size={"sm"} 
          color="gray"
          pill
-         onClick={()=>dispatch(toggleTheme())}
          >
-          {theme === 'light' ? <AiOutlineSun/>:  <AiOutlineMoon /> }
+          Create Post
          </Button>
+         </Link>
          )
         }
          {currentUser ? (
@@ -150,6 +151,9 @@ export default function Header() {
               Stats
              </Dropdown.Item>
             </Link>
+            <Dropdown.Item icon={MdDarkMode}>
+              <div onClick={()=>dispatch(toggleTheme())}>Theme {theme === 'light' ? "Dark": "Light" }</div>
+            </Dropdown.Item>
             <Link to={'/dashboard?tab=settings'}>
              <Dropdown.Item icon={MdSettings}>
               Settings

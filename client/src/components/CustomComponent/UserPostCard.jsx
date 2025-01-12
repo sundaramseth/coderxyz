@@ -64,7 +64,10 @@ export default function UserPostCard({post}) {
                 <span>{new Date(post.createdOn).getHours()} hours ago</span>
                 </div>
             </div>
+            
           </div>
+
+          
     );
 
 }

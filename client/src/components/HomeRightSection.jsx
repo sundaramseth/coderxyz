@@ -1,22 +1,23 @@
 
 import { useEffect, useState } from 'react';
-import { Link} from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
 import {  FaDotCircle } from "react-icons/fa";
-import { LuUserPlus } from "react-icons/lu";
 import FooterCom from './Footer';
+import UserFollowCard from './CustomComponent/UserFollowCard';
 export default function HomeRightSection() {
-
      const API_URL = import.meta.env.VITE_API_URL;
 
     const [showMore, setShowMore] = useState(true);
+
     
     const [showMoreUser, setShowMoreUser] = useState(true);
     const [users, setAllUsers] = useState([]);
     const [posts, setPosts] = useState([]);
 
 
-    console.log(users)
-    
+    const { currentUser } = useSelector((state) => state.user);
+
   useEffect(() => {
     try {
       const fetchPosts = async () => {
@@ -31,6 +32,33 @@ export default function HomeRightSection() {
     } catch (error) {
       console.log(error.message);
     }
+
+
+      try {
+        const fetchPost = async () =>{
+          const res = await fetch(`${API_URL}/api/user/getusers?limit=5`);
+          const data = await res.json();
+          if(res.ok){
+             
+              for(let i=0; i<data.users.length; i++ ){
+                if(data.users[i]._id === currentUser.rest._id){
+                  const index = data.users[i];
+                  data.users.splice(index, 1);
+                }
+              } 
+
+              setAllUsers(data.users);
+              if(data.users.length <4){
+                setShowMoreUser(false);
+              }
+          }
+      } 
+      fetchPost(); 
+  }
+      catch (error) {
+        console.log(error);
+    }
+
   }, []);
 
   const handleShowMoreForPost =  async () =>{
@@ -49,24 +77,6 @@ export default function HomeRightSection() {
     }
   }
 
-  useEffect(()=>{
-    const fetchPost = async () =>{
-        try {
-            const res = await fetch(`${API_URL}/api/user/getusers?limit=5`);
-            const data = await res.json();
-            if(res.ok){
-              setAllUsers(data.users);
-                if(data.users.length <5){
-                  setShowMoreUser(false);
-                }
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
-     fetchPost(); 
-
-  },[]);
 
   const handleShowMore =  async () =>{
     const startIndex = users.length;
@@ -74,8 +84,10 @@ export default function HomeRightSection() {
       const res = await fetch(`${API_URL}/api/user/getusers?startIndex=${startIndex}`); 
       const data = await res.json();
       if(res.ok){
+        const index = data.users.indexOf(currentUser._id);
+        data.users.splice(index, 1);
         setAllUsers((prev)=>[...prev, ...data.users]);
-        if(data.users.length <5){
+        if(data.users.length <4){
           setShowMoreUser(false);
         }
       }
@@ -84,33 +96,10 @@ export default function HomeRightSection() {
     }
   }
 
-  const followAuthor = async (userId) =>{
-    alert(userId)
-    try {
-      const res = await fetch(`${API_URL}/api/user/follow/${userId}`,{
-        method:'PUT',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body:JSON.stringify({userId})
-      });
-      const data = await res.json();
-      if(!res.ok){
-       console.log(data.message);
-      }
-      else{
-        setAllUsers((prev)=>prev.filter((user)=>user._id !== userId));
-      }
-  } catch (error) {
-      console.log(error);
-  }
-}
-
   return (
     <div className="flex flex-col w-auto md:p-0">
     <div className="flex flex-col sticky top-20">
-    <div className="flex flex-col md:w-60 w-full bg-white dark:bg-transparent rounded-lg border dark:border-gray-600">
+    <div className="flex flex-col md:w-64 w-full bg-white dark:bg-transparent rounded-lg border dark:border-gray-600">
       <div className="flex flex-col w-full">
       
       <div className="p-2">
@@ -147,7 +136,7 @@ export default function HomeRightSection() {
 
      <div className="w-full justify-center my-5">
 
-     <div className="flex flex-col w-60 bg-white dark:bg-transparent mt-2 rounded-lg border dark:border-gray-600">
+     <div className="flex flex-col w-full  md:w-64  bg-white dark:bg-transparent mt-2 rounded-lg border dark:border-gray-600">
     <div className="flex flex-col w-full">
       
       <div className="p-2">
@@ -160,34 +149,14 @@ export default function HomeRightSection() {
         </div>
       </div>
 
-      <div className="pb-2 pr-2">
+      <div className="m-2">
       {
        users.map((user)=>(
-        <div key={user._id} className="py-3 ml-2 flex flex-row gap-1 border-b border-b-gray-100 dark:border-b-gray-600 ">
-          <div className="flex flex-row w-full justify-between items-center text-left">
-          
-          <div className="w-auto rounded-full">
-           <img src={user.profilePicture}  className="w-10 rounded-full"/>
-          </div>
-
-          <div className="w-3/5">
-          <p className="text-sm text-left text-gray-800 dark:text-gray-300 font-semibold"> {user.username} </p>
-          </div>
-
-          <div className="w-1/6">
-          <LuUserPlus onClick={()=>{followAuthor(user._id)}} />
-          </div>
-          
-          </div>          
-
-        </div>
-  
+       <UserFollowCard key={user._id} user={user} />  
        ))
       }
 
       </div>
-
-      
         {showMoreUser && (
         <button onClick={handleShowMore} className="w-full text-teal-500 self-center text-sm py-1">
         Show more

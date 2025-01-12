@@ -23,7 +23,7 @@ export default function Home() {
           setLoading(false);
         }
         // Sort by createdAt in descending order (newest first)
-        setPosts( data.posts.sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn)));
+        setPosts( data.posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
         if(data.posts.length < 10){
           setShowMore(false);
         }
