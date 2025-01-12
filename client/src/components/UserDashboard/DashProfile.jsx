@@ -73,13 +73,13 @@ export default function DashProfile() {
       <div className="flex flex-col w-11/12 mx-auto gap-4">
 
         <div className="flex flex-row justify-between items-center w-full rounded-lg overflow-hidden">
-          <img src={currentUser.rest.profileBgPicture} className="w-full h-48 object-cover" alt="background picture" />
+          <img src={currentUser.rest.profileBgPicture} className="w-full h-28 md:h-48 object-cover" alt="background picture" />
         </div>
 
         <div className="flex flex-row gap-4">
 
-          <div className="w-1/6">
-            <div className="relative w-32 h-32 self-center cursor-pointer shadow-md overflow-hidden rounded-full">
+          <div className="w-1/4 md:w-1/6">
+            <div className="relative w-20 h-20 md:w-32 md:h-32 self-center cursor-pointer shadow-md overflow-hidden rounded-full">
               <img src={currentUser.rest.profilePicture} alt="user" className="rounded-full w-full h-full object-cover" />
             </div>
           </div>
@@ -118,7 +118,7 @@ export default function DashProfile() {
             <button className="bg-gray-100 text-gray-800 active:bg-gray-400 px-3 py-1 rounded-lg text-xs font-medium">Oldest</button>
           </div>
 
-          <div className="items-center grid grid-flow-row-dense grid-cols-4 gap-4">
+          <div className="items-center grid grid-cols-2 grid-flow-row-dense md:grid-cols-4  gap-4">
           {currentUser.rest && userPosts.length>0 ? ( 
           <>
            {userPosts.map((post)=>(

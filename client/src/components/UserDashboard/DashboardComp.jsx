@@ -59,7 +59,7 @@ export default function DashboardComp() {
           <h1 className='text-4xl font-semibold p-3 mt-5 mb-5 text-start'>
           Your story stats
           </h1>
-          <div className='flex flex-row gap-4 justify-left'>
+          <div className='flex flex-col md:flex-row gap-4 justify-left'>
             <div className='flex flex-col p-3 bg-white dark:bg-slate-800 gap-4 w-full rounded-md shadow-md'>
               <div className='flex justify-between'>
                 <div className=''>
