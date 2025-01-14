@@ -133,6 +133,7 @@ export default function HomeRightSection() {
             )}
      </div>
      </div>
+     {currentUser &&
 
      <div className="w-full justify-center my-5">
 
@@ -165,6 +166,7 @@ export default function HomeRightSection() {
      </div>
      </div>
      </div>
+     }
 
      <FooterCom/>
    </div>

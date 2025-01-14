@@ -61,7 +61,7 @@ export default function Home() {
 {/* main section */}
 
 <div className="flex flex-col w-full pt-20 justify-center items-center">
-<div className="flex flex-col w-full md:w-3/5 justify-center gap-5">
+<div className="flex flex-col w-full md:w-3/4 lg:w-3/5 justify-center gap-5">
  
 
  {/* top section */}

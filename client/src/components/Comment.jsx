@@ -125,7 +125,10 @@ export default function Comment({comment, onLike, onEdit, onDelete}) {
                   '!text-blue-500'
                 }`}
               >
-          <FaThumbsUp className="text-sm"/>
+          <FaThumbsUp  className={`text-md ${
+                    currentUser &&
+                    comment?.likes?.includes(currentUser.rest._id) &&
+                    "!text-blue-500"}`}/>
         </button>
         <p>
           {

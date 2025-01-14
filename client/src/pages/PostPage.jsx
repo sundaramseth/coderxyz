@@ -6,7 +6,7 @@ import { FaThumbsUp } from "react-icons/fa";
 import CommentSection from "../components/CommentSection";
 import { useSelector } from "react-redux";
 import { FaDotCircle } from "react-icons/fa";
-import Ads from "../components/Advertisement/Ads";
+
 import { MdInsertComment, MdShare } from "react-icons/md";
 import {ShareSocial} from 'react-share-social' 
 import { BsBookmarkHeart } from "react-icons/bs";
@@ -33,6 +33,8 @@ export default function PostPage() {
   const API_URL = import.meta.env.VITE_API_URL;
 
   // Retrieve token stored after login
+
+  console.log(error)
   
   useEffect(() => {
 

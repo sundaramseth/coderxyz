@@ -65,9 +65,9 @@ export default function Header() {
   };
 
   return (
-    <Navbar className="border-b-1 w-full fixed z-10">
-      <div className="flex flex-row w-full justify-center items-center">
-      <div className="flex flex-row w-full md:w-3/4 justify-center items-center">
+    <div className="flex flex-row border-b-1 w-full fixed z-10 justify-center bg-white dark:bg-[rgb(16,23,42)]">
+
+      <div className="flex flex-row w-full md:w-3/4 lg:w-3/5 justify-center items-center py-3 md:mx-0 mx-2">
     
       <div className="flex w-1/4 justify-start items-start">
        <Link to='/' 
@@ -83,13 +83,13 @@ export default function Header() {
           type='text'
           placeholder='Search...'
           rightIcon={AiOutlineSearch}
-          className='hidden lg:inline'
+          className='hidden md:inline-block'
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </form>
 
-        <div className="sm:hidden pl-1">
+        <div className="md:hidden pl-1">
         <Link to='/searchpage'>
         <Button
         className="w-12 h-9"
@@ -193,7 +193,6 @@ export default function Header() {
         </div>
       </div>
 </div>
-    </Navbar>
 
   )
 }
