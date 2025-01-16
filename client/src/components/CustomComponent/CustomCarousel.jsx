@@ -51,7 +51,6 @@ const CustomCarousel = () => {
   const searchByTag = (e) =>{
     const urlParams = new URLSearchParams(location.search);
     urlParams.set('searchTerm', e);
-    urlParams.set('sort', null);
     urlParams.set('category', e);
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
@@ -63,7 +62,7 @@ const CustomCarousel = () => {
      <Slider {...settings}>
      {category.map((slide) => (
       <>
-        <div className="mx-1" key={slide}>
+        <div className="mx-1" key={slide.id}>
           <Button   color="gray" value={slide} className='w-full cursor-pointer' 
              onClick={()=>searchByTag(slide.toLowerCase())}>
             {slide}

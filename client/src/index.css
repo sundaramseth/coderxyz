@@ -17,6 +17,7 @@
   white-space: pre-wrap;    /* Wrap lines if they exceed the container width */
   word-break: break-word;   /* Break long words to avoid overflow */
   box-sizing: border-box;   /* Include padding and border in the width/height */
+  width: 100% !important;
 }
 .border-b-1{
     border-bottom: 1px solid gray;

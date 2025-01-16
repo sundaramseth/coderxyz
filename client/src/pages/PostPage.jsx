@@ -11,7 +11,7 @@ import { MdInsertComment, MdShare } from "react-icons/md";
 import {ShareSocial} from 'react-share-social' 
 import { BsBookmarkHeart } from "react-icons/bs";
 import { BsBookmarkHeartFill } from "react-icons/bs";
-import RecentPostCard from "../components/RecentPostCard";
+import RecentPostCard from "../components/CustomComponent/RecentPostCard";
 import FooterCom from "../components/Footer";
 export default function PostPage() {
   const location = useLocation();
@@ -238,7 +238,7 @@ const unsavePost = async(userId, postId)=>{
     );
 
   return (
-    <main className="flex flex-col md:flex-row w-full mx-auto min-h-screen pt-20 justify-center gap-3">
+    <main className="flex flex-col md:flex-row w-full mx-auto min-h-screen pt-20 pb-0 md:pb-5 justify-center gap-3">
    
 
       <div className="flex flex-col md:flex-row w-full md:p-0 p-2 md:w-3/5 gap-4">
@@ -255,9 +255,9 @@ const unsavePost = async(userId, postId)=>{
             
             <div className="flex flex-row w-4/5 gap-2">
 
-            <div className="flex flex-col w-12">
+            <div className="flex flex-col w-12 h-12">
               <img
-                className="border rounded-full w-12"
+                className="border rounded-full w-12 h-12"
                 alt="user"
                 src={user && user.profilePicture}
               />

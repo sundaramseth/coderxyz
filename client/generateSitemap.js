@@ -7,11 +7,14 @@ const generateSitemap = async () => {
 
     // Add static URLs
     smStream.write({ url: '/', changefreq: 'daily', priority: 1.0 });
-    smStream.write({ url: '/about', changefreq: 'monthly', priority: 0.8 });
+    smStream.write({ url: '/about', changefreq: 'daily', priority: 0.8 });
+    smStream.write({ url: '/privacy', changefreq: 'daily', priority: 0.8 });
+    smStream.write({ url: '/signup', changefreq: 'daily', priority: 0.8 });
+    smStream.write({ url: '/signin', changefreq: 'daily', priority: 0.8 });
 
     try {
        // Fetch blog posts from API
-       const response = await axios.get('https://coderxyz.onrender.com/api/post/getposts');
+       const response = await axios.get('https://coderxyz.onrender.com/api/post/getposts?limit=1000');
 
     //    console.log(response.data); // Log the full response to inspect its structure
        const posts = response.data.posts; // Modify this based on the actual structure
@@ -22,7 +25,7 @@ const generateSitemap = async () => {
        // Add each blog post dynamically
        posts.forEach(post => {
            smStream.write({
-               url: `/${post.slug}`, // Adjust based on your API response
+               url: `/post/${post.slug}`, // Adjust based on your API response
                changefreq: 'daily',
                priority: 0.9,
            });
@@ -33,7 +36,7 @@ const generateSitemap = async () => {
 
         // Save sitemap to public folder
         const sitemap = await streamToPromise(smStream);
-        writeFileSync('./public/sitemap.xml', sitemap.toString());
+        writeFileSync('./sitemap.xml', sitemap.toString());
 
         console.log('Sitemap generated successfully.');
     } catch (error) {

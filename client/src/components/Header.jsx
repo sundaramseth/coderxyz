@@ -67,7 +67,7 @@ export default function Header() {
   return (
     <div className="flex flex-row border-b-1 w-full fixed z-10 justify-center bg-white dark:bg-[rgb(16,23,42)]">
 
-      <div className="flex flex-row w-full md:w-3/4 lg:w-3/5 justify-center items-center py-3 md:mx-0 mx-2">
+      <div className="flex flex-row w-full md:w-3/4 lg:w-3/5 justify-center items-center py-3 md:px-0 md:mx-0 mx-2">
     
       <div className="flex w-1/4 justify-start items-start">
        <Link to='/' 
@@ -103,7 +103,7 @@ export default function Header() {
       </div>
       </div>
   
-        <div className="flex w-1/2 md:w-1/4 justify-end items-center gap-3 md:order-2">
+        <div className="flex w-1/2 md:w-1/4 justify-end items-center gap-3">
 
         {currentUser && (
         <Link to={'/create-post'}>
@@ -170,23 +170,28 @@ export default function Header() {
 
           ):(
         <>
-      <Link to='/signup' className="">
+      <div className="flex flex-row gap-1 pr-1">
+ 
       <Button
         color='0094FF'
          size="sm"
-        >
-        Join Now
+        > 
+        <Link to='/signup'>
+        Join Now 
+        </Link>
         </Button>
-      </Link>
-        <Link to='/signin' className="">
+
         <Button
         pill
         color="blue" 
         size="sm"
         >
-        Sign In
+        <Link to='/signin' className="">
+        Sign In        </Link>
         </Button>
-        </Link>
+
+        </div>
+
         </>
          )
          }

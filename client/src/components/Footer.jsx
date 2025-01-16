@@ -24,41 +24,34 @@ export default function FooterCom() {
 
          <Footer.Link
          href='/about'
-         target="_blank"
          rel='noopener noreferrer'
          >
            About
          </Footer.Link>
 
          <Footer.Link
-         href='/about'
-         target="_blank"
+         href='/privacy'
          rel='noopener noreferrer'
          >
-           Privacy
+           Privacy & Terms
          </Footer.Link>
 
-         <Footer.Link
-         href='/about'
-         target="_blank"
-         rel='noopener noreferrer'
-         >
-           Terms
-         </Footer.Link>
-
-         <Footer.Link
-         href='/about'
-         target="_blank"
+         {/* <Footer.Link
+         href='/teams'
          rel='noopener noreferrer'
          >
            Teams
-         </Footer.Link>
+         </Footer.Link> */}
          </Footer.LinkGroup>
         </div>
   
 
-       <div className="w-full sm:flex sm:items-center sm:justify-between mt-2">
-        <Footer.Copyright href='#' by='Coder XYZ' year={new Date().getFullYear()} />
+       <div className="w-full flex flex-row items-center justify-start mt-2">
+       <Link to='/' 
+        className="self-center whitespace-nowrap sm:text-xl font-semibold">
+        <img src="https://firebasestorage.googleapis.com/v0/b/adhyatma-ce6a3.appspot.com/o/1735566563733_coderxyz.png?alt=media&token=aa59cda9-b542-469f-9a36-9c73c87502e2" className="w-16 pt-[2px]"  />
+        </Link>&nbsp;
+          <Footer.Copyright href='#' by='Coder XYZ' year={new Date().getFullYear()} className="text-xs" />
   
        </div>
        </div>

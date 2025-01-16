@@ -108,7 +108,7 @@ export default function UserPostPreviewCard() {
 
   return (
     <>
-      <div className="mywidth table-auto overflow-x-auto md:mx-auto p-3">
+      <div className=" md:mx-auto p-3">
         {currentUser && userPosts.length > 0 ? (
           <>
             {userPosts.map((post) => (
@@ -117,7 +117,7 @@ export default function UserPostPreviewCard() {
                   {/* post card */}
                   <div className="flex flex-col w-full">
                     <div className="flex flex-row w-full my-2 bg-white dark:bg-transparent  border dark:border-gray-600 rounded-lg gap-2">
-                      <div className="md:w-2/4 md:mt-0 md:pl-4 pt-3 pl-2 flex flex-col justify-start md:justify-center items-center">
+                      <div className="md:w-1/3 w-full md:mt-0 flex flex-col md:justify-center justify-start mt-4 ml-2 items-center">
                         <Link to={`/post/${post.slug}`}>
                           <img
                             src={post.postImage}
@@ -126,16 +126,16 @@ export default function UserPostPreviewCard() {
                         </Link>
                       </div>
 
-                      <div className="w-3/4 md:w-full py-3 pr-2 flex flex-col justify-between">
+                      <div className="w-3/4 md:w-full py-3 md:pr-3 pr-2 flex flex-col justify-between">
 
                         <Link to={`/post/${post.slug}`}>
-                          <h1 className="text-md:text-2xl font-bold">
+                          <h1 className="text-sm md:text-2xl font-bold">
                             {post.title}
                           </h1>
                         </Link>
 
                         <div
-                          className={`overflow-hidden text-xs md:text-sm text-ellipsis pt-2`}
+                          className={`overflow-hidden text-xs md:text-sm text-ellipsis pt-2 pr-2`}
                           dangerouslySetInnerHTML={{
                             __html: post && truncateContent(post.content, 112), // Limit to 100 characters
                           }}
@@ -144,19 +144,19 @@ export default function UserPostPreviewCard() {
                         <div className="flex flex-row md:gap-4 gap-3 justify-between mt-4 mb-2">
                           <div className="flex flex-row md:gap-4 gap-2 justify-between items-center">
                             <div className="md:text-sm text-xs text-gray-600 flex flex-row gap-2 items-center">
-                              <CiTimer />{" "}
+                              <CiTimer className="text-sm" />{" "}
                               <span className="md:text-sm text-xs">
                                 {new Date(post.createdOn).getHours()}&nbsp;h&nbsp;ago
                               </span>
                             </div>
 
-                            <div className="md:text-sm text-xs text-gray-600 flex flex-row md:gap-2 gap-1 items-center">
-                              <FcLike /> <span className="md:text-sm text-xs">{post.numberOfLikes}</span>
+                            <div className=" text-gray-600 flex flex-row md:gap-2 gap-1 items-center">
+                              <FcLike className="text-sm" /> <span className="md:text-sm text-xs">{post.numberOfLikes}</span>
                             </div>
 
-                            <div className="md:text-sm text-xs text-gray-600 flex flex-row md:gap-2 gap-1 items-center">
+                            <div className=" text-gray-600 flex flex-row md:gap-2 gap-1 items-center">
                               {comments && comments.length === 0 ? (
-                                <TfiCommentsSmiley />
+                                <TfiCommentsSmiley className="text-sm" />
                               ) : (
                                 <>
                                   <TfiCommentsSmiley />{" "}
@@ -167,17 +167,20 @@ export default function UserPostPreviewCard() {
                           </div>
 
                           <div className="flex flex-row md:gap-3 gap-2 justify-end items-center">
-                            <Link
+                         
+                              <button className="bg-transparent border rounded-full md:px-4 px-2 md:text-sm text-[11px] text-blue-600 hover:bg-gray-100 font-semibold">
+                              <Link
                               className="text-teal-500"
                               to={`/update-post/${post._id}`}
                             >
-                              <button className="bg-transparent border rounded-full md:px-4 px-2 md:text-sm text-xs text-blue-600 hover:bg-gray-100 font-semibold">
-                                Edit
+                                Edit 
+                                </Link>
+
                               </button>
-                            </Link>
+                        
 
                             <button
-                              className="bg-transparent border rounded-full md:px-4 px-2 md:text-sm text-xs text-red-600 hover:bg-gray-100 font-semibold"
+                              className="bg-transparent border rounded-full md:px-4 px-2 md:text-sm text-[11px] text-red-600 hover:bg-gray-100 font-semibold"
                               onClick={() => {
                                 setShowModal(true);
                                 setPostIdToDelete(post._id);

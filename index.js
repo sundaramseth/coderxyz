@@ -73,7 +73,7 @@ app.use((err, req, res, next) => {
         statusCode,
         message,
     });
-    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    // res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
 });
 
 
