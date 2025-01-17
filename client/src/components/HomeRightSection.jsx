@@ -35,7 +35,7 @@ export default function HomeRightSection() {
 
 
       try {
-        const fetchPost = async () =>{
+        const fetchUsers = async () =>{
           const res = await fetch(`${API_URL}/api/user/getusers?limit=5`);
           const data = await res.json();
           if(res.ok){
@@ -53,7 +53,7 @@ export default function HomeRightSection() {
               }
           }
       } 
-      fetchPost(); 
+      fetchUsers(); 
   }
       catch (error) {
         console.log(error);

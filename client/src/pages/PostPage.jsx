@@ -58,6 +58,15 @@ export default function PostPage() {
             setSaveYourPost(true);
           }
 
+
+          const res = await fetch(`${API_URL}/api/user/${data.posts[0].userId}`);
+          const data3 = await res.json();
+          if(res.ok){
+            setUser(data3);
+          }
+        
+
+
           const res2 = await fetch(`${API_URL}/api/post/getauthorposts/${data.posts[0].userId}`);
           const data2 = await res2.json();
           if (res2.ok) {
@@ -72,6 +81,20 @@ export default function PostPage() {
         setLoading(false);
         console.log(error);
       }
+
+      try {
+        const fetchRecentPosts = async () => {
+          const res = await fetch(`${API_URL}/api/post/getPosts?limit=5`);
+          const data = await res.json();
+          if (res.ok) {
+            setRecentPost(data.posts);
+          }
+        };
+        fetchRecentPosts();
+      } catch (error) {
+        console.log(error.message);
+      }
+
   }, [postSlug]);
 
 
@@ -133,38 +156,22 @@ export default function PostPage() {
 },[post && post._id]);
 
 
-useEffect(()=>{
-  try {
-    const getUser = async () =>{
-  const res = await fetch(`${API_URL}/api/user/${post && post.userId}`);
-  const data = await res.json();
-  if(res.ok){
-    setUser(data);
-  }
+// useEffect(()=>{
+//   try {
+//     const getUser = async () =>{
+//   const res = await fetch(`${API_URL}/api/user/${post && post.userId}`);
+//   const data = await res.json();
+//   if(res.ok){
+//     setUser(data);
+//   }
 
-}
-getUser();
-} catch (error) {
-  console.log(error.message);
-}
+// }
+// getUser();
+// } catch (error) {
+//   console.log(error.message);
+// }
 
-},[post && post.userId]);
-
-
-useEffect(() => {
-  try {
-    const fetchRecentPosts = async () => {
-      const res = await fetch(`${API_URL}/api/post/getPosts?limit=5`);
-      const data = await res.json();
-      if (res.ok) {
-        setRecentPost(data.posts);
-      }
-    };
-    fetchRecentPosts();
-  } catch (error) {
-    console.log(error.message);
-  }
-}, []);
+// },[post && post.userId]);
 
 
 
@@ -390,7 +397,7 @@ const unsavePost = async(userId, postId)=>{
       <div className=" grid grid-flow-row-dense grid-cols-2 mt-10 gap-4">
 
        {recentPostAuthor && recentPostAuthor.map((rpost)=>(
-            <RecentPostCard key={rpost} post={rpost}/>
+            <RecentPostCard key={rpost._id} post={rpost}/>
        ))}
     
 

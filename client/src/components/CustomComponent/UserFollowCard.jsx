@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { useSelector } from 'react-redux';
 import {  useNavigate } from "react-router-dom";
 import { Toast, Modal, Button } from "flowbite-react";
 import { HiExclamation } from 'react-icons/hi';
 import { RiUserUnfollowLine } from 'react-icons/ri';
-export default function UserFollowCard({user}) {
+const UserFollowCard = memo(function UserFollowCard({user}) {
       const navigate = useNavigate();
       const API_URL = import.meta.env.VITE_API_URL;
 
@@ -156,4 +156,6 @@ export default function UserFollowCard({user}) {
 
 
   )
-}
+});
+
+export default UserFollowCard;

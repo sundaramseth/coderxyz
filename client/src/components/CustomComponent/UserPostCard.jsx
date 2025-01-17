@@ -2,10 +2,10 @@
 
 import { TfiCommentsSmiley } from 'react-icons/tfi';
 import { FcLike } from 'react-icons/fc';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function UserPostCard({post}) {
+const UserPostCard = memo(function UserPostCard({post}) {
 
       const API_URL = import.meta.env.VITE_API_URL;
       
@@ -29,7 +29,7 @@ export default function UserPostCard({post}) {
           }
     
     
-      },[post._id]);
+      },[post && post._id]);
     
     function truncateContent(content, maxLength) {
         if (content.length <= maxLength) {
@@ -41,7 +41,7 @@ export default function UserPostCard({post}) {
     return(
             <div className="flex flex-col gap-4 w-full items-center bg-white dark:border-gray-700 dark:bg-gray-800 p-2 rounded-lg">
                  <Link to={`/post/${post.slug}`}>
-                 <img src={post.postImage} alt={post.title} className="w-full h-28 object-cover bg-gray-300 rounded-sm" />
+                 <img src={post && post.postImage} alt={post.title} className="w-full h-28 object-cover bg-gray-300 rounded-sm" />
                  <p className="font-medium text-gray-800 dark:text-white text-left mt-2">{truncateContent(post.title, 45)}</p>
                  </Link>
         
@@ -70,4 +70,6 @@ export default function UserPostCard({post}) {
           
     );
 
-}
+});
+
+export default UserPostCard;

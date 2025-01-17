@@ -3,9 +3,9 @@ import { CiTimer } from "react-icons/ci";
 import { FcLike } from "react-icons/fc";
 import { TfiCommentsSmiley } from "react-icons/tfi";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 
-export default function RecentPostCard({ post }) {
+const RecentPostCard = memo(function RecentPostCard({ post }) {
   const [user, setUser] = useState({});
   const [comments, setComments] = useState([]);
 
@@ -118,4 +118,6 @@ export default function RecentPostCard({ post }) {
       </div>
     </div>
   );
-}
+});
+
+export default RecentPostCard;

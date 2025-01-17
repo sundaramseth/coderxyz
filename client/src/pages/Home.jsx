@@ -16,14 +16,14 @@ export default function Home() {
     try {
       const fetchPosts = async () => {
         setLoading(true);
-        const res = await fetch(`${API_URL}/api/post/getPosts?limit=10`);
+        const res = await fetch(`${API_URL}/api/post/getPosts?limit=10?order="asc"`);
         const data = await res.json();
 
         if(res.ok){
           setLoading(false);
         }
         // Sort by createdAt in descending order (newest first)
-        setPosts( data.posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+        setPosts( data.posts);
         if(data.posts.length < 10){
           setShowMore(false);
         }

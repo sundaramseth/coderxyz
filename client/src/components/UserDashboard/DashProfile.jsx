@@ -62,7 +62,7 @@ export default function DashProfile() {
    
   
 
-  },[currentUser.rest._id]);
+  },[currentUser && currentUser.rest._id]);
 
 
   return (
@@ -80,7 +80,7 @@ export default function DashProfile() {
 
           <div className="w-1/4 md:w-1/6">
             <div className="relative w-20 h-20 md:w-32 md:h-32 self-center cursor-pointer shadow-md overflow-hidden rounded-full">
-              <img src={currentUser.rest.profilePicture} alt="user" className="rounded-full w-full h-full object-cover" />
+              <img src={currentUser.rest && currentUser.rest.profilePicture} alt="user" className="rounded-full w-full h-full object-cover" />
             </div>
           </div>
 
