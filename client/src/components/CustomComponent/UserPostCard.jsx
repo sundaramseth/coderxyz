@@ -38,6 +38,26 @@ const UserPostCard = memo(function UserPostCard({post}) {
         return content.slice(0, maxLength) + '...';
       }
 
+      function calculateTimeAgo(updatedAt) {
+        const now = new Date(); // Current time
+        const updatedTime = new Date(updatedAt); // Time from post
+        const differenceInMs = now - updatedTime; // Difference in milliseconds
+        const differenceInHours = Math.floor(differenceInMs / (1000 * 60 * 60)); // Convert to hours
+      
+        if (differenceInHours === 0) {
+          const differenceInMinutes = Math.floor(differenceInMs / (1000 * 60));
+          return differenceInMinutes <= 1
+            ? `${differenceInMinutes} min ago`
+            : `${differenceInMinutes} mins ago`;
+        }
+      
+        return differenceInHours === 1
+          ? `${differenceInHours} hr ago`
+          : `${differenceInHours} hrs ago`;
+      }
+      
+    
+
     return(
             <div className="flex flex-col gap-4 w-full items-center bg-white dark:border-gray-700 dark:bg-gray-800 p-2 rounded-lg">
                  <Link to={`/post/${post.slug}`}>
@@ -61,7 +81,7 @@ const UserPostCard = memo(function UserPostCard({post}) {
                 </div>
 
                 <div className="text-sm text-gray-600 flex flex-row gap-2 items-center">
-                <span>{new Date(post.createdOn).getHours()} hours ago</span>
+                <span>{calculateTimeAgo(post.updatedAt)}</span>
                 </div>
             </div>
             

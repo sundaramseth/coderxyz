@@ -39,12 +39,8 @@ const postScema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
-    createdOn:{
-        type: Date,
-        default:Date()
-    },
     usersavedpost: [String],
-    },{timeStamp:true});
+    },{timestamps:true});
 
 const Post = mongoose.model('Post',postScema);
 

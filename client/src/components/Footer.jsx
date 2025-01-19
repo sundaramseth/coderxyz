@@ -20,7 +20,7 @@ export default function FooterCom() {
        </div>
 
         <div className="text-xs mt-2">
-         <Footer.LinkGroup row>
+         <Footer.LinkGroup>
 
          <Footer.Link
          href='/about'

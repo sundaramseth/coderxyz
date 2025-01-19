@@ -1,16 +1,14 @@
 
-import { Avatar, Button, Dropdown, Navbar,  } from "flowbite-react";
+import { Avatar, Button, Dropdown  } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { TextInput } from "flowbite-react";
-import { AiOutlineSearch, AiOutlineMoon, AiOutlineSun } from "react-icons/ai";
-import { HiViewGrid } from "react-icons/hi";
+import { AiOutlineSearch } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {toggleTheme} from '../redux/theme/themeSlice';
-import { PiSignOutFill } from "react-icons/pi";
 import { signOutUser } from "../redux/user/userSlice";
 import { useEffect, useState } from "react";
-import { MdArticle, MdBookmark, MdDarkMode, MdPerson, MdQueryStats, MdSettings } from "react-icons/md";
+import { MdArticle, MdBookmark, MdDarkMode, MdLightMode, MdPerson, MdQueryStats, MdSettings } from "react-icons/md";
 
 
 export default function Header() {
@@ -27,7 +25,7 @@ export default function Header() {
   const {theme} = useSelector(state => state.theme);
   const [searchTerm, setSearchTerm] = useState('');
 
-  console.log(currentUser)
+  // console.log(currentUser)
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -151,8 +149,8 @@ export default function Header() {
               Stats
              </Dropdown.Item>
             </Link>
-            <Dropdown.Item icon={MdDarkMode}>
-              <div onClick={()=>dispatch(toggleTheme())}>Theme {theme === 'light' ? "Dark": "Light" }</div>
+            <Dropdown.Item icon={theme === 'light' ? MdDarkMode : MdLightMode} onClick={()=>dispatch(toggleTheme())}>
+              <div>Theme {theme === 'light' ? "Dark": "Light" }</div>
             </Dropdown.Item>
             <Link to={'/dashboard?tab=settings'}>
              <Dropdown.Item icon={MdSettings}>

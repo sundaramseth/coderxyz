@@ -189,8 +189,8 @@ As part of your use of our website, you can create and post content such as blog
 
 <p className="pt-3">If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at:</p>
 
-<p className="pt-3">Email: coderxyz@gmail.com</p>
-<p className="pt-3">Address: Mirzapur, India</p>
+<p className="pt-3"><b>Email</b>: coderxyzconnect@gmail.com</p>
+<p className="pt-3"> <b>Address</b>: Mirzapur, India</p>
 
 <hr className="my-4"/>
 

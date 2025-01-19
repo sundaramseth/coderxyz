@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import {  useNavigate } from "react-router-dom";
 import { Toast, Modal, Button } from "flowbite-react";
@@ -165,9 +166,9 @@ export default function NetworkUserCard({userId}) {
     </Toast>   
    )}       
   </div>
-
-
-
-
   )
 }
+
+NetworkUserCard.propTypes = {
+  userId: PropTypes.string.isRequired,
+};

@@ -48,23 +48,42 @@ const BlogPostPreviewCard = memo(function BlogPostPreviewCard({ post }) {
     return strippedContent;
   }
 
+  function calculateTimeAgo(updatedAt) {
+    const now = new Date(); // Current time
+    const updatedTime = new Date(updatedAt); // Time from post
+    const differenceInMs = now - updatedTime; // Difference in milliseconds
+    const differenceInHours = Math.floor(differenceInMs / (1000 * 60 * 60)); // Convert to hours
+  
+    if (differenceInHours === 0) {
+      const differenceInMinutes = Math.floor(differenceInMs / (1000 * 60));
+      return differenceInMinutes <= 1
+        ? `${differenceInMinutes} minute ago`
+        : `${differenceInMinutes} minutes ago`;
+    }
+  
+    return differenceInHours === 1
+      ? `${differenceInHours} hour ago`
+      : `${differenceInHours} hours ago`;
+  }
+  
+
   return (
-    <div className="flex flex-col w-full py-1 px-2">
-      {/* Post card */}
       <div className="flex flex-col w-full">
-        <div className="flex flex-row w-full my-2 bg-white dark:bg-transparent border dark:border-gray-600 rounded-lg gap-1">
+        <div className="flex flex-row w-full bg-white dark:bg-transparent border dark:border-gray-600 rounded-none md:rounded-lg gap-1">
           <div className="w-2/6 md:mt-0 mt-5 ml-4 flex flex-col justify-start md:justify-center items-center">
             <Link to={`/post/${post.slug}`}>
-              <img src={post.postImage} className="w-40 md:h-28 h-16" />
+              <img src={post.postImage} className=" bg-gray-300" />
             </Link>
           </div>
 
           <div className="w-full m-3 flex flex-col justify-between">
             <div className="text-sm text-gray-600 mt-2 mb-3 flex flex-row gap-1 items-center">
+              <div className="w-7 h-7 bg-gray-300 rounded-full">
               <img
                 src={user.profilePicture}
-                className="w-7 rounded-full bg-gray-300"
+                className="h-full rounded-full bg-gray-300"
               />
+              </div>
               <span className="font-semibold">{user.username}</span>
             </div>
 
@@ -82,7 +101,7 @@ const BlogPostPreviewCard = memo(function BlogPostPreviewCard({ post }) {
             <div className="flex flex-row gap-4 mt-4 mb-2">
               <div className="text-sm text-gray-600 flex flex-row gap-2 items-center">
                 <CiTimer />
-                <span>{new Date(post.createdOn).getHours()} hours ago</span>
+                <span>{calculateTimeAgo(post.updatedAt)}</span>
               </div>
 
               <div className="flex text-sm text-gray-600 flex flex-row gap-2 items-center">
@@ -103,7 +122,6 @@ const BlogPostPreviewCard = memo(function BlogPostPreviewCard({ post }) {
           </div>
         </div>
       </div>
-    </div>
   );
 });
 

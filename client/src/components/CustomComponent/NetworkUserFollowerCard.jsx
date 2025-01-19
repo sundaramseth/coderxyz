@@ -1,45 +1,59 @@
-import { useEffect, useState, memo } from 'react';
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import {  useNavigate } from "react-router-dom";
 import { Toast, Modal, Button } from "flowbite-react";
 import { HiExclamation } from 'react-icons/hi';
 import { RiUserUnfollowLine } from 'react-icons/ri';
-import PropTypes from 'prop-types';
+export default function NetworkUserFollowerCard({userId}) {
 
-const UserFollowCard = memo(function UserFollowCard({user}) {
+    // alert(userId);
       const navigate = useNavigate();
       const API_URL = import.meta.env.VITE_API_URL;
 
       const { currentUser } = useSelector((state) => state.user);
+
+      const [user, setUser] = useState({});
 
       const [followTheChannel, setFollowTheChannel] = useState(false);
 
       const [followError, setFollowError] = useState(null);
       const [openModal, setOpenModal] = useState(false);
 
-
       useEffect(()=>{
-        if(currentUser){
-          const getUser = async () =>{
-              try {
-  
-                  const res = await fetch(`${API_URL}/api/user/${currentUser.rest._id}`);
-                  const data = await res.json();
-                  if(res.ok){
-                    if(data.following.includes(user._id)){
-                      setFollowTheChannel(true);
-                    }
-                    else{
-                      setFollowTheChannel(false);
+        const getCurrentUser = async () =>{
+            try {
+
+                const res = await fetch(`${API_URL}/api/user/${currentUser.rest._id}`);
+                const data = await res.json();
+                if(res.ok){
+                  if(data.following.includes(userId)){
+                    setFollowTheChannel(true);
                   }
+                  else{
+                    setFollowTheChannel(false);
                 }
-              } catch (error) {
-                  console.log(error.message);
               }
-          }
-          getUser();
+            } catch (error) {
+                console.log(error.message);
+            }
         }
-      },[user._id]);
+        getCurrentUser();
+
+        const getUser = async () =>{
+          try {
+
+            const res = await fetch(`${API_URL}/api/user/${userId}`);
+            const data = await res.json();
+            if(res.ok){
+               setUser(data)
+          }
+        } catch (error) {
+            console.log(error.message);
+        }
+        }
+        getUser();
+      },[userId]);
 
       const followChannel = async (userId) =>{
     
@@ -62,7 +76,7 @@ const UserFollowCard = memo(function UserFollowCard({user}) {
            setFollowError(data.message);
           }
           else{
-              setFollowTheChannel(true);
+            setFollowTheChannel(true);
           }
       } catch (error) {
           console.log(error);
@@ -96,31 +110,24 @@ const UserFollowCard = memo(function UserFollowCard({user}) {
         console.log(error);
     }
     }
-
-    function truncateContent(content, maxLength) {
-      if (content.length <= maxLength) {
-        return content;
-      }
-      return content.slice(0, maxLength) + '...';
-    }
-
     
 
   return (
-    <div  className="flex flex-row py-2 border-b border-b-gray-100 dark:border-b-gray-600 ">
+    <div key={user._id} className="p-3 flex flex-row gap-1 border-b border-b-gray-100 dark:border-b-gray-600 ">
     <div className="flex flex-row w-full justify-between items-center text-left gap-2">
     
-    <div className="w-8 h-8 rounded-full">
-     <img src={user && user.profilePicture}  className="h-full bg-gray-300 rounded-full"/>
+    <div className="w-auto rounded-full">
+     <img src={user.profilePicture}  className="w-10 rounded-full"/>
     </div>
 
-    <div className="w-2/5">
-    <p className="text-sm text-left text-gray-800 dark:text-gray-300 font-semibold"> {truncateContent(user.username, 10)} </p>
+    <div className="w-3/4">
+    <p className="text-sm text-left text-gray-800 dark:text-gray-300 font-semibold"> {user.username} </p>
+    <p className='text-sm text-left text-gray-700 dark:text-gray-400'>{user.about}</p>
     </div>
 
-    <div className="w-2/5 flex justify-end">
+    <div className="w-1/4 flex justify-end">
     {followTheChannel ? (
-       <button type='text' className='p-0 px-1 m-0 text-xs rounded-sm  bg-slate-50 text-gray-900 font-medium' onClick={()=>setOpenModal(true)}>Following</button>
+    <button type='text' className='p-0 px-1 m-0 text-xs rounded-sm  bg-slate-50 text-gray-900 font-medium' onClick={()=>setOpenModal(true)}>Following</button>
     ):(
     <button type='text' className='p-0 px-1 m-0 text-xs rounded-sm bg-slate-50 text-gray-900 font-medium'  onClick={()=>{followChannel(user._id)}}>Follow</button>
  
@@ -129,7 +136,7 @@ const UserFollowCard = memo(function UserFollowCard({user}) {
     </div>
     </div>
 
-    <Modal show={openModal} size="sm" onClose={() => setOpenModal(false)} popup>
+  <Modal show={openModal} size="sm" onClose={() => setOpenModal(false)} popup>
     <Modal.Body className='py-5 px-0'>
           <div className="text-center">
             <RiUserUnfollowLine  className="mx-auto mb-4 h-9 w-9 text-gray-400 dark:text-gray-200" />
@@ -147,7 +154,7 @@ const UserFollowCard = memo(function UserFollowCard({user}) {
             </div>
           </div>
         </Modal.Body>
-    </Modal>
+</Modal>
    {followError && 
    (
     <Toast className='absolute bottom-2'>
@@ -159,18 +166,9 @@ const UserFollowCard = memo(function UserFollowCard({user}) {
     </Toast>   
    )}       
   </div>
-
-
   )
-});
+}
 
-UserFollowCard.propTypes = {
-  user: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    profilePicture: PropTypes.string,
-    username: PropTypes.string.isRequired,
-  }).isRequired,
+NetworkUserFollowerCard.propTypes = {
+  userId: PropTypes.string.isRequired,
 };
-
-export default UserFollowCard;
-

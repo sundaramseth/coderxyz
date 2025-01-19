@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import BlogPostPreviewCard from '../components/CustomComponent/BlogPostPreviewCard';
 import { Badge } from "flowbite-react";
+import { Spinner } from 'flowbite-react';
 
 export default function Search() {
   const [sidebarData, setSidebarData] = useState({
@@ -103,15 +104,20 @@ export default function Search() {
    <div className="flex flex-col md:flex-row w-full md:w-3/5 justify-center gap-4">
     
     {/* search result left section */}
-      <div className='w-full'>
+      <div className='w-full flex flex-col'>
         <h1 className='text-3xl font-semibold p-3 mt-5 '>
          Result for {sidebarData.searchTerm}
         </h1>
-        <div className='p-3 flex flex-wrap gap-0'>
+        <div className='flex flex-col gap-2 md:px-0 px-5'>
           {!loading && posts.length === 0 && (
             <p className='text-xl text-gray-500'>No posts found.</p>
           )}
-          {loading && <p className='text-xl text-gray-500'>Loading...</p>}
+         {loading &&
+             (
+             <div className="flex flex-row justify-center items-center pt-10">
+                 <Spinner size="xl" />
+             </div>
+            )}
           {!loading &&
             posts &&
             posts.map((post) => <BlogPostPreviewCard key={post._id} post={post} />)}
@@ -128,7 +134,7 @@ export default function Search() {
 
       {/* right section */}
 
-    <div className="w-auto">
+    <div className="w-auto flex flex-col">
     <div className="w-full justify-center md:mt-2 md:sticky md:top-20">
     <div className="flex flex-col md:w-60 bg-white dark:bg-transparent md:m-0 m-5 mt-2 rounded-lg border dark:border-gray-600 ">
     <div className="flex flex-col w-full">

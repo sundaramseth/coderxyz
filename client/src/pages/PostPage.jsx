@@ -1,7 +1,7 @@
 import { Spinner,Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaThumbsUp } from "react-icons/fa";
 import CommentSection from "../components/CommentSection";
 import { useSelector } from "react-redux";
@@ -14,10 +14,8 @@ import { BsBookmarkHeartFill } from "react-icons/bs";
 import RecentPostCard from "../components/CustomComponent/RecentPostCard";
 import FooterCom from "../components/Footer";
 export default function PostPage() {
-  const location = useLocation();
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -34,68 +32,92 @@ export default function PostPage() {
 
   // Retrieve token stored after login
 
-  console.log(error)
-  
+  // console.log(currentUser)
+  // console.log(error)
+
   useEffect(() => {
-
+    const fetchPost = async () => {
       try {
-        const fetchPost = async () => {
-        setLoading(false);
-        const res = await fetch(`${API_URL}/api/post/getposts?slug=${postSlug}`);
-        const data = await res.json();
-
-        if (!res.ok) {
-          setError(true);
+        setLoading(true);
+  
+        // Fetch post data
+        const resPost = await fetch(`${API_URL}/api/post/getposts?slug=${postSlug}`);
+        const dataPost = await resPost.json();
+  
+        if (!resPost.ok) {
           setLoading(false);
           return;
         }
-
-        if (res.ok) {
-          setPost(data.posts[0]);
-          setLoading(false);
-          setError(false);
-          if(data.posts[0].usersavedpost.includes(currentUser.rest._id)){
-            setSaveYourPost(true);
-          }
-
-
-          const res = await fetch(`${API_URL}/api/user/${data.posts[0].userId}`);
-          const data3 = await res.json();
-          if(res.ok){
-            setUser(data3);
-          }
-        
-
-
-          const res2 = await fetch(`${API_URL}/api/post/getauthorposts/${data.posts[0].userId}`);
-          const data2 = await res2.json();
-          if (res2.ok) {
-            setRecentPostAuthor(data2);
-          }
-          
+  
+        const post = dataPost.posts[0];
+        setPost(post);
+  
+        // Check if the post is saved by the current user
+        if (post.usersavedpost.includes(currentUser && currentUser.rest._id)) {
+          setSaveYourPost(true);
+        } else {
+          setSaveYourPost(false);
         }
-      };
-      fetchPost();
-      } catch (error) {
-        setError(true);
+  
+        // Fetch recent posts by the same author
+        const resAuthorPosts = await fetch(`${API_URL}/api/post/getauthorposts/${post.userId}`);
+        const dataAuthorPosts = await resAuthorPosts.json();
+        if (resAuthorPosts.ok) {
+          setRecentPostAuthor(dataAuthorPosts);
+        }
+  
+        // Fetch user data after fetching the post
+        const resUser = await fetch(`${API_URL}/api/user/${post.userId}`);
+        const dataUser = await resUser.json();
+        if (resUser.ok) {
+          setUser(dataUser);
+        }
+  
         setLoading(false);
-        console.log(error);
-      }
-
-      try {
-        const fetchRecentPosts = async () => {
-          const res = await fetch(`${API_URL}/api/post/getPosts?limit=5`);
-          const data = await res.json();
-          if (res.ok) {
-            setRecentPost(data.posts);
-          }
-        };
-        fetchRecentPosts();
       } catch (error) {
-        console.log(error.message);
+        setLoading(false);
+        console.error("Error fetching post or user data:", error);
       }
+    };
+  
+    fetchPost();
+  }, [postSlug, API_URL, currentUser]);
 
-  }, [postSlug]);
+
+useEffect(() => {
+  try {
+    const fetchRecentPosts = async () => {
+      const res = await fetch(`${API_URL}/api/post/getPosts?limit=5`);
+      const data = await res.json();
+      if (res.ok) {
+        setRecentPost(data.posts);
+      }
+    };
+    fetchRecentPosts();
+  } catch (error) {
+    console.log(error.message);
+  }
+}, []);
+
+
+useEffect(()=>{
+  try {
+    const getComments = async () =>{
+    const res = await fetch(`${API_URL}/api/comment/getPostComments/${post && post._id}`);
+    if(res.ok){
+      const data = await res.json();
+      setComments(data);
+    }
+  }
+  getComments();
+    
+  } catch (error) {
+    console.log(error)
+  }
+
+
+},[post && post._id]);
+
 
 
   const handlePostLikes = async (postId) => {
@@ -115,7 +137,7 @@ export default function PostPage() {
 
       if (res.ok) {
         const data = await res.json();
-        console.log(data);
+        // console.log(data);
         setPost({
           ...post,
           likes: data.likes,
@@ -134,45 +156,6 @@ export default function PostPage() {
       setOpenComment(true);
     }
   };
-
-
-
-  useEffect(()=>{
-    try {
-      const getComments = async () =>{
-      const res = await fetch(`${API_URL}/api/comment/getPostComments/${post && post._id}`);
-      if(res.ok){
-        const data = await res.json();
-        setComments(data);
-      }
-    }
-    getComments();
-      
-    } catch (error) {
-      console.log(error)
-    }
-
-
-},[post && post._id]);
-
-
-// useEffect(()=>{
-//   try {
-//     const getUser = async () =>{
-//   const res = await fetch(`${API_URL}/api/user/${post && post.userId}`);
-//   const data = await res.json();
-//   if(res.ok){
-//     setUser(data);
-//   }
-
-// }
-// getUser();
-// } catch (error) {
-//   console.log(error.message);
-// }
-
-// },[post && post.userId]);
-
 
 
 const savePost = async(userId, postId)=>{
@@ -237,12 +220,12 @@ const unsavePost = async(userId, postId)=>{
 }
 
 
-  if (loading)
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <Spinner size="xl" />
-      </div>
-    );
+  // if (loading)
+  //   return (
+  //     <div className="flex justify-center items-center min-h-screen">
+  //       <Spinner size="xl" />
+  //     </div>
+  //   );
 
   return (
     <main className="flex flex-col md:flex-row w-full mx-auto min-h-screen pt-20 pb-0 md:pb-5 justify-center gap-3">
@@ -250,6 +233,13 @@ const unsavePost = async(userId, postId)=>{
 
       <div className="flex flex-col md:flex-row w-full md:p-0 p-2 md:w-3/5 gap-4">
             {/* Left Section */}
+
+            {loading ?
+             (
+             <div className="w-full flex flex-row justify-center items-start pt-10">
+                 <Spinner size="xl" />
+             </div>
+            ):(<>
         <div className="flex flex-col">
         <div className="flex flex-col  bg-white dark:bg-transparent  rounded-lg border dark:border-gray-600  w-full">
           <div className="flex w-full">
@@ -273,7 +263,7 @@ const unsavePost = async(userId, postId)=>{
               <p className="text-sm font-semibold">{user && user.username}</p>
               <p className="text-sm">
                 {" "}
-                {new Date(post && post.createdOn).toLocaleDateString()}
+                {new Date(post && post.updatedAt).toLocaleDateString()}
               </p>
               <p className="text-sm flex flex-row items-center gap-2">
                 {post && post.category} <FaDotCircle size={7} />{" "}
@@ -405,6 +395,7 @@ const unsavePost = async(userId, postId)=>{
 
       </div>
 </div>
+</>)}
         
       {/* Right Section  */}
       <div className="flex flex-col w-auto md:p-0">
@@ -436,7 +427,7 @@ const unsavePost = async(userId, postId)=>{
                         </p>
                       </Link>
                       <p className="text-xs text-gray-500 flex flex-row gap-1 items-center">
-                        {new Date(post.createdOn).toLocaleDateString()}{" "}
+                        {new Date(post.updatedAt).toLocaleDateString()}{" "}
                         <FaDotCircle size={8} /> {post.numberOfLikes} likes
                       </p>
                     </div>
@@ -460,7 +451,7 @@ const unsavePost = async(userId, postId)=>{
         <Modal.Body>
         <ShareSocial 
           title={'share on social media'} 
-     url ={`https://coderxyz.com${location.pathname}`}
+     url ={`https://coderxyz.com/post/${postSlug}`}
      socialTypes={['facebook','twitter','reddit','linkedin', 'whatsapp','telegram','email']}
      style={style}
    />

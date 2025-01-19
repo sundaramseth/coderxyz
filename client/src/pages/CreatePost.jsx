@@ -21,7 +21,23 @@ export default function CreatePost() {
   const [publishError, setPublishError] = useState(null);
 
 
-  var category = ["LifeStyle", "Programming", "Science", "Technology", "News", "Jobs", "Informative", "Entertainment", "Products", "Maths"];
+  const category = [
+    "LifeStyle",
+    "React",
+    "Java",
+    "DSA",
+    "System",
+    "Design",
+    "Programming",
+    "Science",
+    "Technology",
+    "News",
+    "Jobs",
+    "Informative",
+    "Entertainment",
+    "Products",
+    "Maths",
+  ];
   var modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],

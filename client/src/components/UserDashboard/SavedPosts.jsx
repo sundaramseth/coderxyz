@@ -38,17 +38,22 @@ try {
    <div className="flex md:flex-row w-full md:w-3/5 flex-col-reverse justify-center gap-4">
     
     {/* search result left section */}
-      <div className='w-full'>
-        <h1 className='text-3xl font-semibold p-3 mt-5 '>
+      <div className='w-full md:px-0 px-5'>
+        <h1 className='text-3xl font-semibold p-3'>
          Saved Item
         </h1>
 
-         <div className="flex flex-col w-full p-2">
+         <div className="flex flex-col w-full gap-2">
           
          {posts && posts.length > 0 ? (
           <>
             {posts.map((post) => (
-                  <BlogPostPreviewCard key={post._id} post={post} />
+                <div
+                   key={post._id}
+                   className="transition-all duration-300 min-h-48"
+                 >
+                  <BlogPostPreviewCard post={post} />
+                  </div>
                 ))}
               </>
             ):(
@@ -71,7 +76,7 @@ try {
       <img 
       className="w-full max-h-24 rounded-tr-lg rounded-tl-lg" 
         alt='background'
-        src="https://t4.ftcdn.net/jpg/05/49/86/39/360_F_549863991_6yPKI08MG7JiZX83tMHlhDtd6XLFAMce.jpg"
+        src={currentUser.rest?.profileBgPicture}
         />
       <Link to='/dashboard?tab=profile'>
       <img 

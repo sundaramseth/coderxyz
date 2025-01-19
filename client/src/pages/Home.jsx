@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import HomeRightSection from "../components/HomeRightSection";
 import BlogPostPreviewCard from "../components/CustomComponent/BlogPostPreviewCard";
 import CustomCarousel from '../components/CustomComponent/CustomCarousel';
+import { Spinner } from 'flowbite-react';
 
 export default function Home() {
 
@@ -16,7 +17,7 @@ export default function Home() {
     try {
       const fetchPosts = async () => {
         setLoading(true);
-        const res = await fetch(`${API_URL}/api/post/getPosts?limit=10?order="asc"`);
+        const res = await fetch(`${API_URL}/api/post/getPosts?limit=10`);
         const data = await res.json();
 
         if(res.ok){
@@ -32,17 +33,17 @@ export default function Home() {
     } catch (error) {
       console.log(error.message);
     }
-  }, []);
+  }, [API_URL]);
 
 
   const handleShowMoreForPost =  async () =>{
     const startIndex = posts.length;
     try {
-      const res = await fetch(`${API_URL}/api/post/getPosts?startIndex=${startIndex}`); 
+      const res = await fetch(`${API_URL}/api/post/getPosts?startIndex=${startIndex}?limit=5`); 
       const data = await res.json();
       if(res.ok){
         setPosts((prev)=>[...prev, ...data.posts]);
-        if(data.posts.length <10){
+        if(data.posts.length <5){
           setShowMore(false);
         }
       }
@@ -51,39 +52,55 @@ export default function Home() {
     }
   }
 
-
-
-
-
   return (
     <>
 
 {/* main section */}
 
-<div className="flex flex-col w-full pt-20 justify-center items-center">
+<div className="flex flex-col w-full pt-20 pb-4 justify-center items-center">
 <div className="flex flex-col w-full md:w-3/4 lg:w-3/5 justify-center gap-5">
  
 
  {/* top section */}
  <div className="flex flex-row w-full">
- <CustomCarousel />
+        <div className='min-h-16 w-full'>
+          {/* Reserve space for the carousel */}
+          <CustomCarousel />
+        </div>
  </div>
 
  {/* mid section */}
-<div className="flex md:flex-row flex-col w-full justify-center">
+<div className="flex md:flex-row flex-col w-full justify-center gap-2">
 
  {/* left section */}
- <div className="flex flex-col w-full p-2">
+ <div className="flex flex-col w-full min-h-screen gap-2">
 
- {loading && <p className='text-xl text-gray-500'>Loading...</p>}
+    {loading ?
+      (
+      <div className="flex justify-center items-start pt-10 min-h-screen">
+          <Spinner size="xl" />
+      </div>
+      ):(
+        <>
+          {posts && posts.length > 0 ? (
+            <>
+            {posts.map((post) => (
+            <div
+              key={post._id}
+              className="transition-all duration-300 min-h-48"
+            >
+            <BlogPostPreviewCard post={post} />
+            </div>
+           ))}
+            </>
+          ): (
+            <p className="text-center text-gray-500">No posts available</p>
+          )}
+        </>
+      )
+   }
   
- {!loading && posts && posts.length > 0 && (
-  <>
-    {posts.map((post) => (
-          <BlogPostPreviewCard key={post._id} post={post} />
-        ))}
-      </>
-    )}
+
 
 {showMore && (
   <button onClick={handleShowMoreForPost} className="w-full text-teal-500 self-center text-sm pb-2">
@@ -92,7 +109,7 @@ export default function Home() {
   )}
  </div>
 
- <div className="hidden md:flex">
+ <div className="hidden md:flex min-w-64 min-h-screen">
  {/* Right Section  */} 
  <HomeRightSection/>
  </div>

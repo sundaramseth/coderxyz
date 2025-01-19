@@ -51,6 +51,25 @@ const RecentPostCard = memo(function RecentPostCard({ post }) {
     return strippedContent;
   }
 
+  function calculateTimeAgo(updatedAt) {
+    const now = new Date(); // Current time
+    const updatedTime = new Date(updatedAt); // Time from post
+    const differenceInMs = now - updatedTime; // Difference in milliseconds
+    const differenceInHours = Math.floor(differenceInMs / (1000 * 60 * 60)); // Convert to hours
+  
+    if (differenceInHours === 0) {
+      const differenceInMinutes = Math.floor(differenceInMs / (1000 * 60));
+      return differenceInMinutes <= 1
+        ? `${differenceInMinutes} minute ago`
+        : `${differenceInMinutes} minutes ago`;
+    }
+  
+    return differenceInHours === 1
+      ? `${differenceInHours} hour ago`
+      : `${differenceInHours} hours ago`;
+  }
+  
+
   return (
     <div className="flex flex-col w-full bg-white dark:bg-[rgb(16,23,42)] rounded gap-1 justify-between">
       <div className="flex-1 justify-center items-center w-full h-28 md:h-48 p-2">
@@ -91,9 +110,7 @@ const RecentPostCard = memo(function RecentPostCard({ post }) {
         <div className="flex flex-row md:gap-4 gap-2 mt-4 mb-2 items-center">
           <div className="text-sm text-gray-600 flex flex-row  md:gap-2 gap-1 items-center">
             <CiTimer className="pt-[2px] md:text-sm text-xs" />{" "}
-            <span className="text-xs md:text-sm">
-              {new Date(post.createdOn).getHours()}&nbsp;h&nbsp;ago
-            </span>
+            <span>{calculateTimeAgo(post.updatedAt)}</span>
           </div>
 
           <div className="text-sm text-gray-600 flex flex-row  md:gap-2 gap-1 items-center">

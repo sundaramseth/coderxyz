@@ -106,14 +106,31 @@ export default function UserPostPreviewCard() {
     return strippedContent;
   }
 
+  function calculateTimeAgo(updatedAt) {
+    const now = new Date(); // Current time
+    const updatedTime = new Date(updatedAt); // Time from post
+    const differenceInMs = now - updatedTime; // Difference in milliseconds
+    const differenceInHours = Math.floor(differenceInMs / (1000 * 60 * 60)); // Convert to hours
+  
+    if (differenceInHours === 0) {
+      const differenceInMinutes = Math.floor(differenceInMs / (1000 * 60));
+      return differenceInMinutes <= 1
+        ? `${differenceInMinutes} minute ago`
+        : `${differenceInMinutes} minutes ago`;
+    }
+  
+    return differenceInHours === 1
+      ? `${differenceInHours} hour ago`
+      : `${differenceInHours} hours ago`;
+  }
+  
   return (
     <>
       <div className=" md:mx-auto p-3">
         {currentUser && userPosts.length > 0 ? (
           <>
-            {userPosts.map((post) => (
-              <>
-                <div className="flex flex-col w-full py-1 px-2">
+            {userPosts.map((post,index) => (
+                <div key={index} className="flex flex-col w-full py-1 px-2">
                   {/* post card */}
                   <div className="flex flex-col w-full">
                     <div className="flex flex-row w-full my-2 bg-white dark:bg-transparent  border dark:border-gray-600 rounded-lg gap-2">
@@ -145,9 +162,7 @@ export default function UserPostPreviewCard() {
                           <div className="flex flex-row md:gap-4 gap-2 justify-between items-center">
                             <div className="md:text-sm text-xs text-gray-600 flex flex-row gap-2 items-center">
                               <CiTimer className="text-sm" />{" "}
-                              <span className="md:text-sm text-xs">
-                                {new Date(post.createdOn).getHours()}&nbsp;h&nbsp;ago
-                              </span>
+                              <span>{calculateTimeAgo(post.updatedAt)}</span>
                             </div>
 
                             <div className=" text-gray-600 flex flex-row md:gap-2 gap-1 items-center">
@@ -222,7 +237,6 @@ export default function UserPostPreviewCard() {
                     </Modal.Body>
                   </Modal>
                 </div>
-              </>
             ))}
             {showMore && (
               <button

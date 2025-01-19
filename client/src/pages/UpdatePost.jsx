@@ -38,6 +38,25 @@ export default function UpdatePost() {
     const { currentUser } = useSelector((state) => state.user);
 
     
+
+  const category = [
+    "LifeStyle",
+    "React",
+    "Java",
+    "DSA",
+    "System",
+    "Design",
+    "Programming",
+    "Science",
+    "Technology",
+    "News",
+    "Jobs",
+    "Informative",
+    "Entertainment",
+    "Products",
+    "Maths",
+  ];
+    
     useEffect(() => {
       const fetchPost = async () => {
         try {
@@ -166,19 +185,13 @@ export default function UpdatePost() {
             }
             value={formData.title}
           />
-          <Select
-            onChange={(e) =>
-              setFormData({ ...formData, category: e.target.value })
-            }
-            value={formData.category}
-          >
-            <option value='uncategorized'>Select a category</option>
-            <option value="JavaScript">JavaScript</option>
-            <option value="React">React</option>
-            <option value="Programing">Programing</option>
-            <option value="Stocks">Stocks</option>
-            <option value="LifeStyle">LifeStyle</option>
-          </Select>
+        <Select onChange={(e)=>setFormData({...formData, category:e.target.value})}
+              id='category'>
+            <option value="uncategorized">Select a category</option>
+            {category && category.map((value) => (
+            <option value={value.toLocaleLowerCase()} key={value}>{value}</option>
+            ))}
+        </Select>
         </div>
 
         <div>

@@ -23,7 +23,7 @@ export default function DashPosts() {
       <img 
       className="w-full max-h-24 rounded-tr-lg rounded-tl-lg" 
         alt='background'
-        src="https://t4.ftcdn.net/jpg/05/49/86/39/360_F_549863991_6yPKI08MG7JiZX83tMHlhDtd6XLFAMce.jpg"
+        src={currentUser.rest?.profileBgPicture}
         />
       <Link to='/dashboard?tab=profile'>
       <img 

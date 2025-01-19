@@ -25,7 +25,7 @@ export default function Dashboard() {
 
   }, [location.search])
   return (
-    <div className="min-h-screen flex flex-col md:flex-row py-20">
+    <div className="min-h-screen flex flex-col md:flex-row pt-20 pb-5">
 
       {/* Profile */}
       {tab === 'profile' && <DashProfile/>} 

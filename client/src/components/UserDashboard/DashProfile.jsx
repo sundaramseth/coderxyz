@@ -11,6 +11,7 @@ import { LuUsers } from "react-icons/lu";
 import UserPostCard from "../CustomComponent/UserPostCard";
 
 import NetworkUserCard from "../CustomComponent/NetworkUserCard";
+import NetworkUserFollowerCard from "../CustomComponent/NetworkUserFollowerCard";
 
 
 
@@ -52,6 +53,7 @@ export default function DashProfile() {
           const data = await res.json();
           if(res.ok){
              setUser(data)
+            //  console.table(data)
         }
       } 
       getUser();
@@ -141,8 +143,8 @@ export default function DashProfile() {
            <div className="flex flex-col">
           {user.followers ? ( 
           <>
-           {user.followers.map((userId)=>(
-            <NetworkUserCard key={userId} userId={userId} />
+           {user.followers.map((userId, index)=>(
+            <NetworkUserFollowerCard key={index} userId={userId} />
           ))}
           </>
         ):(
@@ -154,8 +156,8 @@ export default function DashProfile() {
           <div className="flex flex-col">
           {user.following ? ( 
           <>
-           {user.following.map((userId)=>(
-            <NetworkUserCard key={userId} userId={userId} />
+           {user.following.map((userId, index)=>(
+            <NetworkUserCard key={index} userId={userId} />
           ))}
           </>
         ):(

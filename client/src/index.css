@@ -19,6 +19,13 @@
   box-sizing: border-box;   /* Include padding and border in the width/height */
   width: 100% !important;
 }
+
+img{
+  width: 100%;
+  height: auto;
+}
+
+
 .border-b-1{
     border-bottom: 1px solid gray;
 }

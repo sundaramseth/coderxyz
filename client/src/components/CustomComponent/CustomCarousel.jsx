@@ -1,19 +1,16 @@
-
 import { useNavigate } from 'react-router-dom';
-import {  Button } from "flowbite-react";
+import { Button } from "flowbite-react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const CustomCarousel = () => {
-
-  
   const navigate = useNavigate();
 
   const settings = {
     dots: false,
     speed: 100,
-    slidesToShow: 8,
+    slidesToShow: 7,
     slidesToScroll: 2,
     infinite: true,
     autoplay: false,
@@ -25,56 +22,70 @@ const CustomCarousel = () => {
           slidesToShow: 6,
           slidesToScroll: 3,
           infinite: true,
-          dots: true
-        }
+          dots: true,
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 4,
           slidesToScroll: 2,
-          initialSlide: 2
-        }
+          initialSlide: 2,
+        },
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 4,
-          slidesToScroll: 4
-        }
-      }
-    ]
+          slidesToScroll: 4,
+        },
+      },
+    ],
   };
 
-  const category = ["LifeStyle", "React", "Java", "DSA", "System", "Design",  "Programming", "Science", "Technology", "News", "Jobs", "Informative", "Entertainment", "Products", "Maths"];
+  const category = [
+    "LifeStyle",
+    "React",
+    "Java",
+    "DSA",
+    "System",
+    "Design",
+    "Programming",
+    "Science",
+    "Technology",
+    "News",
+    "Jobs",
+    "Informative",
+    "Entertainment",
+    "Products",
+    "Maths",
+  ];
 
-  const searchByTag = (e) =>{
+  const searchByTag = (e) => {
     const urlParams = new URLSearchParams(location.search);
-    urlParams.set('searchTerm', e);
-    urlParams.set('category', e);
+    urlParams.set("searchTerm", e);
+    urlParams.set("category", e);
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
-    console.log(e)
-  }
+    console.log(e);
+  };
 
   return (
-    <div className="w-full mt-2" style={{ position: 'relative'}}>
-     <Slider {...settings}>
-     {category.map((slide) => (
-      <>
-        <div className="mx-1" key={slide.id}>
-          <Button   color="gray" value={slide} className='w-full cursor-pointer' 
-             onClick={()=>searchByTag(slide.toLowerCase())}>
-            {slide}
-           </Button>
-      </div>
-      </>
-
+    <div className="w-full mt-2" style={{ position: "relative" }}>
+      <Slider {...settings}>
+        {category.map((slide, index) => (
+          <div className="px-1" key={index}>
+            <Button
+              color="gray"
+              value={slide}
+              className="w-full cursor-pointer"
+              onClick={() => searchByTag(slide.toLowerCase())}
+            >
+              {slide}
+            </Button>
+          </div>
         ))}
-        
       </Slider>
-
-      
     </div>
   );
 };

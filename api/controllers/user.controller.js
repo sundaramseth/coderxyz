@@ -153,15 +153,12 @@ export const getUser = async (req, res, next) => {
         }      
         const channel = await User.findByIdAndUpdate(
           req.params.userId,
-            { $push: { followers: req.params.userId } },
+            { $push: { followers: req.user.id } },
             { new: true } // Return the updated document
           );
 
       if (!channel) {
         return next(errorHandler(404, 'Channel not found'));
-      }
-      if (channel.following.includes(req.user.id)) {
-        return next(errorHandler(400, 'You are already following this channel'));
       }
 
       res.status(200).json('Successfully Subscribed to this channel');
@@ -188,7 +185,7 @@ export const getUser = async (req, res, next) => {
 
           const channel = await User.findByIdAndUpdate(
             req.params.userId,
-              { $pull: { followers: req.params.userId } },
+              { $pull: { followers: req.user.id } },
               { new: true } // Return the updated document
             );
 
