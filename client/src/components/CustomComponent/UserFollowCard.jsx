@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import {  useNavigate } from "react-router-dom";
 import { Toast, Modal, Button } from "flowbite-react";
 import { HiExclamation } from 'react-icons/hi';
-import { RiUserUnfollowLine } from 'react-icons/ri';
 import PropTypes from 'prop-types';
 
 const UserFollowCard = memo(function UserFollowCard({user}) {
@@ -111,7 +110,7 @@ const UserFollowCard = memo(function UserFollowCard({user}) {
     <div className="flex flex-row w-full justify-between items-center text-left gap-2">
     
     <div className="w-8 h-8 rounded-full">
-     <img src={user && user.profilePicture}  className="h-full bg-gray-300 rounded-full"/>
+     <img src={user && user.profilePicture}  className="h-full bg-gray-300 rounded-full" loading="lazy" />
     </div>
 
     <div className="w-2/5">
@@ -132,7 +131,6 @@ const UserFollowCard = memo(function UserFollowCard({user}) {
     <Modal show={openModal} size="sm" onClose={() => setOpenModal(false)} popup>
     <Modal.Body className='py-5 px-0'>
           <div className="text-center">
-            <RiUserUnfollowLine  className="mx-auto mb-4 h-9 w-9 text-gray-400 dark:text-gray-200" />
             <h3 className="mb-5 text-sm font-semibold text-gray-500 dark:text-gray-400">
               You are about to unfollow {user.username}?
             </h3>

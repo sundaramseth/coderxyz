@@ -13,6 +13,7 @@
     "@lexical/react": "^0.22.0",
     "@reduxjs/toolkit": "^2.2.6",
     "axios": "^1.7.7",
+    "browser-image-compression": "^2.0.2",
     "dotenv": "^16.4.5",
     "firebase": "^10.12.3",
     "flowbite-react": "^0.10.1",

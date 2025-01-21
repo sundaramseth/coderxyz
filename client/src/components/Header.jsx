@@ -2,13 +2,12 @@
 import { Avatar, Button, Dropdown  } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { TextInput } from "flowbite-react";
-import { AiOutlineSearch } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {toggleTheme} from '../redux/theme/themeSlice';
 import { signOutUser } from "../redux/user/userSlice";
 import { useEffect, useState } from "react";
-import { MdArticle, MdBookmark, MdDarkMode, MdLightMode, MdPerson, MdQueryStats, MdSettings } from "react-icons/md";
+import { MdArticle, MdBookmark, MdDarkMode, MdLightMode, MdPerson, MdQueryStats, MdSettings, MdOutlineSearch  } from "react-icons/md";
 
 
 export default function Header() {
@@ -65,7 +64,7 @@ export default function Header() {
   return (
     <div className="flex flex-row border-b-1 w-full fixed z-10 justify-center bg-white dark:bg-[rgb(16,23,42)]">
 
-      <div className="flex flex-row w-full md:w-3/4 lg:w-3/5 justify-center items-center py-3 md:px-0 md:mx-0 mx-2">
+      <div className="flex flex-row w-full md:w-4/5 lg:w-3/4 xl:w-3/5 justify-center items-center py-3 md:px-0 md:mx-0 mx-2">
     
       <div className="flex w-1/4 justify-start items-start">
        <Link to='/' 
@@ -80,7 +79,7 @@ export default function Header() {
         <TextInput
           type='text'
           placeholder='Search...'
-          rightIcon={AiOutlineSearch}
+          rightIcon={MdOutlineSearch}
           className='hidden md:inline-block'
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -93,7 +92,7 @@ export default function Header() {
         className="w-12 h-9"
         color='gray'
         pill
-        ><AiOutlineSearch />
+        ><MdOutlineSearch />
         </Button>
           </Link>
 
@@ -123,6 +122,7 @@ export default function Header() {
             alt='user'
             img={currentUser.rest.profilePicture}
             rounded
+            loading="lazy" 
             />
           }
           >

@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 import { FaDotCircle, FaLocationArrow, FaMailchimp } from "react-icons/fa";
 import { Tabs } from "flowbite-react";
 import { HiClipboardList } from "react-icons/hi";
-import { PiArticleMedium } from "react-icons/pi";
-import { LuUsers } from "react-icons/lu";
+import { FaUsers } from "react-icons/fa6";
 import UserPostCard from "../CustomComponent/UserPostCard";
+import { MdOutlineArticle } from "react-icons/md";
 
 import NetworkUserCard from "../CustomComponent/NetworkUserCard";
 import NetworkUserFollowerCard from "../CustomComponent/NetworkUserFollowerCard";
@@ -69,7 +69,7 @@ export default function DashProfile() {
 
   return (
     
-    <div className="mx-auto w-full md:w-3/5 flex flex-col gap-4">
+    <div className="mx-auto w-full md:w-4/5 lg:w-3/4 xl:w-3/5 flex flex-col gap-4">
 
       {/* profile header */}
       <div className="flex flex-col w-full mx-auto gap-4 md:px-0 px-2">
@@ -110,7 +110,7 @@ export default function DashProfile() {
         <div className="flex flex-col gap-4 w-full mx-auto">
         <div className="flex flex-col gap-3 ">
         <Tabs aria-label="Tabs with icons" variant="underline">
-        <Tabs.Item active title="Posts" icon={PiArticleMedium}>
+        <Tabs.Item active title="Posts" icon={MdOutlineArticle}>
        
         <div className="flex flex-col gap-4">
 
@@ -120,7 +120,7 @@ export default function DashProfile() {
             <button className="bg-gray-100 text-gray-800 active:bg-gray-400 px-3 py-1 rounded-lg text-xs font-medium">Oldest</button>
           </div>
 
-          <div className="items-center grid grid-cols-2 grid-flow-row-dense md:grid-cols-4  gap-4 md:px-0 px-2">
+          <div className="items-center grid grid-cols-2 grid-flow-row-dense md:grid-cols-4 md:gap-4 gap-2 md:px-0 px-2">
           {currentUser.rest && userPosts.length>0 ? ( 
           <>
            {userPosts.map((post)=>(
@@ -134,7 +134,7 @@ export default function DashProfile() {
 
         </div>
       </Tabs.Item>
-      <Tabs.Item title="My Network" icon={LuUsers} >
+      <Tabs.Item title="My Network" icon={FaUsers} >
       <div className="flex flex-col bg-white rounded-md md:mx-0 mx-2 dark:bg-[rgb(16,23,42)]">
         <h1 className="text-md font-medium px-2 py-3 border-b">{currentUser.rest.channelName}&apos;s Networks</h1>
         <div className="custom-tabs">

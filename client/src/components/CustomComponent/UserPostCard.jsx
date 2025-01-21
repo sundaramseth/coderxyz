@@ -59,10 +59,10 @@ const UserPostCard = memo(function UserPostCard({post}) {
     
 
     return(
-            <div className="flex flex-col gap-4 w-full items-center bg-white dark:border-gray-700 dark:bg-gray-800 p-2 rounded-lg">
+            <div className="flex flex-col gap-4 w-full h-auto items-center bg-white dark:border-gray-700 dark:bg-gray-800 p-2 rounded-lg">
                  <Link to={`/post/${post.slug}`}>
-                 <img src={post && post.postImage} alt={post.title} className="w-full h-28 object-cover bg-gray-300 rounded-sm" />
-                 <p className="font-medium text-gray-800 dark:text-white text-left mt-2">{truncateContent(post.title, 45)}</p>
+                 <img src={post && post.postImage} alt={post.title} className="w-full min-h-28 object-cover bg-gray-300 rounded-sm" />
+                 <h1 className="font-medium text-gray-800 dark:text-white text-left mt-2 text-sm">{truncateContent(post.title, 35)}</h1>
                  </Link>
         
             <div className="flex flex-row gap-2 justify-start items-center w-full">

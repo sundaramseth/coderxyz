@@ -58,7 +58,7 @@ export default function Home() {
 {/* main section */}
 
 <div className="flex flex-col w-full pt-20 pb-4 justify-center items-center">
-<div className="flex flex-col w-full md:w-3/4 lg:w-3/5 justify-center gap-5">
+<div className="flex flex-col w-full md:w-4/5 lg:w-3/4 xl:w-3/5 justify-center gap-4">
  
 
  {/* top section */}
@@ -103,9 +103,11 @@ export default function Home() {
 
 
 {showMore && (
-  <button onClick={handleShowMoreForPost} className="w-full text-teal-500 self-center text-sm pb-2">
+  <div className="flex flex-col w-full min-h-5">
+  <button onClick={handleShowMoreForPost} className=" text-teal-500 self-center text-sm p-2">
       Show more
   </button>
+  </div>
   )}
  </div>
 

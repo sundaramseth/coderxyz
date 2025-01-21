@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import {  useNavigate } from "react-router-dom";
 import { Toast, Modal, Button } from "flowbite-react";
 import { HiExclamation } from 'react-icons/hi';
-import { RiUserUnfollowLine } from 'react-icons/ri';
 export default function NetworkUserCard({userId}) {
 
     // alert(userId);
@@ -117,7 +116,7 @@ export default function NetworkUserCard({userId}) {
     <div className="flex flex-row w-full justify-between items-center text-left gap-2">
     
     <div className="w-auto rounded-full">
-     <img src={user.profilePicture}  className="w-10 rounded-full"/>
+     <img src={user.profilePicture}  className="w-10 rounded-full" loading="lazy" />
     </div>
 
     <div className="w-3/4">
@@ -139,7 +138,7 @@ export default function NetworkUserCard({userId}) {
   <Modal show={openModal} size="sm" onClose={() => setOpenModal(false)} popup>
     <Modal.Body className='py-5 px-0'>
           <div className="text-center">
-            <RiUserUnfollowLine  className="mx-auto mb-4 h-9 w-9 text-gray-400 dark:text-gray-200" />
+          
             <h3 className="mb-5 text-sm font-semibold text-gray-500 dark:text-gray-400">
               You are about to unfollow {user.username}?
             </h3>

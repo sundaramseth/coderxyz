@@ -1,7 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 /* Apply background color and padding to code block content */
 .ql-syntax {
@@ -24,6 +24,20 @@ img{
   width: 100%;
   height: auto;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Open Sans", serif !important;
+  font-optical-sizing: auto;
+  line-height: 1.5;
+}
+
+p {
+  font-family: "Open Sans", serif !important;
+  font-optical-sizing: auto;
+  line-height: 1.5;
+  color: #2c2c2c;
+}
+
 
 
 .border-b-1{
@@ -84,17 +98,17 @@ font-size: 1.05rem;
 
 .post-content h1{
     font-weight: 600;
-    font-family: sans-serif;
+    font-family: "Open Sans", serif;
 
 }
 
 .post-content h2{
-    font-family: sans-serif;
+  font-family: "Open Sans", serif;
 }
 
 
 .post-content h3{
-    font-family: sans-serif;
+  font-family: "Open Sans", serif;
 }
 
 
@@ -117,7 +131,7 @@ font-size: 1.05rem;
   }
 
   .bgback{
-    background: #f4f2ee;
+    background: #f6f6f6;
   }
 
   .w-34rem{
@@ -164,4 +178,30 @@ font-size: 1.05rem;
   box-shadow: none !important;
   border: none !important;
 
+}
+
+/* <uniquifier>: Use a unique and descriptive class name */
+/* <weight>: Use a value from 300 to 800 */
+
+.open-sans-h1 {
+  font-family: "Open Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+.open-sans-p {
+  font-family: "Open Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+.link-container {
+  display: block;
+  min-height: 2rem; /* Example height */
+  width: 100%; /* Set width appropriately */
 }

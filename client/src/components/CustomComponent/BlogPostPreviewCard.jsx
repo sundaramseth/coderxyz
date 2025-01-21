@@ -69,36 +69,48 @@ const BlogPostPreviewCard = memo(function BlogPostPreviewCard({ post }) {
 
   return (
       <div className="flex flex-col w-full">
-        <div className="flex flex-row w-full bg-white dark:bg-transparent border dark:border-gray-600 rounded-none md:rounded-lg gap-1">
-          <div className="w-2/6 md:mt-0 mt-5 ml-4 flex flex-col justify-start md:justify-center items-center">
-            <Link to={`/post/${post.slug}`}>
-              <img src={post.postImage} className=" bg-gray-300" />
-            </Link>
-          </div>
-
-          <div className="w-full m-3 flex flex-col justify-between">
-            <div className="text-sm text-gray-600 mt-2 mb-3 flex flex-row gap-1 items-center">
+        <div className="flex flex-col w-full bg-white dark:bg-transparent border dark:border-gray-600 rounded-none md:rounded-lg gap-1">
+       
+          <div className="text-sm text-gray-600 flex flex-row gap-1 items-center m-4">
               <div className="w-7 h-7 bg-gray-300 rounded-full">
               <img
                 src={user.profilePicture}
                 className="h-full rounded-full bg-gray-300"
+                loading="lazy" 
               />
               </div>
               <span className="font-semibold">{user.username}</span>
-            </div>
+          </div>
 
-            <Link to={`/post/${post.slug}`}>
-              <h1 className="text-xl md:text-2xl font-bold">{post.title}</h1>
+           <div className="flex flex-row justify-between items-start w-full gap-2">
+             <div className="w-full ml-4 flex flex-col justify-between">
+            
+
+            <Link to={`/post/${post.slug}`} className="link-container">
+              <h1 className="open-sans-h1 text-lg md:text-2xl font-bold" 
+              >{post.title}</h1>
             </Link>
 
             <div
-              className={`overflow-hidden text-sm text-ellipsis pt-2`}
+              className={`overflow-hidden text-sm text-ellipsis pt-2 open-sans-p`}  style={{
+                lineHeight: "1.2", // Prevent layout shifts
+              }}
               dangerouslySetInnerHTML={{
                 __html: post && truncateContent(post.content, 112), // Limit to 100 characters
               }}
             ></div>
 
-            <div className="flex flex-row gap-4 mt-4 mb-2">
+          </div>
+
+           <div className="w-2/6 flex flex-col mr-4 justify-start md:justify-center md:items-center items-start">
+            <Link to={`/post/${post.slug}`}>
+              <img src={post.postImage} className="bg-gray-300 md:w-[160px] md:h-[107px] w-[80px] h-[53px]" loading="lazy"  />
+            </Link>
+          </div>
+           </div>
+ 
+
+          <div className="flex flex-row gap-4 m-4">
               <div className="text-sm text-gray-600 flex flex-row gap-2 items-center">
                 <CiTimer />
                 <span>{calculateTimeAgo(post.updatedAt)}</span>
@@ -119,7 +131,7 @@ const BlogPostPreviewCard = memo(function BlogPostPreviewCard({ post }) {
                 )}
               </div>
             </div>
-          </div>
+
         </div>
       </div>
   );

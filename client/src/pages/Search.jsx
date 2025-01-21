@@ -100,15 +100,15 @@ export default function Search() {
 
 
   return (
-    <div className="flex flex-col w-full pt-20 justify-center items-center">
-   <div className="flex flex-col md:flex-row w-full md:w-3/5 justify-center gap-4">
+    <div className="flex flex-col w-full pt-20 pb-5 justify-center items-center">
+   <div className="flex flex-col md:flex-row w-full md:w-4/5 lg:w-3/4 xl:w-3/5 justify-center gap-4">
     
     {/* search result left section */}
       <div className='w-full flex flex-col'>
-        <h1 className='text-3xl font-semibold p-3 mt-5 '>
+        <h1 className='md:text-3xl text-xl font-bold p-3'>
          Result for {sidebarData.searchTerm}
         </h1>
-        <div className='flex flex-col gap-2 md:px-0 px-5'>
+        <div className='flex flex-col gap-2'>
           {!loading && posts.length === 0 && (
             <p className='text-xl text-gray-500'>No posts found.</p>
           )}
@@ -136,7 +136,7 @@ export default function Search() {
 
     <div className="w-auto flex flex-col">
     <div className="w-full justify-center md:mt-2 md:sticky md:top-20">
-    <div className="flex flex-col md:w-60 bg-white dark:bg-transparent md:m-0 m-5 mt-2 rounded-lg border dark:border-gray-600 ">
+    <div className="flex flex-col md:w-60 bg-white dark:bg-transparent md:rounded-lg rounded-none border dark:border-gray-600 ">
     <div className="flex flex-col w-full">
       
       <div className="p-2">

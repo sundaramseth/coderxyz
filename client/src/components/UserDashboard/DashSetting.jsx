@@ -240,7 +240,7 @@ console.log(error)
             )}
       
         <img src={imageBgFileUrl || currentUser.rest.profileBgPicture} alt="user"
-         className={`rounded-lg w-full h-full object-cover ${imageFileUpoadProgressBg && imageFileUpoadProgressBg < 100 && 'opacity-50'}`} />
+         className={`rounded-lg w-full h-full object-cover ${imageFileUpoadProgressBg && imageFileUpoadProgressBg < 100 && 'opacity-50'}`} loading="lazy" />
         </div>
 
       <input type="file" accept="image/*" onChange={handleImageChange} hidden ref={filePickerRef} />
@@ -267,7 +267,7 @@ console.log(error)
             )}
       
         <img src={imageFileUrl || currentUser.rest.profilePicture} alt="user"
-         className={`rounded-full w-full h-full object-cover border-8 border-[lightgray] ${imageFileUpoadProgress && imageFileUpoadProgress < 100 && 'opacity-50'}`} />
+         className={`rounded-full w-full h-full object-cover border-8 border-[lightgray] ${imageFileUpoadProgress && imageFileUpoadProgress < 100 && 'opacity-50'}`} loading="lazy" />
         </div>
         {imageFileUploadError && <Alert color='failure'>
           {imageFileUploadError}

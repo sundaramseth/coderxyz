@@ -1,6 +1,6 @@
 import {  useLocation, useNavigate } from "react-router-dom";
 import { TextInput } from "flowbite-react";
-import { AiOutlineSearch } from "react-icons/ai";
+import { MdOutlineSearch } from "react-icons/md";
 
 import { useEffect, useState } from "react";
 
@@ -39,7 +39,7 @@ export default function SearchPage() {
         <TextInput
           type='text'
           placeholder='Search...'
-          rightIcon={AiOutlineSearch}
+          rightIcon={MdOutlineSearch}
           className='inline w-full'
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}

@@ -115,53 +115,60 @@ export default function UserPostPreviewCard() {
     if (differenceInHours === 0) {
       const differenceInMinutes = Math.floor(differenceInMs / (1000 * 60));
       return differenceInMinutes <= 1
-        ? `${differenceInMinutes} minute ago`
-        : `${differenceInMinutes} minutes ago`;
+        ? `${differenceInMinutes} min ago`
+        : `${differenceInMinutes} mins ago`;
     }
   
     return differenceInHours === 1
-      ? `${differenceInHours} hour ago`
-      : `${differenceInHours} hours ago`;
+      ? `${differenceInHours} hr ago`
+      : `${differenceInHours} hrs ago`;
   }
   
   return (
     <>
-      <div className=" md:mx-auto p-3">
+      <div className="flex flex-col gap-2 min-h-screen w-full">
+      <h1 className='md:text-3xl text-xl font-bold p-3'>
+         Manage Your Posts
+        </h1>
         {currentUser && userPosts.length > 0 ? (
           <>
             {userPosts.map((post,index) => (
-                <div key={index} className="flex flex-col w-full py-1 px-2">
+                <div key={index} className="flex flex-col w-full">
                   {/* post card */}
                   <div className="flex flex-col w-full">
-                    <div className="flex flex-row w-full my-2 bg-white dark:bg-transparent  border dark:border-gray-600 rounded-lg gap-2">
-                      <div className="md:w-1/3 w-full md:mt-0 flex flex-col md:justify-center justify-start mt-4 ml-2 items-center">
+                    <div className="flex flex-col w-full bg-white dark:bg-transparent  border dark:border-gray-600 md:rounded-lg rounded-none">
+                      
+                      <div className="flex flex-row w-full gap-2">
+                      <div className="md:w-1/3 min-h-24 w-40 flex flex-col justify-start items-start py-3 pl-2">
                         <Link to={`/post/${post.slug}`}>
                           <img
                             src={post.postImage}
-                            className="w-40 md:h-28 h-16"
+                            className="w-full min-h-24 object-cover"
+                            loading="lazy" 
                           />
                         </Link>
                       </div>
+                      <div className="w-3/4 md:w-full py-3 md:pr-3 pr-2 flex flex-col justify-start">
 
-                      <div className="w-3/4 md:w-full py-3 md:pr-3 pr-2 flex flex-col justify-between">
+                            <Link to={`/post/${post.slug}`} className="link-container">
+                              <h1 className="text-sm md:text-xl font-bold open-sans-h1">
+                                {post.title}
+                              </h1>
+                            </Link>
 
-                        <Link to={`/post/${post.slug}`}>
-                          <h1 className="text-sm md:text-2xl font-bold">
-                            {post.title}
-                          </h1>
-                        </Link>
-
-                        <div
-                          className={`overflow-hidden text-xs md:text-sm text-ellipsis pt-2 pr-2`}
-                          dangerouslySetInnerHTML={{
-                            __html: post && truncateContent(post.content, 112), // Limit to 100 characters
-                          }}
-                        ></div>
-
-                        <div className="flex flex-row md:gap-4 gap-3 justify-between mt-4 mb-2">
+                            <div
+                              className={`overflow-hidden text-xs md:text-sm text-ellipsis pt-2 pr-2`}
+                              dangerouslySetInnerHTML={{
+                                __html: post && truncateContent(post.content, 102), // Limit to 100 characters
+                              }}
+                            ></div>
+                            </div>
+                        </div>
+  
+                      <div className="flex flex-row justify-between mx-2 py-3 border-t border-t-gray-200 dark:border-t-gray-600">
                           <div className="flex flex-row md:gap-4 gap-2 justify-between items-center">
                             <div className="md:text-sm text-xs text-gray-600 flex flex-row gap-2 items-center">
-                              <CiTimer className="text-sm" />{" "}
+                              <CiTimer />
                               <span>{calculateTimeAgo(post.updatedAt)}</span>
                             </div>
 
@@ -183,7 +190,7 @@ export default function UserPostPreviewCard() {
 
                           <div className="flex flex-row md:gap-3 gap-2 justify-end items-center">
                          
-                              <button className="bg-transparent border rounded-full md:px-4 px-2 md:text-sm text-[11px] text-blue-600 hover:bg-gray-100 font-semibold">
+                              <button className="bg-transparent border rounded-full md:px-4 px-3 md:text-sm text-[11px] text-blue-600 hover:bg-gray-100 font-semibold">
                               <Link
                               className="text-teal-500"
                               to={`/update-post/${post._id}`}
@@ -195,7 +202,7 @@ export default function UserPostPreviewCard() {
                         
 
                             <button
-                              className="bg-transparent border rounded-full md:px-4 px-2 md:text-sm text-[11px] text-red-600 hover:bg-gray-100 font-semibold"
+                              className="bg-transparent border rounded-full md:px-4 px-3 md:text-sm text-[11px] text-red-600 hover:bg-gray-100 font-semibold"
                               onClick={() => {
                                 setShowModal(true);
                                 setPostIdToDelete(post._id);
@@ -205,7 +212,6 @@ export default function UserPostPreviewCard() {
                             </button>
                           </div>
                         </div>
-                      </div>
                     </div>
                   </div>
 
@@ -241,7 +247,7 @@ export default function UserPostPreviewCard() {
             {showMore && (
               <button
                 onClick={handleShowMore}
-                className="w-full text-teal-500 self-center text-sm py-7"
+                className="w-full text-teal-500 self-center text-sm py-2"
               >
                 Show more
               </button>

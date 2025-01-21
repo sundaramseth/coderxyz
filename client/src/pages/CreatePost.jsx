@@ -7,6 +7,7 @@ import {app} from '../firebase'
 import {CircularProgressbar} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css'
 import { useNavigate } from "react-router-dom";
+import imageCompression from 'browser-image-compression';
 
 export default function CreatePost() {
 
@@ -70,10 +71,21 @@ export default function CreatePost() {
         return;
       }
       setImageUploadError(null);
+
+          // Image compression options
+      const options = {
+      maxSizeMB: 0.1, // Maximum file size in MB
+      maxWidthOrHeight: 1024, // Max width or height in pixels
+      useWebWorker: true, // Use web worker for performance
+    };
+
+       // Compress the image
+       const compressedFile = await imageCompression(file, options);
+
      const storage = getStorage(app);
-     const fileName = new Date().getTime() + '_' + file.name;
+     const fileName = new Date().getTime() + '_' + compressedFile.name;
      const storageRef = ref(storage, fileName);
-     const uploadTask = uploadBytesResumable(storageRef, file) 
+     const uploadTask = uploadBytesResumable(storageRef, compressedFile) 
     uploadTask.on(
       'state_changed',
       (snapshot)=>{

@@ -106,7 +106,7 @@ export default function HomeRightSection() {
 
   return (
     <div className="flex flex-col w-auto">
-    <div className="flex flex-col sticky top-20">
+    <div className="flex flex-col sticky top-20 gap-2">
     <div className="flex flex-col md:w-64 w-full bg-white dark:bg-transparent rounded-lg border dark:border-gray-600">
       <div className="flex flex-col w-full">
       
@@ -135,17 +135,16 @@ export default function HomeRightSection() {
       </div>
 
       {showMore && (
-              <button onClick={handleShowMoreForPost} className="w-full text-teal-500 self-center text-sm pb-2">
+          <div className="flex flex-col w-full min-h-7">
+              <button onClick={handleShowMoreForPost} className="w-full text-teal-500 self-center text-sm">
               Show more
               </button>
+              </div>
             )}
      </div>
      </div>
 
-     <div className="w-full justify-center">
-
-     <div className="flex flex-col w-full  md:w-64  bg-white dark:bg-transparent mt-2 rounded-lg border dark:border-gray-600">
-    <div className="flex flex-col w-full">
+     <div className="flex flex-col w-full  md:w-64  bg-white dark:bg-transparent rounded-lg border dark:border-gray-600">
       
       <div className="p-2">
       <h1 className="text-md font-semibold text-gray-800 dark:text-gray-300 pt-px">Follow Channel</h1>
@@ -168,15 +167,18 @@ export default function HomeRightSection() {
 
       </div>
         {showMoreUser && (
+           <div className="flex flex-col w-full min-h-7">
         <button onClick={handleShowMore} className="w-full text-teal-500 self-center text-sm pb-2">
         Show more
         </button>
+        </div>
       )}
      </div>
-     </div>
-     </div>
 
-     <FooterCom/>
+<div className="flex flex-col w-full min-h-48">
+<FooterCom/>
+</div>
+
    </div>
     </div>
   )

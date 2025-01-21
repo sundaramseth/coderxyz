@@ -77,7 +77,7 @@ const RecentPostCard = memo(function RecentPostCard({ post }) {
           <img
             src={post.postImage}
             alt="post cover"
-            className="md:min-h-48 h-28 w-full object-cover rounded-md"
+            className="md:min-h-48 h-28 w-full object-cover rounded-md" loading="lazy" 
           />
         </Link>
       </div>
@@ -85,7 +85,7 @@ const RecentPostCard = memo(function RecentPostCard({ post }) {
         <div className="text-sm text-gray-600 flex flex-row gap-1 items-center ">
           <img
             src={user.profilePicture}
-            className="md:w-7 md:h-7 w-5 h-5 rounded-full bg-gray-300"
+            className="md:w-7 md:h-7 w-5 h-5 rounded-full bg-gray-300" loading="lazy" 
           />{" "}
           <span className="font-semibold text-xs md:text-sm">
             {user.username}{" "}
@@ -94,13 +94,13 @@ const RecentPostCard = memo(function RecentPostCard({ post }) {
 
         <Link to={`/post/${post.slug}`}>
           {" "}
-          <p className="text-lg md:text-xl font-semibold line-clamp-2">
+          <h2 className="text-sm md:text-lg font-bold line-clamp-2">
             {post.title}
-          </p>
+          </h2>
         </Link>
         <Link to={`/post/${post.slug}`}>
           <div
-            className={`overflow-hidden md:text-lg text-sm text-ellipsis md:pt-2 pt-0`}
+            className={`overflow-hidden text-sm text-ellipsis md:pt-2 pt-0`}
             dangerouslySetInnerHTML={{
               __html: post && truncateContent(post.content, 80), // Limit to 100 characters
             }}

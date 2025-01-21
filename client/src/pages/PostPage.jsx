@@ -9,8 +9,8 @@ import { FaDotCircle } from "react-icons/fa";
 
 import { MdInsertComment, MdShare } from "react-icons/md";
 import {ShareSocial} from 'react-share-social' 
-import { BsBookmarkHeart } from "react-icons/bs";
-import { BsBookmarkHeartFill } from "react-icons/bs";
+import { FaRegBookmark } from "react-icons/fa6";
+import { FaBookmark } from "react-icons/fa6";
 import RecentPostCard from "../components/CustomComponent/RecentPostCard";
 import FooterCom from "../components/Footer";
 export default function PostPage() {
@@ -231,7 +231,7 @@ const unsavePost = async(userId, postId)=>{
     <main className="flex flex-col md:flex-row w-full mx-auto min-h-screen pt-20 pb-0 md:pb-5 justify-center gap-3">
    
 
-      <div className="flex flex-col md:flex-row w-full md:p-0 p-2 md:w-3/5 gap-4">
+      <div className="flex flex-col md:flex-row w-full md:w-4/5 lg:w-3/4 xl:w-3/5 min-h-screen gap-4">
             {/* Left Section */}
 
             {loading ?
@@ -241,7 +241,7 @@ const unsavePost = async(userId, postId)=>{
              </div>
             ):(<>
         <div className="flex flex-col">
-        <div className="flex flex-col  bg-white dark:bg-transparent  rounded-lg border dark:border-gray-600  w-full">
+        <div className="flex flex-col  bg-white dark:bg-transparent  md:rounded-lg rounded-none border dark:border-gray-600  w-full">
           <div className="flex w-full">
             <h1 className="text-start font-bold text-2xl p-5 lg:text-4xl">
               {post && post.title}
@@ -257,10 +257,11 @@ const unsavePost = async(userId, postId)=>{
                 className="border rounded-full w-12 h-12"
                 alt="user"
                 src={user && user.profilePicture}
+                loading="lazy" 
               />
             </div>
             <div className="flex flex-col">
-              <p className="text-sm font-semibold">{user && user.username}</p>
+              <h4 className="text-sm font-semibold">{user && user.username}</h4>
               <p className="text-sm">
                 {" "}
                 {new Date(post && post.updatedAt).toLocaleDateString()}
@@ -274,12 +275,12 @@ const unsavePost = async(userId, postId)=>{
 
             <div className="flex flex-row">
               <div className="flex flex-row justify-center items-center gap-2">
-              <p className="md:text-md text-sm font-semibold">Save&nbsp;Post</p>
+              <h4 className="md:text-md text-sm font-semibold">Save&nbsp;Post</h4>
               {saveyourPost ? (
-               <BsBookmarkHeartFill className="cursor-pointer hover:text-red-600 h-5 font-bold" onClick={()=>unsavePost(currentUser && currentUser.rest._id, post._id)} />
+               <FaBookmark className="cursor-pointer hover:text-red-600 text-sm" onClick={()=>unsavePost(currentUser && currentUser.rest._id, post._id)} />
 
               ):(
-                <BsBookmarkHeart className="cursor-pointer hover:text-red-600 h-5 font-bold" onClick={()=>savePost(currentUser && currentUser.rest._id, post._id)} />
+                <FaRegBookmark className="cursor-pointer hover:text-red-600 text-sm" onClick={()=>savePost(currentUser && currentUser.rest._id, post._id)} />
               )}
 
               </div>
@@ -291,14 +292,17 @@ const unsavePost = async(userId, postId)=>{
             <div className="h-px bg-gray-300 dark:bg-gray-600  w-full"></div>
           </div>
 
-          <img
+         <div className="flex flex-col w-full lg:min-h-[300px] min-h-[200px] p-2 rounded-lg">
+         <img
             src={post && post.postImage}
             alt={post && post.slug}
-            className="max-h-[500px] w-full object-cover mt-10 p-3 rounded-3xl"
+            className="w-full h-auto object-cover rounded-lg"
+            loading="lazy" 
           />
 
+         </div>
           <div
-            className="py-5 px-10 mx-auto w-full  post-content"
+            className="py-5 px-5 mx-auto w-full  post-content"
             dangerouslySetInnerHTML={{ __html: post && post.content }}
           ></div>
 
@@ -381,10 +385,10 @@ const unsavePost = async(userId, postId)=>{
           {openComment && <CommentSection postId={post && post._id} />}
 
         </div>
-    <div className="flex flex-col mt-10 ">
+    <div className="flex flex-col md:mt-10 mt-5 gap-2">
        
-      <p className="text-lg font-semibold">More From {user.username}</p>
-      <div className=" grid grid-flow-row-dense grid-cols-2 mt-10 gap-4">
+      <p className="text-lg font-semibold p-2">More From {user.username}</p>
+      <div className=" grid grid-flow-row-dense grid-cols-2 md:gap-4 gap-2 p-2">
 
        {recentPostAuthor && recentPostAuthor.map((rpost)=>(
             <RecentPostCard key={rpost._id} post={rpost}/>
@@ -400,7 +404,7 @@ const unsavePost = async(userId, postId)=>{
       {/* Right Section  */}
       <div className="flex flex-col w-auto md:p-0">
         <div className="flex flex-col md:sticky md:top-20">
-          <div className="flex flex-col md:w-60 w-full bg-white dark:bg-transparent rounded-lg border dark:border-gray-600">
+          <div className="flex flex-col md:w-60 w-full bg-white dark:bg-transparent md:rounded-lg rounded-none border dark:border-gray-600">
             <div className="flex flex-col w-full">
               <div className="p-2">
                 <h1 className="text-md font-semibold  pt-px">
@@ -413,24 +417,16 @@ const unsavePost = async(userId, postId)=>{
                 <div className="h-px bg-gray-300 w-full"></div>
               </div>
 
-              <div className="pb-2 pr-2">
+           
+            <div className="flex flex-col min-h-80 gap-2 justify-center p-2">
                 {recentPost &&
-                  recentPost.map((post) => (
-                    <div
-                      key={post._id}
-                      className="mt-2 mb-1 ml-2 flex flex-col gap-1"
-                    >
-                      <Link to={`/post/${post.slug}`}>
-                        <p className="text-sm font-semibold">
-                          {" "}
-                          {post.title}
-                        </p>
-                      </Link>
-                      <p className="text-xs text-gray-500 flex flex-row gap-1 items-center">
-                        {new Date(post.updatedAt).toLocaleDateString()}{" "}
-                        <FaDotCircle size={8} /> {post.numberOfLikes} likes
-                      </p>
-                    </div>
+                  recentPost.map((post, index) => (
+                    <div key={index} className="flex flex-col gap-1 min-h-10">
+                    <Link to={`/post/${post.slug}`}>
+                   <p className="text-sm text-gray-800 dark:text-gray-300 font-semibold"> {post.title}</p></Link>
+                   <p className="text-xs text-gray-500 flex flex-row gap-1 items-center">{new Date(post.updatedAt).toLocaleDateString()} <FaDotCircle size={8}/> {post.numberOfLikes} likes</p>
+                   </div>
+             
                   ))}
               </div>
             </div>
