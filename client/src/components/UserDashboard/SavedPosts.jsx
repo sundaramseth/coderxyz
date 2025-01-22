@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react';
+import axios from 'axios'; // Import Axios
 import BlogPostPreviewCard from '../CustomComponent/BlogPostPreviewCard';
 import { useSelector } from "react-redux"
 import { Link } from 'react-router-dom';
@@ -12,15 +13,17 @@ const [posts, setPosts] = useState([]);
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-console.log(currentUser.rest._id)
+
 
 useEffect(() => {
 try {
     const fetchPosts = async () => {
-    const res = await fetch(`${API_URL}/api/post/getsavedpost/${currentUser.rest._id}`);
-    const data = await res.json();
+    const res = await axios.get(`${API_URL}/api/post/getsavedpost/${currentUser.rest._id}`);
+    const data = res.data;
     // Sort by createdAt in descending order (newest first)
+    if(res.status === 200){
     setPosts(data);
+    }
 
     };
     fetchPosts();

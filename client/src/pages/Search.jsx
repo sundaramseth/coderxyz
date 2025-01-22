@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react';
+import axios from 'axios'; // Import Axios
 import { useLocation, useNavigate } from 'react-router-dom';
 import BlogPostPreviewCard from '../components/CustomComponent/BlogPostPreviewCard';
 import { Badge } from "flowbite-react";
@@ -43,13 +44,13 @@ export default function Search() {
     const fetchPosts = async () => {
       setLoading(true);
       const searchQuery = urlParams.toString();
-      const res = await fetch(`${API_URL}/api/post/getposts?${searchQuery}`);
-      if (!res.ok) {
+      const res = await axios.get(`${API_URL}/api/post/getposts?${searchQuery}`);
+      if (!res.status === 200) {
         setLoading(false);
         return;
       }
-      if (res.ok) {
-        const data = await res.json();
+      if (res.status === 200) {
+        const data = res.data;
         setPosts(data.posts);
         setLoading(false);
         if (data.posts.length === 9) {
@@ -152,12 +153,12 @@ export default function Search() {
       <div className="p-2 flex flex-row flex-wrap">
 
       
-       {category && category.map((value) => (
-        <>
-        <Badge  key={value} color="gray" value={value} className='p-1 m-1 cursor-pointer' onClick={()=>searchByTag(value.toLowerCase())}>
+       {category && category.map((value,index) => (
+        
+        <Badge  key={index} color="gray" value={value} className='p-1 m-1 cursor-pointer' onClick={()=>searchByTag(value.toLowerCase())}>
         {value}
        </Badge>
-       </> 
+       
         ))}
       
       </div>

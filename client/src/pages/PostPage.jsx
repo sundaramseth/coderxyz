@@ -6,6 +6,7 @@ import { FaThumbsUp } from "react-icons/fa";
 import CommentSection from "../components/CommentSection";
 import { useSelector } from "react-redux";
 import { FaDotCircle } from "react-icons/fa";
+import axios from 'axios'; // Import Axios
 
 import { MdInsertComment, MdShare } from "react-icons/md";
 import {ShareSocial} from 'react-share-social' 
@@ -41,36 +42,35 @@ export default function PostPage() {
         setLoading(true);
   
         // Fetch post data
-        const resPost = await fetch(`${API_URL}/api/post/getposts?slug=${postSlug}`);
-        const dataPost = await resPost.json();
+        const resPost = await axios.get(`${API_URL}/api/post/getposts?slug=${postSlug}`);
   
-        if (!resPost.ok) {
+        const post = resPost.data.posts[0];
+        setPost(post);
+  
+        if (!resPost.status === 200) {
           setLoading(false);
           return;
         }
-  
-        const post = dataPost.posts[0];
-        setPost(post);
-  
+
         // Check if the post is saved by the current user
         if (post.usersavedpost.includes(currentUser && currentUser.rest._id)) {
           setSaveYourPost(true);
         } else {
           setSaveYourPost(false);
         }
-  
+ 
         // Fetch recent posts by the same author
-        const resAuthorPosts = await fetch(`${API_URL}/api/post/getauthorposts/${post.userId}`);
-        const dataAuthorPosts = await resAuthorPosts.json();
-        if (resAuthorPosts.ok) {
-          setRecentPostAuthor(dataAuthorPosts);
+        const resAuthorPosts = await axios.get(`${API_URL}/api/post/getauthorposts/${post.userId}`);
+        if (resAuthorPosts.status === 200) {
+          setRecentPostAuthor(resAuthorPosts.data);
+          // console.log(resAuthorPosts.data)
         }
   
         // Fetch user data after fetching the post
-        const resUser = await fetch(`${API_URL}/api/user/${post.userId}`);
-        const dataUser = await resUser.json();
-        if (resUser.ok) {
-          setUser(dataUser);
+        const resUser = await axios.get(`${API_URL}/api/user/${post.userId}`);
+        if (resUser.status === 200) {
+          setUser(resUser.data);
+          // console.log(resUser.data)
         }
   
         setLoading(false);
@@ -87,10 +87,10 @@ export default function PostPage() {
 useEffect(() => {
   try {
     const fetchRecentPosts = async () => {
-      const res = await fetch(`${API_URL}/api/post/getPosts?limit=5`);
-      const data = await res.json();
-      if (res.ok) {
-        setRecentPost(data.posts);
+      const res = await axios.get(`${API_URL}/api/post/getPosts?limit=5`);
+      const data = res.data.posts;
+      if (res.status === 200) {
+        setRecentPost(data);
       }
     };
     fetchRecentPosts();
@@ -103,9 +103,9 @@ useEffect(() => {
 useEffect(()=>{
   try {
     const getComments = async () =>{
-    const res = await fetch(`${API_URL}/api/comment/getPostComments/${post && post._id}`);
+    const res = await axios.get(`${API_URL}/api/comment/getPostComments/${post && post._id}`);
     if(res.ok){
-      const data = await res.json();
+      const data = res.data.comments;
       setComments(data);
     }
   }

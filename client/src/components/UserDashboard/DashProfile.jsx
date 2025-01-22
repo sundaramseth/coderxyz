@@ -1,6 +1,7 @@
 
 import { useSelector } from "react-redux"
 import { useState, useEffect } from "react";
+import axios from 'axios'; // Import Axios
 import 'react-circular-progressbar/dist/styles.css';
 import { Link } from "react-router-dom";
 import { FaDotCircle, FaLocationArrow, FaMailchimp } from "react-icons/fa";
@@ -34,9 +35,9 @@ export default function DashProfile() {
 
         try {
           const fetchPost = async () =>{
-            const res = await fetch(`${API_URL}/api/post/getPosts?userId=${currentUser.rest._id}`);
-            const data = await res.json();
-            if(res.ok){
+            const res = await axios.get(`${API_URL}/api/post/getPosts?userId=${currentUser.rest._id}`);
+            const data = res.data;
+            if(res.status === 200){
                 setUserPost(data.posts);
                 setUserPostsLength(data.posts.length);
             }
@@ -49,9 +50,9 @@ export default function DashProfile() {
     
     try {
           const getUser = async () =>{
-          const res = await fetch(`${API_URL}/api/user/${currentUser.rest._id}`);
-          const data = await res.json();
-          if(res.ok){
+          const res = await axios.get(`${API_URL}/api/user/${currentUser.rest._id}`);
+          const data = res.data;
+          if(res.status === 200){
              setUser(data)
             //  console.table(data)
         }

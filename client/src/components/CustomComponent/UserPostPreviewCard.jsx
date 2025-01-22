@@ -6,6 +6,7 @@ import { CiTimer } from "react-icons/ci";
 import { FcLike } from "react-icons/fc";
 import { TfiCommentsSmiley } from "react-icons/tfi";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import axios from "axios";
 export default function UserPostPreviewCard() {
   const API_URL = import.meta.env.VITE_API_URL;
   const { currentUser } = useSelector((state) => state.user);
@@ -18,11 +19,11 @@ export default function UserPostPreviewCard() {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await fetch(
+        const res = await axios.get(
           `${API_URL}/api/post/getPosts?userId=${currentUser.rest._id}`
         );
-        const data = await res.json();
-        if (res.ok) {
+        const data = res.data;
+        if (res.status === 200) {
           setUserPosts(data.posts);
           if (data.posts.length < 9) {
             setShowMore(false);
@@ -39,11 +40,11 @@ export default function UserPostPreviewCard() {
   const handleShowMore = async () => {
     const startIndex = userPosts.length;
     try {
-      const res = await fetch(
+      const res = await axios.get(
         `${API_URL}/api/post/getPosts?userId=${currentUser.rest._id}&startIndex=${startIndex}`
       );
-      const data = await res.json();
-      if (res.ok) {
+      const data = res.data;
+      if (res.status === 200) {
         setUserPosts((prev) => [...prev, ...data.posts]);
         if (data.posts.length < 9) {
           setShowMore(false);
@@ -58,11 +59,11 @@ export default function UserPostPreviewCard() {
   useEffect(() => {
     try {
       const getComments = async () => {
-        const res = await fetch(
+        const res = await axios.get(
           `${API_URL}/api/comment/getPostComments/${userPosts._id}`
         );
-        if (res.ok) {
-          const data = await res.json();
+        if (res.status === 200) {
+          const data = res.data;
           setComments(data);
         }
       };

@@ -1,9 +1,11 @@
 
 import { useEffect, useState } from 'react';
+import axios from 'axios'; // Import Axios
 import HomeRightSection from "../components/HomeRightSection";
 import BlogPostPreviewCard from "../components/CustomComponent/BlogPostPreviewCard";
 import CustomCarousel from '../components/CustomComponent/CustomCarousel';
 import { Spinner } from 'flowbite-react';
+
 
 export default function Home() {
 
@@ -13,44 +15,104 @@ export default function Home() {
 
   const API_URL = import.meta.env.VITE_API_URL;
 
-  useEffect(() => {
-    try {
-      const fetchPosts = async () => {
-        setLoading(true);
-        const res = await fetch(`${API_URL}/api/post/getPosts?limit=10`);
-        const data = await res.json();
+  // Utility to fetch posts and cache them
+  const fetchPosts = async (startIndex = 0, limit = 10) => {
+    const cacheKey = `posts_${startIndex}_${limit}`;
+    const cachedData = localStorage.getItem(cacheKey);
 
-        if(res.ok){
-          setLoading(false);
-        }
-        // Sort by createdAt in descending order (newest first)
-        setPosts( data.posts);
-        if(data.posts.length < 10){
+    if (cachedData) {
+      return JSON.parse(cachedData);
+    }
+
+    const response = await axios.get(`${API_URL}/api/post/getPosts`, {
+      params: { startIndex, limit },
+    });
+
+    if (response.status === 200) {
+      const posts = response.data.posts;
+      // Cache the fetched data
+      localStorage.setItem(cacheKey, JSON.stringify(posts));
+      return posts;
+    }
+
+    throw new Error("Failed to fetch posts");
+  };
+
+
+  useEffect(() => {
+    const loadInitialPosts = async () => {
+      setLoading(true);
+      try {
+        const initialPosts = await fetchPosts(0, 10);
+        setPosts(initialPosts);
+
+        if (initialPosts.length < 10) {
           setShowMore(false);
         }
-      };
-      fetchPosts();
-    } catch (error) {
-      console.log(error.message);
-    }
+      } catch (error) {
+        console.error("Error fetching initial posts:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadInitialPosts();
   }, [API_URL]);
 
+  // useEffect(() => {
+  //   try {
+  //     const fetchPosts = async () => {
+  //       setLoading(true);
+  //       const res = await fetch(`${API_URL}/api/post/getPosts?limit=10`);
+  //       const data = await res.json();
 
-  const handleShowMoreForPost =  async () =>{
+  //       if(res.ok){
+  //         setLoading(false);
+  //       }
+  //       // Sort by createdAt in descending order (newest first)
+  //       setPosts( data.posts);
+  //       if(data.posts.length < 10){
+  //         setShowMore(false);
+  //       }
+  //     };
+  //     fetchPosts();
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // }, [API_URL]);
+
+  
+  const handleShowMoreForPost = async () => {
     const startIndex = posts.length;
+
     try {
-      const res = await fetch(`${API_URL}/api/post/getPosts?startIndex=${startIndex}?limit=5`); 
-      const data = await res.json();
-      if(res.ok){
-        setPosts((prev)=>[...prev, ...data.posts]);
-        if(data.posts.length <5){
-          setShowMore(false);
-        }
+      const morePosts = await fetchPosts(startIndex, 5);
+      setPosts((prev) => [...prev, ...morePosts]);
+
+      if (morePosts.length < 5) {
+        setShowMore(false);
       }
     } catch (error) {
-      console.log(error)
+      console.error("Error fetching more posts:", error);
     }
-  }
+  };
+
+
+  // const handleShowMoreForPost =  async () =>{
+  //   const startIndex = posts.length;
+  //   try {
+  //     const res = await fetch(`${API_URL}/api/post/getPosts?startIndex=${startIndex}?limit=5`); 
+  //     const data = await res.json();
+  //     if(res.ok){
+  //       setPosts((prev)=>[...prev, ...data.posts]);
+  //       if(data.posts.length <5){
+  //         setShowMore(false);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   return (
     <>
