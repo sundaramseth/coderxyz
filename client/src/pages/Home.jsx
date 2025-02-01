@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import axios from 'axios'; // Import Axios
+import { useSelector } from 'react-redux'; // Import useSelector
 import ChannelFollowCardComponent from "../components/HomeComponent/ChannelFollowCardComponent";
 import BlogPostPreviewCard from "../components/HomeComponent/BlogPostPreviewCard";
 import { Spinner } from 'flowbite-react';
@@ -9,12 +10,14 @@ import ProfileComponent from '../components/HomeComponent/ProfileComponent';
 import TopPostComponent from '../components/HomeComponent/TopPostComponent';
 import Footer from '../components/Footer';
 import ProfileAnalyticsComponent from '../components/HomeComponent/ProfileNavigationComponent';
+import JoinCommunityCard from '../components/HomeComponent/JoinCommunityCard';
 
 export default function Home() {
 
   const [posts, setPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
   const [loading, setLoading] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
 
   const API_URL = import.meta.env.VITE_API_URL;
 
@@ -96,18 +99,27 @@ useEffect(() => {
 <div className="flex md:flex-row flex-col w-full justify-center md:items-start items-center gap-4">
 {/* Left Section */}
 <div className="hidden md:flex flex-col w-[225px] min-h-screen gap-2">
-<ProfileComponent/>
-<ProfileAnalyticsComponent/>
+
+{currentUser ? (
+  <>
+    <ProfileComponent/>
+    <ProfileAnalyticsComponent/>
+  </>
+):(
+  <JoinCommunityCard/>
+)}
 </div>
 
  {/* mid section */}
- <div className="flex flex-col md:w-[580px] w-full min-h-screen gap-2">
+ <div className="flex flex-col md:w-[580px] w-full min-h-screen">
   {/* First Section - Start Post */}
   <div className="flex flex-row w-full justify-center">
+    {currentUser && (
   <StartPost onPostCreated={loadInitialPosts}/>
+    )}
   </div>
   {/* Second Section - Blog Post Preview */}
-  <div className="flex flex-col w-full justify-center items-center gap-2">
+  <div className="flex flex-col w-full justify-center items-center gap-2 mt-2">
     {loading ?
       (
       <div className="flex justify-center items-start pt-10 min-h-screen">

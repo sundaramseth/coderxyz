@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
 import { FaThumbsUp } from "react-icons/fa";
 import ProfileComponent from "../components/HomeComponent/ProfileComponent";
-import ProfileAnalyticsComponent from "../components/HomeComponent/ProfileNavigationComponent";
 import CommentSection from "../components/CustomComponent/CommentSection";
 import { useSelector } from "react-redux";
 import { FaDotCircle } from "react-icons/fa";
@@ -16,6 +15,7 @@ import { FaRegBookmark } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa6";
 import RecentPostCard from "../components/CustomComponent/RecentPostCard";
 import FooterCom from "../components/Footer";
+import JoinCommunityCard from "../components/HomeComponent/JoinCommunityCard";
 
 export default function PostPage() {
   const { postSlug } = useParams();
@@ -231,7 +231,12 @@ export default function PostPage() {
       <div className="flex flex-col md:flex-row w-full min-h-screen gap-4 justify-center items-start px-4">
         {/* Left Section */}
         <div className="hidden md:flex flex-col w-[225px] min-h-screen gap-2">
-          <ProfileComponent />
+          {currentUser ? (
+              <ProfileComponent />
+          ):(
+              <JoinCommunityCard/>
+          )}
+     
         </div>
 
         {/* mid section */}

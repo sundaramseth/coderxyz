@@ -137,6 +137,20 @@ export const getUser = async (req, res, next) => {
   };
 
 
+  export const getUserByName = async (req, res, next) => {
+    try {
+      const user = await User.findOne({ username: req.params.userName });
+      if (!user) {
+        return next(errorHandler(404, 'User not found'));
+      }
+      const { password, ...rest } = user._doc;
+  
+      res.status(200).json(rest);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   export const followChannel = async (req, res, next) => {
     if (req.user.id === req.params.userId) {
       return next(errorHandler(403, 'You cannot follow yourself'));

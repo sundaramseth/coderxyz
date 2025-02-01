@@ -2,20 +2,25 @@
 import {  useState, useEffect } from 'react';
 import axios from 'axios'; 
 import { useSelector } from 'react-redux';
+import { Spinner } from 'flowbite-react';
 import UserFollowCard from '../CustomComponent/UserFollowCard';
+import { Link } from 'react-router-dom';
 export default function ChannelFollowCardComponent() {
      const API_URL = import.meta.env.VITE_API_URL;
     const [showMoreUser, setShowMoreUser] = useState(true);
     const [users, setAllUsers] = useState([]);
     const { currentUser } = useSelector((state) => state.user);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
   
         try {
+          setLoading(true);
           const fetchUsers = async () =>{
             const res = await axios.get(`${API_URL}/api/user/getusers?limit=6`);
             const data = res.data;
             if(res.status === 200){
+                setLoading(false);
                
                 for(let i=0; i<data.users.length; i++ ){
                   if(currentUser){
@@ -79,13 +84,22 @@ export default function ChannelFollowCardComponent() {
       </div>
 
       <div className="flex flex-col min-h-72 gap-2 justify-center p-2">
-      {
-       users.map((user, index)=>(
-        <div key={index} className="flex flex-col gap-2 min-h-10">
-       <UserFollowCard user={user} />  
-       </div>
-       ))
-      }
+          {loading ? (
+                    <div className="w-full flex flex-row justify-center items-start pt-10">
+                      <Spinner size="xl" />
+                    </div>
+                  ) : (
+                    <>      {
+                      users.map((user, index)=>(
+                       <div key={index} className="flex flex-col gap-2 min-h-10">
+                        <Link to={`/user/${user.username}`}>
+                        <UserFollowCard user={user} />  
+                        </Link>
+                      </div>
+                      ))
+                     }
+               </>
+          )}
 
       </div>
         {showMoreUser && (

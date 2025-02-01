@@ -159,7 +159,7 @@ export default function CreatePost() {
 
       {/* leftsection create post */}
 
-      <div className="flex w-full md:w-[800px] flex-col md:min-h-screen justify-center items-center md:mt-0 mt-16">
+      <div className="flex w-full md:w-[800px] flex-col md:min-h-screen justify-center items-center my-16">
         <div className="flex bg-white w-full m-4 rounded-lg ">
 
 

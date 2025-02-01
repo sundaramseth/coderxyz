@@ -13,6 +13,7 @@ import PrivateRouteAdmin from './components/PrivateRouteAdmin'
 import UpdatePost from './pages/UpdatePost'
 import PostPage from './pages/PostPage'
 import ScrollToTop from './components/ScrollTop'
+import UserProfilePublic from './components/PublicProfile/UserProfilePublic'
 
 import SearchPage from './pages/SearchPage'
 import Privacy from './pages/CoderxyzContent/Privacy'
@@ -35,6 +36,7 @@ export default function App() {
        <Route path='/create-post' element={<CreatePost/>} />
        <Route path='/update-post/:postId' element={<UpdatePost/>} />
       </Route>
+      <Route path='/user/:userName' element={<UserProfilePublic/>} />
       <Route path='/post/:postSlug' element={<PostPage/>} />
       <Route path='/projects' element={<Projects />} />
       <Route path='/search' element={<Search />} />
