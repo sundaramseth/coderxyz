@@ -80,12 +80,21 @@ button :focus{
 
 .ql-editor{
 font-size: 1.05rem;
+padding-top: 30px !important;
 }
 
 .ql-toolbar.ql-snow .ql-formats {
   margin-right: 9px !important;
 }
 
+.ql-toolbar.ql-snow{
+  border: none !important;
+  background-color: #f7f7f7 !important;
+}
+
+.ql-container.ql-snow{
+  border: none !important;
+}
 .mywidth{
     width: 100%;
 }

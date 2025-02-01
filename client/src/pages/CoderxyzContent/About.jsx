@@ -1,6 +1,6 @@
 export default function About() {
   return (
-    <div className="flex flex-row mx-auto w-full md:w-4/5 lg:w-3/4 xl:w-3/5 gap-4 justify-center pt-20">
+    <div className="flex flex-row mx-auto w-full md:w-4/5 lg:w-3/4 gap-4 justify-center pt-20">
       
       <div className="flex flex-col bg-white p-4 rounded-md">
        <h1 className="text-2xl font-bold">About CoderXYZ</h1>

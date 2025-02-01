@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import axios from 'axios'; // Import Axios
-import BlogPostPreviewCard from '../CustomComponent/BlogPostPreviewCard';
+import BlogPostPreviewCard from '../HomeComponent/BlogPostPreviewCard';
 import { useSelector } from "react-redux"
 import { Link } from 'react-router-dom';
 
@@ -38,7 +38,7 @@ try {
       
   return (
 <div className="flex flex-col w-full items-center">
-   <div className="flex md:flex-row w-full md:w-4/5 lg:w-3/4 xl:w-3/5 flex-col-reverse justify-center gap-4">
+   <div className="flex md:flex-row w-full md:w-4/5 lg:w-3/4 flex-col-reverse justify-center gap-4">
     
     {/* search result left section */}
       <div className='w-full'>

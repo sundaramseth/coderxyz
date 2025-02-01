@@ -64,17 +64,18 @@ export default function Header() {
   return (
     <div className="flex flex-row border-b-1 w-full fixed z-10 justify-center bg-white dark:bg-[rgb(16,23,42)]">
 
-      <div className="flex flex-row w-full md:w-4/5 lg:w-3/4 xl:w-3/5 justify-center items-center py-3 md:px-0 md:mx-0 mx-2">
-    
-      <div className="flex w-1/4 justify-start items-start">
+      <div className="flex flex-row w-full justify-center items-center py-3 md:px-4 md:mx-0 px-2">
+
+      <div className="flex flex-row w-1/2 justify-start item-start gap-4">
+          
+      <div className="flex justify-start items-start">
        <Link to='/' 
         className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold">
        <img src="https://firebasestorage.googleapis.com/v0/b/adhyatma-ce6a3.appspot.com/o/1735566563733_coderxyz.png?alt=media&token=aa59cda9-b542-469f-9a36-9c73c87502e2" className="w-36"  />
         </Link>
       </div>
 
-      <div className="flex w-1/4 md:w-1/2 justify-center">
-      <div className="search w-72">
+      <div className="flex justify-start items-start search w-72">
       <form onSubmit={handleSubmit}>
         <TextInput
           type='text'
@@ -100,7 +101,7 @@ export default function Header() {
       </div>
       </div>
   
-        <div className="flex w-1/2 md:w-1/4 justify-end items-center gap-3">
+        <div className="flex w-1/2 justify-end items-center gap-3">
 
         {currentUser && (
         <Link to={'/create-post'}>
@@ -120,9 +121,10 @@ export default function Header() {
           label={
             <Avatar 
             alt='user'
-            img={currentUser.rest.profilePicture}
+            img={currentUser && currentUser.rest.profilePicture}
             rounded
-            loading="lazy" 
+            loading="lazy"
+            className="bg-gray-300 rounded-full" 
             />
           }
           >

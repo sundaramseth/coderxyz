@@ -9,7 +9,7 @@ export default function DashPosts() {
 
     return (
       <div className="flex flex-col w-full items-center">
-      <div className="flex md:flex-row w-full md:w-4/5 lg:w-3/4 xl:w-3/5 flex-col-reverse justify-center gap-4">
+      <div className="flex md:flex-row w-full md:w-4/5 lg:w-3/4 flex-col-reverse justify-center gap-4">
        
        <UserPostPreviewCard/>
     

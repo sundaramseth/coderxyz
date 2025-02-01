@@ -70,13 +70,13 @@ export default function DashProfile() {
 
   return (
     
-    <div className="mx-auto w-full md:w-4/5 lg:w-3/4 xl:w-3/5 flex flex-col gap-4">
+    <div className="mx-auto w-full md:w-4/5 lg:w-3/4 flex flex-col gap-4">
 
       {/* profile header */}
       <div className="flex flex-col w-full mx-auto gap-4 md:px-0 px-2">
 
         <div className="flex flex-row justify-between items-center w-full rounded-lg overflow-hidden">
-          <img src={currentUser.rest.profileBgPicture} className="w-full h-28 md:h-48 object-cover" alt="background picture" />
+          <img src={currentUser.rest && currentUser.rest.profileBgPicture} className="w-full h-28 md:h-48 object-cover" alt="background picture" />
         </div>
 
         <div className="flex flex-row gap-4">

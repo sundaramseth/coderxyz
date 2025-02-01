@@ -1,5 +1,5 @@
-import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
-import { useState } from "react";
+import { Alert, Badge  } from "flowbite-react";
+import { useEffect, useState } from "react";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage';
@@ -21,24 +21,24 @@ export default function CreatePost() {
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
 
+  const [hashtags, setHashtags] = useState([]);
+  const [hashtagInput, setHashtagInput] = useState("");
 
-  const category = [
-    "LifeStyle",
-    "React",
-    "Java",
-    "DSA",
-    "System",
-    "Design",
-    "Programming",
-    "Science",
-    "Technology",
-    "News",
-    "Jobs",
-    "Informative",
-    "Entertainment",
-    "Products",
-    "Maths",
-  ];
+
+  const handleAddHashtag = () => {
+    if (hashtagInput.trim() && !hashtags.includes(hashtagInput.trim())) {
+      setHashtags([...hashtags, hashtagInput.trim()]);
+      setFormData({...formData, category:[...hashtags, hashtagInput.trim()]})
+      setHashtagInput("");
+    }
+  };
+
+  const handleRemoveHashtag = (tag) => {
+    setHashtags(hashtags.filter((ht) => ht !== tag));
+  };
+
+
+  
   var modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -63,6 +63,20 @@ export default function CreatePost() {
     "link", "image", "align", "size","code-block"
   ];
 
+  const handleButtonClick = () => {
+     document.getElementById("fileInput").click();
+  };
+
+  const handleChangeImage = () => {
+    setFile(null);
+    document.getElementById("fileInput2").click();
+  };
+
+  useEffect(() => {
+    if (file) {
+      handleUploadImage();
+    }
+  }, [file]);
 
   const handleUploadImage = async () =>{
     try {
@@ -141,78 +155,169 @@ export default function CreatePost() {
   }
 
   return (
-    <div className="pt-20 px-3 pb-5 max-w-3xl mx-auto min-h-screen">
-     <h1 className="text-center text-3xl my-7 font-semibold">Crate a Post</h1> 
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        
-        <div className="flex flex-col gap-4 sm:flex-row justify-between">
-        <TextInput
-        placeholder="Enter Blog Title"
-        type="text"
-        required
-        id='title'
-        className="flex-1"
-        onChange={(e)=>setFormData({...formData, title:e.target.value})}
-        />
+    <div className="flex md:flex-row flex-col px-3 w-full justify-center items-center gap-2">
 
-        <Select onChange={(e)=>setFormData({...formData, category:e.target.value})}
-              id='category'>
-            <option value="uncategorized">Select a category</option>
-            {category && category.map((value) => (
-            <option value={value.toLocaleLowerCase()} key={value}>{value}</option>
-            ))}
-        </Select>
-        </div>
-        
+      {/* leftsection create post */}
 
-        {formData.postImage && (
-          <img src={formData.postImage}
+      <div className="flex w-full md:w-[800px] flex-col md:min-h-screen justify-center items-center md:mt-0 mt-16">
+        <div className="flex bg-white w-full m-4 rounded-lg ">
+
+
+      <form className="flex flex-col gap-6 w-full" onSubmit={handleSubmit}>
+
+        <div className="flex flex-row gap-4 justify-center items-center w-full pt-4 px-4">
+        
+       {formData.postImage ? (
+        <div className="relative group w-full h-28 rounded-lg overflow-hidden">
+        <img src={formData.postImage}
           alt="upload"
-          className="w-full h-72 object-cover border-2"
+          className="w-full h-28 object-cover rounded-lg"
           />
-         )}
-         
-        <div className="flex gap-4 items-center justify-between 
-        border-4 border-teal-500 border-dotted p-3">
-           <FileInput type='file' accept="images/*" className="flex-1" onChange={(e)=>setFile(e.target.files[0])} />
-         <Button type="button" gradientDuoTone='purpleToBlue' size='sm' outline
-         onClick={handleUploadImage}
-         disabled={imageUploadProgress}
-         >
+
+         <input
+            id="fileInput2"
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+
+          <button
+           onClick={handleChangeImage}
+           disabled={imageUploadProgress}
+           className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"
+           >
           {imageUploadProgress ? (
-            <div className="w-16 h-16">
+            <div className="w-5 h-5">
                <CircularProgressbar value={imageUploadProgress} text={`${imageUploadProgress || 0}%`}/>
             </div>         
           ):(
-            'Upload Image'
+            'Change Image'
           )}
-         </Button>
+          </button>
         </div>
-        {imageUploadError && (
+        
+         ):(
+         <>
+                     {/* Hidden File Input */}
+                     <input
+            id="fileInput"
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+
+          {/* Custom Button to Trigger File Input */}
+          <button
+           onClick={handleButtonClick}
+           disabled={imageUploadProgress}
+            className="w-full bg-gray-200 hover:bg-gray-300 text-black py-2 px-4 rounded-lg flex items-center justify-center gap-2 font-semibold text-sm"
+          >
+          {imageUploadProgress ? (
+            <div className="w-5 h-5">
+               <CircularProgressbar value={imageUploadProgress} text={`${imageUploadProgress || 0}%`}/>
+            </div>         
+          ):(
+            'Add Post Image'
+          )}
+          </button>
+
+          {imageUploadError && (
           <Alert color='failure'>{imageUploadError}</Alert>
          )}
+
+         </>
+         )}
+
+        </div>
+
+          <div className="flex flex-col w-full gap-4 items-start justify-start px-5">
+
+          <input
+        placeholder="Write Post Title Here"
+        type="text"
+        required
+        id='title'
+        className="flex font-bold text-4xl text-gray-950 border-0 postinput p-0 w-full leading-1.5"
+        onChange={(e)=>setFormData({...formData, title:e.target.value})}
+        />
+
+
+           <input
+              placeholder="Enter at least 3-4 hashtags for your post, Eg: #javascript"
+              value={hashtagInput}
+              onChange={(e) => setHashtagInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault(); // Prevents accidental form submission
+                  handleAddHashtag();
+                }
+              }}
+              className="flex w-full text-sm font-400 border-0 postinput"
+            />
+
+            {hashtags.map((tag, index) => (
+              <Badge
+              size={16}
+                key={index}
+                className="bg-gray-200 text-gray-700 text-sm px-3 py-1 rounded-full flex flex-row justify-center items-center gap-2"
+                 >
+               {tag}&nbsp;&nbsp;
+                <button
+                  className="text-red-500 text-xs"
+                  onClick={() => handleRemoveHashtag(tag)}
+                >
+                  &#10005;
+                </button>
+              </Badge>
+            ))}
+          </div>
+      
 
         <ReactQuill
           theme="snow"
           formats={formats}
-          placeholder="write your content ...."
+          placeholder="Write your content..."
           modules={modules}
           onChange={(value)=>setFormData({...formData, content:value})}
-          style={{ height: "500px" }}
+          style={{ height: "480px" }}
         >
         </ReactQuill>
-       
-       <Button type="submit" gradientDuoTone='purpleToPink' className="mt-8">
+      </form>
+      </div>
+      <div className="flex flex-row justify-start items-center w-full gap-4 mt-4">
+      <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg" onClick={handleSubmit}>
        Publish Post
-       </Button>
+       </button>
+
+       <button type="submit" className="text-gray-500 font-semibold" disabled>
+       Save Draft
+       </button>
+
        {publishError && (
         <Alert color='failure' className="mt-5">
           {publishError}
         </Alert>
-       )
+       )}
+      </div>
 
-       }
-      </form>
+      </div>
+
+
+      {/* rightsection tip */}
+
+      <div className="flex flex-col md:min-h-screen md:w-auto w-full justify-center items-center">
+        <div className="flex flex-col gap-4 md:w-[300px] w-full p-4 rounded-lg">
+          <h1 className="text-left text-lg font-semibold">Tips for writing good Article</h1>
+          <p className="text-sm font-medium text-gray-500">1. Use high quality images for your blog post</p>
+          <p className="text-sm font-medium text-gray-500">2. Use at least 3-4 hashtags for your post</p>
+          <p className="text-sm font-medium text-gray-500">3. Write a detailed content for your post</p>
+          <p className="text-sm font-medium text-gray-500">4. Use the right category for your post</p>
+        </div>
+      </div>
+
+
     </div>
   );
 }

@@ -55,7 +55,7 @@ export default function DashboardComp() {
 
     return (
         <div className='p-3 md:mx-auto w-full flex flex-row justify-center'>
-          <div className="flex flex-col md:w-4/5 lg:w-3/4 xl:w-3/5 justify-start">
+          <div className="flex flex-col md:w-4/5 lg:w-3/4 justify-start">
           <h1 className='text-4xl font-semibold p-3 mt-5 mb-5 text-start'>
           Your story stats
           </h1>

@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios'; // Import Axios
 import { useLocation, useNavigate } from 'react-router-dom';
-import BlogPostPreviewCard from '../components/CustomComponent/BlogPostPreviewCard';
+import BlogPostPreviewCard from '../components/HomeComponent/BlogPostPreviewCard';
 import { Badge } from "flowbite-react";
 import { Spinner } from 'flowbite-react';
 
@@ -98,11 +98,9 @@ export default function Search() {
   }
 
 
-
-
   return (
     <div className="flex flex-col w-full pt-20 pb-5 justify-center items-center">
-   <div className="flex flex-col md:flex-row w-full md:w-4/5 lg:w-3/4 xl:w-3/5 justify-center gap-4">
+   <div className="flex flex-col md:flex-row w-full md:w-4/5 lg:w-3/4 justify-center gap-4">
     
     {/* search result left section */}
       <div className='w-full flex flex-col'>
@@ -166,10 +164,6 @@ export default function Search() {
      </div>
 
      </div>
-
-
-
-
     </div>
 
     </div>

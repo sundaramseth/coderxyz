@@ -14,7 +14,7 @@ import UpdatePost from './pages/UpdatePost'
 import PostPage from './pages/PostPage'
 import ScrollToTop from './components/ScrollTop'
 
-import SearchPage from './components/SearchPage'
+import SearchPage from './pages/SearchPage'
 import Privacy from './pages/CoderxyzContent/Privacy'
 
 export default function App() {

@@ -6,7 +6,8 @@ import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
 export default function FooterCom() {
   return (
 
-      <div className="w-full mx-auto p-2">
+    <div className="flex flex-row w-full items-center">
+      <div className="w-full flex flex-col px-2">
        <div className="flex gap-4 justify-start mt-4">
         <Footer.Icon href="#" icon={FaFacebook} />
         <Footer.Icon href="#" icon={FaLinkedin} />
@@ -55,6 +56,7 @@ export default function FooterCom() {
   
        </div>
        </div>
+    </div>
 
 
   )
