@@ -51,7 +51,10 @@ export const signin = async(req, res, next)=>{
            return next(errorHandler(404,'Invalid Password'));
         }
 
-        const token = jwt.sign({id:validUser._id, isAdmin:validUser.isAdmin}, process.env.JWT_SECRET);
+        // Set token expiration time
+        const tokenExpiry = '48h'; // Token valid for 1 hour
+
+        const token = jwt.sign({id:validUser._id, isAdmin:validUser.isAdmin}, process.env.JWT_SECRET,{ expiresIn: tokenExpiry });
         // console.log(token)
         // localStorage.setItem('token', token); 
         const{password:pass, ...rest} = validUser._doc;
@@ -60,6 +63,7 @@ export const signin = async(req, res, next)=>{
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
             sameSite: 'none', // Required for cross-origin requests
+            maxAge: 172800000 // 1 hour in milliseconds
             // domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
         }).json({ token, rest});
         
@@ -77,7 +81,9 @@ export const googleAuth = async(req, res, next) =>{
     try{
      const user = await User.findOne({email});
      if(user){
-        const token = jwt.sign({id:user._id, isAdmin:user.isAdmin }, process.env.JWT_SECRET)
+        // Set token expiration time
+        const tokenExpiry = '48h'; // Token valid for 1 hour
+        const token = jwt.sign({id:user._id, isAdmin:user.isAdmin }, process.env.JWT_SECRET,{ expiresIn: tokenExpiry })
         const {password, ...rest} = user._doc;
 
         // localStorage.setItem('token', token); 
@@ -86,6 +92,7 @@ export const googleAuth = async(req, res, next) =>{
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
             sameSite: 'none', // Required for cross-origin requests
+            maxAge: 172800000 // 1 hour in milliseconds
             // domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
         }).json({ token, rest});
 
@@ -101,7 +108,8 @@ export const googleAuth = async(req, res, next) =>{
             profilePicture:googlePhotoUrl
         });
         await newUser.save();
-        const token = jwt.sign({id:newUser._id, isAdmin:newUser.isAdmin}, process.env.JWT_SECRET);
+        const tokenExpiry = '48h'; // Token valid for 1 hour
+        const token = jwt.sign({id:newUser._id, isAdmin:newUser.isAdmin}, process.env.JWT_SECRET, { expiresIn: tokenExpiry });
         // localStorage.setItem('token', token); 
         const {password, ...rest} = newUser._doc;
        
@@ -109,6 +117,7 @@ export const googleAuth = async(req, res, next) =>{
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
             sameSite: 'none', // Required for cross-origin requests
+            maxAge: 172800000 // 1 hour in milliseconds
             // domain: process.env.NODE_ENV === 'production' ? '.coderxyz.com' : undefined, // Set domain only for production
         }).json({ token, rest});
         
