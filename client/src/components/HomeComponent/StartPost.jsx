@@ -136,12 +136,12 @@ export default function StartPost({ onPostCreated }) {
       const data = await res.json();
 
       if (!res.ok) {
-        alert("Something went wrong");
+        // alert("Something went wrong");
         setPublishError(data.message);
         return;
       }
       if (res.ok) {
-        alert("Post Created Successfully");
+        // alert("Post Created Successfully");
         setPublishError(null);
         navigate(`/`);
         setOpenModal(false);
@@ -153,7 +153,7 @@ export default function StartPost({ onPostCreated }) {
   };
 
   return (
-    <div className="flex flex-col py-5 px-5 w-full border rounded-xl bg-white">
+    <div className="flex flex-col py-5 px-5 w-full border rounded-xl bg-white dark:bg-transparent dark:border-gray-600">
       <div className="flex flex-row gap-4">
         <Link to="/dashboard?tab=profile">
           <img
@@ -163,7 +163,7 @@ export default function StartPost({ onPostCreated }) {
           />
         </Link>
         <input
-          className="w-full rounded-full text-sm font-semibold px-5 border-gray-400"
+          className="w-full rounded-full text-sm font-semibold px-5 border-gray-400 dark:bg-transparent"
           type="text"
           placeholder="Start your post!"
           onClick={() => setOpenModal(true)}

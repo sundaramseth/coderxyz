@@ -1,4 +1,5 @@
 import { useEffect, useState, memo } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import { CiTimer } from "react-icons/ci";
 import { FcLike } from "react-icons/fc";
@@ -79,7 +80,7 @@ const BlogPostPreviewCard = memo(function BlogPostPreviewCard({ post }) {
                 loading="lazy" 
               />
               </div>
-              <span className="font-semibold">{user.username}</span>
+              <span className="font-semibold dark:text-gray-300">{user.username}</span>
           </div>
 
            <div className="flex flex-row justify-between items-start w-full gap-2">
@@ -111,17 +112,17 @@ const BlogPostPreviewCard = memo(function BlogPostPreviewCard({ post }) {
  
 
           <div className="flex flex-row gap-4 m-4">
-              <div className="text-sm text-gray-600 flex flex-row gap-2 items-center">
+              <div className="text-sm text-gray-600 dark:text-gray-300 flex flex-row gap-2 items-center">
                 <CiTimer />
                 <span>{calculateTimeAgo(post.updatedAt)}</span>
               </div>
 
-              <div className="flex text-sm text-gray-600 flex flex-row gap-2 items-center">
+              <div className="flex text-sm text-gray-600 dark:text-gray-300 flex flex-row gap-2 items-center">
                 <FcLike />
                 <span>{post.numberOfLikes}</span>
               </div>
 
-              <div className="flex text-sm text-gray-600 flex flex-row gap-2 items-center">
+              <div className="flex text-sm text-gray-600 dark:text-gray-300 flex flex-row gap-2 items-center">
                 {comments && comments.length === 0 ? (
                   <TfiCommentsSmiley />
                 ) : (
@@ -138,3 +139,17 @@ const BlogPostPreviewCard = memo(function BlogPostPreviewCard({ post }) {
 });
 
 export default BlogPostPreviewCard;
+
+BlogPostPreviewCard.propTypes = {
+  post: PropTypes.shape({
+    userId: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    postImage: PropTypes.string.isRequired,
+    updatedAt: PropTypes.string.isRequired,
+    numberOfLikes: PropTypes.number.isRequired,
+  }).isRequired,
+};
+

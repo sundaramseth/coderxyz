@@ -21,6 +21,23 @@ export default function Home() {
 
   const API_URL = import.meta.env.VITE_API_URL;
 
+  
+const loadInitialPosts = async () => {
+  setLoading(true);
+  try {
+    const initialPosts = await fetchPosts(0, 10);
+    setPosts(initialPosts);
+
+    if (initialPosts.length < 10) {
+      setShowMore(false);
+    }
+  } catch (error) {
+    console.error("Error fetching initial posts:", error);
+  } finally {
+    setLoading(false);
+  }
+};
+
   // Utility to fetch posts and cache them
   const fetchPosts = async (startIndex = 0, limit = 10, order = -1) => {
     // alert("fetching posts")
@@ -47,21 +64,6 @@ export default function Home() {
 
 
 
-    const loadInitialPosts = async () => {
-      setLoading(true);
-      try {
-        const initialPosts = await fetchPosts(0, 10);
-        setPosts(initialPosts);
-
-        if (initialPosts.length < 10) {
-          setShowMore(false);
-        }
-      } catch (error) {
-        console.error("Error fetching initial posts:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
 
 
 useEffect(() => {
