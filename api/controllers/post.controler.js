@@ -234,3 +234,21 @@ export const getposts = async (req, res, next) => {
     }
 
   };
+
+  export const updatePostImpressions = async (req, res, next) => {
+    try {
+      const { userId } = req.body.userId;
+  
+      // Find posts associated with this user and increment impressions
+      await Post.updateMany(
+        { userId: userId }, // Assuming `author` stores the userId of post creator
+        { $inc: { impressions: 1 } } // Increment impressions count
+      );
+  
+      return res.status(200).json({ message: "Post impressions updated successfully" });
+    } catch (error) {
+      console.error("Error updating post impressions:", error);
+      next(error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }

@@ -20,6 +20,40 @@
   width: 100% !important;
 }
 
+.copy-btn {
+  background-color: #585858;
+  color: #ffffff;
+  border: none;
+  position: absolute;
+  right: 10px;
+  top: 1px;
+  padding: 2px 6px;
+  font-size: 10px;
+  cursor: pointer;
+  margin-top: 5px;
+  display: block;
+  font-weight: 500;
+  z-index: 1;
+  border-radius: 4px;
+}
+
+.copy-btn:hover {
+  background-color: #fb924e;
+}
+
+.ql-syntax {
+  position: relative;
+  padding: 10px;
+  background: #282c34;
+  color: white;
+  font-family: monospace;
+  overflow-x: auto;
+}
+
+.ql-container{
+  height: 460px;
+}
+
 img{
   width: 100%;
   height: auto;

@@ -8,7 +8,6 @@ import CommentSection from "../components/CustomComponent/CommentSection";
 import { useSelector } from "react-redux";
 import { FaDotCircle } from "react-icons/fa";
 import axios from "axios"; // Import Axios
-
 import { MdInsertComment, MdShare } from "react-icons/md";
 import { ShareSocial } from "react-share-social";
 import { FaRegBookmark } from "react-icons/fa6";
@@ -16,6 +15,7 @@ import { FaBookmark } from "react-icons/fa6";
 import RecentPostCard from "../components/CustomComponent/RecentPostCard";
 import FooterCom from "../components/Footer";
 import JoinCommunityCard from "../components/HomeComponent/JoinCommunityCard";
+import CodeHighlighter from "../components/CustomComponent/CodeHighlighter";
 
 export default function PostPage() {
   const { postSlug } = useParams();
@@ -50,7 +50,10 @@ export default function PostPage() {
         );
 
         const post = resPost.data.posts[0];
+       // Apply the function to add the copy button
+        
         setPost(post);
+  
 
         if (!resPost.status === 200) {
           setLoading(false);
@@ -219,16 +222,42 @@ export default function PostPage() {
     }
   };
 
-  // if (loading)
-  //   return (
-  //     <div className="flex justify-center items-center min-h-screen">
-  //       <Spinner size="xl" />
-  //     </div>
-  //   );
+
+  useEffect(() => {
+    const updateProfileView = async () => {
+      try {
+         if (!user) return;
+       // Update User post impressions
+        await fetch(`${API_URL}/api/user/update-impressions`, {
+          method: "PUT",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: user?._id }),
+        });
+
+        // Update post impressions
+        await fetch(`${API_URL}/api/post/update-impressions`, {
+          method: "PUT",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: user?._id }),
+        });
+  
+        console.log("Post impressions updated");
+      } catch (error) {
+        console.error("Error updating profile view or post impressions:", error);
+      }
+    };
+  
+    updateProfileView();
+  }, [user]);
+  
+  
+  // console.log("Found code blocks:", document.querySelectorAll("ql-syntax"));
 
   return (
     <div className="flex flex-col md:flex-row w-full mx-auto min-h-screen pt-20 pb-0 md:pb-5 justify-center gap-3">
-      <div className="flex flex-col md:flex-row w-full min-h-screen gap-4 justify-center items-start px-4">
+      <div className="flex flex-col md:flex-row w-full min-h-screen gap-4 justify-center items-start md:px-4">
         {/* Left Section */}
         <div className="hidden md:flex flex-col w-[225px] min-h-screen gap-2">
           {currentUser ? (
@@ -258,16 +287,20 @@ export default function PostPage() {
                   <div className="flex flex-row justify-between p-5 ">
                     <div className="flex flex-row w-4/5 gap-2">
                       <div className="flex flex-col w-12 h-12">
+                      <Link to={`/user/${user.username}`} rel="canonical">
                         <img
                           className="border rounded-full w-12 h-12"
                           alt="user"
                           src={user && user.profilePicture}
                           loading="lazy"
                         />
+                        </Link>
                       </div>
                       <div className="flex flex-col">
                         <h4 className="text-sm font-semibold">
+                        <Link to={`/user/${user.username}`} rel="canonical">
                           {user && user.username}
+                          </Link>
                         </h4>
                         <p className="text-sm">
                           {" "}
@@ -285,11 +318,13 @@ export default function PostPage() {
 
                     <div className="flex flex-row">
                       <div className="flex flex-row justify-center items-center gap-2">
-                        <h4 className="md:text-md text-sm font-semibold">
-                          Save&nbsp;Post
-                        </h4>
+                    
                         {saveyourPost ? (
-                          <FaBookmark
+                          <>
+                              <h4 className="md:text-md text-sm font-semibold">
+                          Post&nbsp;Saved!
+                        </h4>
+                        <FaBookmark
                             className="cursor-pointer hover:text-red-600 text-sm"
                             onClick={() =>
                               unsavePost(
@@ -298,8 +333,14 @@ export default function PostPage() {
                               )
                             }
                           />
+                          </>
+                   
                         ) : (
-                          <FaRegBookmark
+                          <>
+                          <h4 className="md:text-md text-sm font-semibold">
+                          Save&nbsp;Post
+                        </h4>
+                        <FaRegBookmark
                             className="cursor-pointer hover:text-red-600 text-sm"
                             onClick={() =>
                               savePost(
@@ -308,6 +349,7 @@ export default function PostPage() {
                               )
                             }
                           />
+                        </>
                         )}
                       </div>
                     </div>
@@ -327,9 +369,10 @@ export default function PostPage() {
                     />
                   </div>
                   <div
-                    className="py-5 px-5 mx-auto w-full  post-content"
-                    dangerouslySetInnerHTML={{ __html: post && post.content }}
+                    className="py-5 px-5 mx-auto w-full post-content"
+                    dangerouslySetInnerHTML={{ __html: post?.content }}
                   ></div>
+                    <CodeHighlighter post={post?.content}/>
 
                   <div className="flex flex-row justify-between text-xs px-4 py-2 ">
                     <div className="flex flex-row gap-1">

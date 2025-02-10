@@ -95,7 +95,7 @@ useEffect(() => {
 {/* main section */}
 
 <div className="flex flex-col w-full pt-20 pb-4 justify-center items-center">
-<div className="flex flex-col w-full justify-center items-center gap-4 px-4">
+<div className="flex flex-col w-full justify-center items-center gap-4 md:px-4 px-0">
 
  {/* top mid section */}
 <div className="flex md:flex-row flex-col w-full justify-center md:items-start items-center gap-4">

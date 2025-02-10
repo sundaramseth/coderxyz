@@ -1,7 +1,7 @@
 
 import { Footer } from "flowbite-react"
 import { Link } from "react-router-dom"
-import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaLinkedinIn, FaXTwitter, FaYoutube } from "react-icons/fa6";
 
 export default function FooterCom() {
   return (
@@ -9,9 +9,9 @@ export default function FooterCom() {
     <div className="flex flex-row w-full items-center">
       <div className="w-full flex flex-col px-2">
        <div className="flex gap-4 justify-start mt-4">
-        <Footer.Icon href="#" icon={FaFacebook} />
-        <Footer.Icon href="#" icon={FaLinkedin} />
-        <Footer.Icon href="#" icon={FaTwitter} />
+        <Footer.Icon href="https://www.youtube.com/channel/UC4nXHGNkcgE_gQ3F3_5kBBQ" target="_blank" icon={FaYoutube} />
+        <Footer.Icon href="https://www.linkedin.com/company/coderxyz/?viewAsMember=true" target="_blank" icon={FaLinkedinIn} />
+        <Footer.Icon href="https://x.com/coderxyzconnect" target="_blank" icon={FaXTwitter} />
        </div>
         <div className="mt-5">
        <Link to='/' 

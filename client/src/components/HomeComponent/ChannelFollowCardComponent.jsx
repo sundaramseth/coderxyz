@@ -92,7 +92,7 @@ export default function ChannelFollowCardComponent() {
                     <>      {
                       users.map((user, index)=>(
                        <div key={index} className="flex flex-col gap-2 min-h-10">
-                        <Link to={`/user/${user.username}`}>
+                        <Link to={`/user/${user.username}`} rel="canonical">
                         <UserFollowCard user={user} />  
                         </Link>
                       </div>

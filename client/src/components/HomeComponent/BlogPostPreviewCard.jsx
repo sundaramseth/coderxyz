@@ -72,22 +72,26 @@ const BlogPostPreviewCard = memo(function BlogPostPreviewCard({ post }) {
       <div className="flex flex-col w-full">
         <div className="flex flex-col w-full bg-white dark:bg-transparent border dark:border-gray-600 rounded-none md:rounded-lg gap-1">
        
+     
           <div className="text-sm text-gray-600 flex flex-row gap-1 items-center m-4">
               <div className="w-7 h-7 bg-gray-300 rounded-full">
+              <Link to={`/user/${user.username}`} rel="canonical">
               <img
                 src={user.profilePicture}
                 className="h-full rounded-full bg-gray-300"
                 loading="lazy" 
               />
+              </Link>
               </div>
-              <span className="font-semibold dark:text-gray-300">{user.username}</span>
+              <span className="font-semibold dark:text-gray-300">   <Link to={`/user/${user.username}`} rel="canonical">{user.username}</Link></span>
+            
           </div>
 
            <div className="flex flex-row justify-between items-start w-full gap-2">
              <div className="w-full ml-4 flex flex-col justify-between">
             
 
-            <Link to={`/post/${post.slug}`} className="link-container">
+            <Link to={`/post/${post.slug}`} className="link-container" rel="canonical">
               <h1 className="open-sans-h1 text-lg md:text-2xl font-bold" 
               >{post.title}</h1>
             </Link>
@@ -104,7 +108,7 @@ const BlogPostPreviewCard = memo(function BlogPostPreviewCard({ post }) {
           </div>
 
            <div className="w-2/6 flex flex-col mr-4 justify-start md:justify-center md:items-center items-start">
-            <Link to={`/post/${post.slug}`}>
+            <Link to={`/post/${post.slug}`} rel="canonical">
               <img src={post.postImage} className="bg-gray-300 md:w-[160px] md:h-[107px] w-[80px] h-[53px]" loading="lazy"  />
             </Link>
           </div>

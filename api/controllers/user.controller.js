@@ -214,3 +214,39 @@ export const getUser = async (req, res, next) => {
   }
 
 
+export const profileView = async(req, res, next) =>{
+  try {
+    
+    const profile = await User.findByIdAndUpdate(req.params.userId);
+    if (!profile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+
+    // Increase view count
+    profile.views += 1;
+    await profile.save();
+
+    res.json({ success: true, views: profile.views });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error });
+    next(error);
+  }
+}
+
+export const updatePostImpressions = async (req, res, next) => {
+  try {
+    const { userId } = req.body.userId;
+
+    // Find posts associated with this user and increment impressions
+    await User.updateMany(
+      { userId: userId }, // Assuming `author` stores the userId of post creator
+      { $inc: { postImpressions: 1 } } // Increment impressions count
+    );
+
+    return res.status(200).json({ message: "Post impressions updated successfully" });
+  } catch (error) {
+    console.error("Error updating post impressions:", error);
+    next(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}

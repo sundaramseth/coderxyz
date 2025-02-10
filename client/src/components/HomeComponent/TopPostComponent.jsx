@@ -76,7 +76,7 @@ export default function TopPostComponent() {
                 posts.map((post, index) => (
 
                   <div key={index} className="flex flex-col gap-1 min-h-10" loading="lazy">
-                    <Link to={`/post/${post.slug}`}>
+                    <Link to={`/post/${post.slug}`} rel="canonical">
                       <p className="text-sm text-gray-800 dark:text-gray-300 font-semibold"> {post.title}</p></Link>
                     <p className="text-xs text-gray-500 flex flex-row gap-1 items-center">{new Date(post.updatedAt).toLocaleDateString()} <FaDotCircle size={8} /> {post.numberOfLikes} likes</p>
                   </div>

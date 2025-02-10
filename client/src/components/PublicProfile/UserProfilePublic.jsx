@@ -11,6 +11,7 @@ import { FaMailchimp, FaDotCircle } from 'react-icons/fa'; // Add this line to i
 import NetworkUserFollowerCard from '../CustomComponent/NetworkUserFollowerCard'; 
 import { HiClipboardList } from 'react-icons/hi'; // Add this line to import HiClipboardList
 import { FaUsers } from 'react-icons/fa'; // Add this line to import FaUsers
+import { useSelector } from 'react-redux';
 
 export default function UserProfilePublic() {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -19,6 +20,38 @@ export default function UserProfilePublic() {
   const [userPosts, setUserPost] = useState({});
   const [userPostsLength, setUserPostsLength] = useState(0);
 
+  const { currentUser } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    const Profileview = async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/user/profile/view/${currentUser.rest._id}`, {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+  
+        if (!res.ok) {
+          console.error("Failed to update profile views");
+          return;
+        }
+  
+        const data = await res.json(); // If your API returns a response
+        console.log("Profile view updated:", data);
+      } catch (error) {
+        console.error("Error updating profile views:", error);
+      }
+    };
+  
+    if (currentUser?.rest?._id) {
+      Profileview();
+    }
+  }, [currentUser]);
+  
+
+
   useEffect(() => { 
    
       try {
@@ -26,8 +59,7 @@ export default function UserProfilePublic() {
         const res = await axios.get(`${API_URL}/api/user/getuser/${userName}`);
         const data = res.data;
         if (res.status === 200) {
-        console.log(data);
-          setUser(data)
+          setUser(data);
         }
       } 
       fetchUser();
@@ -37,7 +69,7 @@ export default function UserProfilePublic() {
 
     try {
         const fetchPost = async () =>{
-          const res = await axios.get(`${API_URL}/api/post/getPosts?userId=${user._id}`);
+          const res = await axios.get(`${API_URL}/api/post/getPosts?userId=${user?._id}`);
           const data = res.data;
           if(res.status === 200){
               setUserPost(data.posts);
@@ -49,7 +81,7 @@ export default function UserProfilePublic() {
     } catch (error) {
       console.log(error);
     }
-  },[userName]);
+  },[userName, user]);
 
     return (
         <div className="mx-auto w-full md:w-4/5 lg:w-3/4 flex flex-col gap-4 pt-20">

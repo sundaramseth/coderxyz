@@ -4,6 +4,7 @@ import { FcLike } from "react-icons/fc";
 import { TfiCommentsSmiley } from "react-icons/tfi";
 
 import { useEffect, useState, memo } from "react";
+import PropTypes from 'prop-types';
 
 const RecentPostCard = memo(function RecentPostCard({ post }) {
   const [user, setUser] = useState({});
@@ -82,6 +83,7 @@ const RecentPostCard = memo(function RecentPostCard({ post }) {
         </Link>
       </div>
       <div className="p-3 flex flex-col gap-2">
+      <Link to={`/user/${user.username}`} rel="canonical">
         <div className="text-sm text-gray-600 flex flex-row gap-1 items-center ">
           <img
             src={user.profilePicture}
@@ -91,6 +93,7 @@ const RecentPostCard = memo(function RecentPostCard({ post }) {
             {user.username}{" "}
           </span>
         </div>
+        </Link>
 
         <Link to={`/post/${post.slug}`}>
           {" "}
@@ -136,5 +139,17 @@ const RecentPostCard = memo(function RecentPostCard({ post }) {
     </div>
   );
 });
+RecentPostCard.propTypes = {
+  post: PropTypes.shape({
+    userId: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    postImage: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    updatedAt: PropTypes.string.isRequired,
+    numberOfLikes: PropTypes.number.isRequired,
+  }).isRequired,
+};
 
 export default RecentPostCard;

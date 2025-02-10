@@ -154,6 +154,7 @@ export default function CreatePost() {
 
   }
 
+
   return (
     <div className="flex md:flex-row flex-col px-3 w-full justify-center items-center gap-2">
 
@@ -276,6 +277,7 @@ export default function CreatePost() {
       
 
         <ReactQuill
+          className="contentbox"
           theme="snow"
           formats={formats}
           placeholder="Write your content..."

@@ -9,7 +9,6 @@ import { signOutUser } from "../redux/user/userSlice";
 import { useEffect, useState } from "react";
 import { MdArticle, MdBookmark, MdDarkMode, MdLightMode, MdPerson, MdQueryStats, MdSettings, MdOutlineSearch  } from "react-icons/md";
 
-
 export default function Header() {
 
   const API_URL = import.meta.env.VITE_API_URL;
@@ -71,7 +70,7 @@ export default function Header() {
       <div className="flex justify-start items-start">
        <Link to='/' 
         className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold">
-       <img src="https://firebasestorage.googleapis.com/v0/b/adhyatma-ce6a3.appspot.com/o/1735566563733_coderxyz.png?alt=media&token=aa59cda9-b542-469f-9a36-9c73c87502e2" className="w-36"  />
+       <img src="https://firebasestorage.googleapis.com/v0/b/adhyatma-ce6a3.appspot.com/o/1735566563733_coderxyz.png?alt=media&token=aa59cda9-b542-469f-9a36-9c73c87502e2" className="md:w-36"  />
         </Link>
       </div>
 
@@ -101,17 +100,18 @@ export default function Header() {
       </div>
       </div>
   
-        <div className="flex w-1/2 justify-end items-center gap-3">
+        <div className="flex w-1/2 justify-end items-center gap-4">
 
         {currentUser && (
-        <Link to={'/create-post'}>
-         <Button size={"sm"} 
-         color="gray"
-         pill
-         >
-          Create Post
-         </Button>
-         </Link>
+          <div className="flex flex-row justify-center items-center">
+           
+           <Link to={'/create-post'}>
+            <button className="px-4 py-2 rounded-full border font-semibold text-sm text-black hover:bg-gray-200"
+            >
+            Write Article
+            </button>
+            </Link>
+          </div>
          )
         }
          {currentUser ? (
@@ -124,7 +124,7 @@ export default function Header() {
             img={currentUser && currentUser.rest.profilePicture}
             rounded
             loading="lazy"
-            className="bg-gray-300 rounded-full" 
+            className="bg-gray-300 border border-gray-300 rounded-full" 
             />
           }
           >

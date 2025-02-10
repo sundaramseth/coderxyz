@@ -35,11 +35,11 @@ export default function ProfileComponent() {
           </div>
 
       <div className="p-4">
-            <p className="text-xs text-gray-800 dark:text-gray-300 font-bold pt-px">
-              Profile Viwers <span className="text-xs font-semibold">200</span>
+            <p className="text-xs text-gray-800 dark:text-gray-300 font-bold pt-px flex justify-between">
+              Profile Viwers <span className="text-xs font-semibold">{currentUser?.rest.views}</span>
             </p>
-            <p className="text-xs text-gray-800 dark:text-gray-300 font-bold pt-2">
-              Post Impression <span className="text-xs font-semibold">500</span>
+            <p className="text-xs text-gray-800 dark:text-gray-300 font-bold pt-2 flex justify-between">
+              Post Impression <span className="text-xs font-semibold">{currentUser?.rest.postImpressions}</span>
             </p>
           </div>
 

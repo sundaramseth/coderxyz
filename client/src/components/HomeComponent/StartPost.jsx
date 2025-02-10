@@ -1,9 +1,6 @@
 import { Button, Modal, Alert, Badge } from "flowbite-react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-import { FcAddImage } from "react-icons/fc";
-import { FcRules } from "react-icons/fc";
-import { FcIdea } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
@@ -153,7 +150,7 @@ export default function StartPost({ onPostCreated }) {
   };
 
   return (
-    <div className="flex flex-col py-5 px-5 w-full border rounded-xl bg-white dark:bg-transparent dark:border-gray-600">
+    <div className="flex flex-col py-5 md:px-5 px-2  w-full border md:rounded-xl bg-white dark:bg-transparent dark:border-gray-600">
       <div className="flex flex-row gap-4">
         <Link to="/dashboard?tab=profile">
           <img
@@ -168,25 +165,6 @@ export default function StartPost({ onPostCreated }) {
           placeholder="Start your post!"
           onClick={() => setOpenModal(true)}
         />
-      </div>
-
-      <div className="flex flex-row justify-between gap-3 mt-4 w-full flex-wrap md:flex-nowrap">
-        <Button color="gray" onClick={() => setMediaOpenModal(true)}>
-          <FcAddImage size={20} />{" "}
-          <span className="pl-2 text-xs md:text-sm">Post Media</span>
-        </Button>
-
-        <Button color="gray">
-          <FcIdea size={20} />{" "}
-          <span className="pl-2 text-xs md:text-sm">Share Experties</span>
-        </Button>
-
-        <Link to="/create-post" className="flex flex-row">
-          <Button color="gray">
-            <FcRules size={20} />{" "}
-            <span className="pl-2 text-xs md:text-sm">Write Blog</span>
-          </Button>
-        </Link>
       </div>
 
       {/* Modal Start New Post */}
