@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  apiKey: process.env.NEXT_FIREBASE_API_KEY,
   authDomain: "adhyatma-ce6a3.firebaseapp.com",
   projectId: "adhyatma-ce6a3",
   storageBucket: "adhyatma-ce6a3.appspot.com",
