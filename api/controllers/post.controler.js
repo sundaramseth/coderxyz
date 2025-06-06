@@ -1,6 +1,7 @@
 
 import Post from "../models/post.model.js";
 import { errorHandler } from "../utils/error.js";
+import MediaPost from "../models/mediapost.model.js";
 
 export const create = async (req, res, next) =>{
     if(!req.user.isAdmin){
@@ -24,6 +25,30 @@ export const create = async (req, res, next) =>{
     }
 
 }
+
+export const mediapost = async (req, res, next) =>{
+  if(!req.user.isAdmin){
+      return next(errorHandler(403, 'You are not allowed to create a post'))
+  }
+  if(!req.body.content){
+      return next(errorHandler(400,'Please provide all required fields!'))
+  }
+
+  const slug = req.body.content.split(' ').join('-').toLowerCase().replace(/[^a-zA-Z0-9-]/g,'')
+  const newPost = new MediaPost({
+      ...req.body, slug, userId:req.user.id
+  }); 
+
+  try{
+      const savePost = await newPost.save();
+      res.status(201).json(savePost);
+  }
+  catch(error){
+  next(error);
+  }
+
+}
+
 
 
 export const getposts = async (req, res, next) => {

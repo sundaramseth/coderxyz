@@ -80,10 +80,9 @@ export default function PostPage() {
         const resUser = await axios.get(`${API_URL}/api/user/${post.userId}`);
         if (resUser.status === 200) {
           setUser(resUser.data);
-          // console.log(resUser.data)
         }
-
-        setLoading(false);
+          updateProfileView();
+      setLoading(false);
       } catch (error) {
         setLoading(false);
         console.error("Error fetching post or user data:", error);
@@ -92,6 +91,32 @@ export default function PostPage() {
 
     fetchPost();
   }, [postSlug, API_URL, currentUser]);
+
+    
+  const updateProfileView = async () => {
+    try {
+       if (!user) return;
+     // Update User post impressions
+      await fetch(`${API_URL}/api/user/update-impressions`, {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: user._id }),
+      });
+
+      // Update post impressions
+      await fetch(`${API_URL}/api/post/update-impressions`, {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: user._id }),
+      });
+
+      console.log("Post impressions updated");
+    } catch (error) {
+      console.error("Error updating profile view or post impressions:", error);
+    }
+  };
 
   useEffect(() => {
     try {
@@ -223,34 +248,7 @@ export default function PostPage() {
   };
 
 
-  useEffect(() => {
-    const updateProfileView = async () => {
-      try {
-         if (!user) return;
-       // Update User post impressions
-        await fetch(`${API_URL}/api/user/update-impressions`, {
-          method: "PUT",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: user?._id }),
-        });
 
-        // Update post impressions
-        await fetch(`${API_URL}/api/post/update-impressions`, {
-          method: "PUT",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: user?._id }),
-        });
-  
-        console.log("Post impressions updated");
-      } catch (error) {
-        console.error("Error updating profile view or post impressions:", error);
-      }
-    };
-  
-    updateProfileView();
-  }, [user]);
   
   
   // console.log("Found code blocks:", document.querySelectorAll("ql-syntax"));

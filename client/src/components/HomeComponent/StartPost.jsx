@@ -50,7 +50,7 @@ export default function StartPost({ onPostCreated }) {
       setHashtags([...hashtags, hashtagInput.trim()]);
       setFormData({
         ...formData,
-        category: [...hashtags, hashtagInput.trim()],
+        hashtag: [...hashtags, hashtagInput.trim()],
       });
       setHashtagInput("");
     }
@@ -122,7 +122,7 @@ export default function StartPost({ onPostCreated }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${API_URL}/api/post/create`, {
+      const res = await fetch(`${API_URL}/api/post/mediapost`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -184,16 +184,6 @@ export default function StartPost({ onPostCreated }) {
         </Modal.Header>
         <Modal.Body>
           <form className="flex flex-col gap-6 w-full" onSubmit={handleSubmit}>
-            <div className="flex flex-col w-full">
-              <input
-                type="text"
-                placeholder="Your topic title?"
-                onChange={(e) =>
-                  setFormData({ ...formData, title: e.target.value })
-                }
-                className="w-full text-lg font-semibold border-0 p-0 postinput"
-              ></input>
-            </div>
             <div className="flex flex-col w-full">
               <textarea
                 type="text"
