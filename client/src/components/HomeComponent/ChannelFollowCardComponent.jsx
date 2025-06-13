@@ -104,7 +104,7 @@ export default function ChannelFollowCardComponent() {
       </div>
         {showMoreUser && (
            <div className="flex flex-col w-full min-h-7">
-        <button onClick={handleShowMore} className="w-full text-teal-500 self-center text-sm pb-2">
+        <button onClick={handleShowMore} className="w-full text-teal-800 dark:text-teal-500 font-medium self-center text-sm pb-2">
         Show more
         </button>
         </div>

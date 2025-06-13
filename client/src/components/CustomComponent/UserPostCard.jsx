@@ -4,6 +4,7 @@ import { TfiCommentsSmiley } from 'react-icons/tfi';
 import { FcLike } from 'react-icons/fc';
 import { useEffect, useState, memo } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const UserPostCard = memo(function UserPostCard({post}) {
 
@@ -91,5 +92,17 @@ const UserPostCard = memo(function UserPostCard({post}) {
     );
 
 });
+
+UserPostCard.propTypes = {
+  post: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    postImage: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    numberOfLikes: PropTypes.number.isRequired,
+    comments: PropTypes.arrayOf(PropTypes.object),
+    updatedAt: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default UserPostCard;

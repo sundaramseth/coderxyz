@@ -15,6 +15,6 @@ router.get('/getuser/:userName', getUserByName);
 router.post('/follow/:userId', verifyToken, followChannel);
 router.delete('/unfollow/:userId', verifyToken, unfollowChannel);
 router.put('/profile/view/:userId',verifyToken, profileView);
-router.put("/update-impressions", updatePostImpressions);
+router.put("/update-impressions/:userId", updatePostImpressions);
 
 export default router;

@@ -116,7 +116,7 @@ export default function NetworkUserCard({userId}) {
     <div className="flex flex-row w-full justify-between items-center text-left gap-2">
     
     <div className="w-auto rounded-full">
-     <img src={user.profilePicture}  className="w-10 rounded-full" loading="lazy" />
+     <img alt="userprofile" src={user.profilePicture}  className="w-10 rounded-full" loading="lazy" />
     </div>
 
     <div className="w-3/4">

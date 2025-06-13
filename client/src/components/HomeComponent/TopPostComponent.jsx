@@ -13,35 +13,42 @@ export default function TopPostComponent() {
   const [loading, setLoading] = useState(true);
   const { currentUser } = useSelector((state) => state.user);
 
-  useEffect(() => {
+useEffect(() => {
+  const fetchPosts = async () => {
     try {
       setLoading(true);
-      const fetchPosts = async () => {
-        const res = await axios.get(`${API_URL}/api/post/getPosts?limit=5`);
-        const data = res.data;
-        if (res.status === 200) {
-          setPosts(data.posts);
-          setLoading(false);
-          if (data.posts.length < 5) {
-            setShowMore(false);
-          }
-        }
-      };
-      fetchPosts();
-    } catch (error) {
-      console.log(error.message);
-    }
+      const res = await axios.get(`${API_URL}/api/post/topposts?limit=5`);
+      const data = res.data;
 
-  }, [API_URL, currentUser]);
+      console.log(data);
+
+      // If data is an array directly, not wrapped in `posts` field
+      const postsData = Array.isArray(data.posts) ? data.posts : data;
+
+      setPosts(postsData);
+      setLoading(false);
+
+      if (postsData.length < 4) {
+        setShowMore(false);
+      }
+    } catch (error) {
+      console.error('Error fetching top posts:', error.message);
+      setLoading(false);
+    }
+  };
+
+  fetchPosts();
+}, [API_URL, currentUser]);
+
 
   const handleShowMoreForPost = async () => {
     const startIndex = posts.length;
     try {
-      const res = await axios.get(`${API_URL}/api/post/getPosts?startIndex=${startIndex}`);
+      const res = await axios.get(`${API_URL}/api/post/topposts?startIndex=${startIndex}`);
       const data = res.data;
       if (res.status === 200) {
         setPosts((prev) => [...prev, ...data.posts]);
-        if (data.posts.length < 5) {
+        if (data.posts.length < 4) {
           setShowMore(false);
         }
       }
@@ -72,23 +79,31 @@ export default function TopPostComponent() {
             </div>
           ) : (
             <>
-              {
-                posts.map((post, index) => (
-
-                  <div key={index} className="flex flex-col gap-1 min-h-10" loading="lazy">
-                    <Link to={`/post/${post.slug}`} rel="canonical">
-                      <p className="text-sm text-gray-800 dark:text-gray-300 font-semibold"> {post.title}</p></Link>
-                    <p className="text-xs text-gray-500 flex flex-row gap-1 items-center">{new Date(post.updatedAt).toLocaleDateString()} <FaDotCircle size={8} /> {post.numberOfLikes} likes</p>
-                  </div>
-                ))
-              }
+        {posts && posts.length > 0 ? (
+  posts.map((post, index) => (
+    <div key={index} className="flex flex-col gap-1 min-h-10" loading="lazy">
+      <Link to={`/post/${post.slug}`} rel="canonical">
+        <p className="text-sm text-gray-800 dark:text-gray-300 font-semibold">
+          {post.title}
+        </p>
+      </Link>
+      <p className="text-xs text-gray-500 flex flex-row gap-1 items-center">
+        {new Date(post.updatedAt).toLocaleDateString()} <FaDotCircle size={8} /> {post.numberOfLikes} likes
+      </p>
+    </div>
+  ))
+) : (
+  <div className="flex flex-col w-full justify-center items-center pt-10">
+    <p className="text-gray-500 text-sm">No posts available</p>
+  </div>
+  )}
             </>
           )}
         </div>
 
         {showMore && (
           <div className="flex flex-col w-full min-h-7">
-            <button onClick={handleShowMoreForPost} className="w-full text-teal-500 self-center text-sm">
+            <button onClick={handleShowMoreForPost} className="w-full text-teal-800 dark:text-teal-500 font-medium self-center text-sm">
               Show more
             </button>
           </div>

@@ -7,7 +7,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import { FaRegImage } from "react-icons/fa6";
 import imageCompression from "browser-image-compression";
 import { useEffect } from "react";
-
+import ReactQuill from 'react-quill';
 import "quill/dist/quill.snow.css";
 
 import { useNavigate } from "react-router-dom";
@@ -44,6 +44,31 @@ export default function StartPost({ onPostCreated }) {
   const [file, setFile] = useState(null);
 
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
+
+    var modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["link", "image", "code-block"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+        { align: [] }
+      ],
+      [{ "color": ["#000000", "#e60000", "#ff9900", "#ffff00", "#008a00", "#0066cc", "#9933ff", "#ffffff", "#facccc", "#ffebcc", "#ffffcc", "#cce8cc", "#cce0f5", "#ebd6ff", "#bbbbbb", "#f06666", "#ffc266", "#ffff66", "#66b966", "#66a3e0", "#c285ff", "#888888", "#a10000", "#b26b00", "#b2b200", "#006100", "#0047b2", "#6b24b2", "#444444", "#5c0000", "#663d00", "#666600", "#003700", "#002966", "#3d1466", 'custom-color'] }],
+    ]
+  };
+
+  var formats = [
+    "header", "height", "bold", "italic",
+    "underline", "strike", "blockquote",
+    "list", "color", "bullet", "indent",
+    "link", "image", "align", "size","code-block"
+  ];
+
 
   const handleAddHashtag = () => {
     if (hashtagInput.trim() && !hashtags.includes(hashtagInput.trim())) {
@@ -185,14 +210,24 @@ export default function StartPost({ onPostCreated }) {
         <Modal.Body>
           <form className="flex flex-col gap-6 w-full" onSubmit={handleSubmit}>
             <div className="flex flex-col w-full">
-              <textarea
+                      <ReactQuill
+                        className="contentbox"
+                        theme="snow"
+                        formats={formats}
+                        placeholder="Write your content..."
+                        modules={modules}
+                        onChange={(value)=>setFormData({...formData, content:value})}
+                        style={{ height: "320px" }}
+                      >
+                      </ReactQuill>
+              {/* <textarea
                 type="text"
                 placeholder="What would you like to talk about?"
                 onChange={(e) =>
                   setFormData({ ...formData, content: e.target.value })
                 }
                 className="w-full text-lg font-semibold border-0 postinput min-h-60 p-0"
-              ></textarea>
+              ></textarea> */}
             </div>
 
             {formData.postImage && (

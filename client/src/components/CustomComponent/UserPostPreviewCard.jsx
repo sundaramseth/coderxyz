@@ -143,6 +143,7 @@ export default function UserPostPreviewCard() {
                       <div className="md:w-1/3 min-h-24 w-40 flex flex-col justify-start items-start py-3 pl-2">
                         <Link to={`/post/${post.slug}`}>
                           <img
+                            alt={post.title}
                             src={post.postImage}
                             className="w-full min-h-24 object-cover"
                             loading="lazy" 
@@ -193,7 +194,7 @@ export default function UserPostPreviewCard() {
                          
                               <button className="bg-transparent border rounded-full md:px-4 px-3 md:text-sm text-[11px] text-blue-600 hover:bg-gray-100 font-semibold">
                               <Link
-                              className="text-teal-500"
+                              className="text-teal-800 dark:text-teal-500 font-medium"
                               to={`/update-post/${post._id}`}
                             >
                                 Edit 
@@ -248,7 +249,7 @@ export default function UserPostPreviewCard() {
             {showMore && (
               <button
                 onClick={handleShowMore}
-                className="w-full text-teal-500 self-center text-sm py-2"
+                className="w-full text-teal-800 dark:text-teal-500 font-medium self-center text-sm py-2"
               >
                 Show more
               </button>

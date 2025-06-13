@@ -45,7 +45,7 @@ export default function HomePageMain() {
     </div>
     
     <div className="flex flex-col justify-center items-center">
-    <img src="https://firebasestorage.googleapis.com/v0/b/adhyatma-ce6a3.appspot.com/o/1726908550223_Group%202.png?alt=media&token=5520e07d-5466-489b-ad0b-9e5386e298c0"
+    <img alt="coderxyz" src="https://firebasestorage.googleapis.com/v0/b/adhyatma-ce6a3.appspot.com/o/1726908550223_Group%202.png?alt=media&token=5520e07d-5466-489b-ad0b-9e5386e298c0"
     width='550'
     />
     </div>

@@ -156,7 +156,7 @@ export default function DashUsers() {
 
             </Table>
             {showMore && (
-              <button onClick={handleShowMore} className="w-full text-teal-500 self-center text-sm py-7">
+              <button onClick={handleShowMore} className="w-full text-teal-800 dark:text-teal-500 font-medium self-center text-sm py-7">
               Show more
               </button>
             )}

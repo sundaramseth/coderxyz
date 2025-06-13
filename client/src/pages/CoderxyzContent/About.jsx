@@ -18,7 +18,7 @@ export default function About() {
         <p className="text-md pt-5">
         Join us at CoderXYZ to be part of a community that values shared learning and the power of collaboration.
         </p>
-       <img src="" />
+      
        <p className="text-lg pt-5 font-bold"> 	&lt;Human who code&gt; Happy Coding ❤️</p>
       </div>
     </div>

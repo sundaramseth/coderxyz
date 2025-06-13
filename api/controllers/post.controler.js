@@ -49,6 +49,17 @@ export const mediapost = async (req, res, next) =>{
 
 }
 
+export const toppost = async (req, res, next) => {
+  try {
+    const startIndex = parseInt(req.query.startIndex) || 0;
+    const limit = parseInt(req.query.limit) || 10;
+    const posts = await Post.find().sort({ impressions: -1 }).skip(startIndex).limit(limit);
+    res.status(200).json(posts);
+  } catch (error) {
+    next(error);
+  }
+}
+
 
 
 export const getposts = async (req, res, next) => {
@@ -239,13 +250,14 @@ export const getposts = async (req, res, next) => {
 
   export const getauthorposts = async(req,res,next)=>{
     const userIdFetch = req.params.userId;
+    const limit = parseInt(req.query.limit) || 10;
 
     if (!userIdFetch) {
       return res.status(400).json({ error: 'User ID is required.' });
     }
 
     try {
-      const posts = await Post.find({ userId: userIdFetch })  
+      const posts = await Post.find({ userId: userIdFetch }).limit(limit).sort({ createdAt: -1 });  
       
       if (posts.length === 0) {
         return res.status(404).json({ message: 'No posts found for this user.' });
@@ -260,20 +272,28 @@ export const getposts = async (req, res, next) => {
 
   };
 
-  export const updatePostImpressions = async (req, res, next) => {
-    try {
-      const { userId } = req.body.userId;
-  
-      // Find posts associated with this user and increment impressions
-      await Post.updateMany(
-        { userId: userId }, // Assuming `author` stores the userId of post creator
-        { $inc: { impressions: 1 } } // Increment impressions count
-      );
-  
-      return res.status(200).json({ message: "Post impressions updated successfully" });
-    } catch (error) {
-      console.error("Error updating post impressions:", error);
-      next(error);
-      res.status(500).json({ message: "Internal Server Error" });
+
+export const updatePostImpressions = async (req, res, next) => {
+  try {
+    const { postId } = req.params;
+
+    // Increment impressions for the specific post
+    const updatedPost = await Post.findByIdAndUpdate(
+      postId,
+      { $inc: { impressions: 1 } },
+      { new: true }
+    );
+
+    if (!updatedPost) {
+      return res.status(404).json({ message: "Post not found" });
     }
+
+    return res.status(200).json({
+      message: "Post impressions updated successfully",
+      post: updatedPost
+    });
+  } catch (error) {
+    console.error("Error updating post impressions:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
+};

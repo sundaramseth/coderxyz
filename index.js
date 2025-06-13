@@ -8,10 +8,12 @@ import cookieParser from 'cookie-parser';
 import postRoutes from './api/routes/post.route.js';
 import commentRoutes from './api/routes/comment.route.js';
 import path from 'path'; // You need to import path module
+// import compression from 'compression'; // Import compression middleware
 
 // For ES Modules: use fileURLToPath and dirname to get the __dirname equivalent
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import compression from 'compression';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -96,5 +98,9 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
+
+//  const compression = require('compression'); // Import compression middleware
+app.use(compression());
 
 export default app;

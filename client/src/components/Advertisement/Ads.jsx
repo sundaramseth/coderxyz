@@ -5,7 +5,7 @@ export default function Ads() {
     <div className="flex flex-col md:w-60 w-full bg-white rounded-lg border">
     <div className="flex flex-col w-full">
      
-     <img src="https://okcredit-blog-images-prod.storage.googleapis.com/2021/03/Small-Business1--1--2.jpg" className="w-full" />
+     <img alt="ads" src="https://okcredit-blog-images-prod.storage.googleapis.com/2021/03/Small-Business1--1--2.jpg" className="w-full" />
 
      </div>
 

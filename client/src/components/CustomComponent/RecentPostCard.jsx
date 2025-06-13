@@ -86,6 +86,7 @@ const RecentPostCard = memo(function RecentPostCard({ post }) {
       <Link to={`/user/${user.username}`} rel="canonical">
         <div className="text-sm text-gray-600 flex flex-row gap-1 items-center ">
           <img
+          alt="user profile"
             src={user.profilePicture}
             className="md:w-7 md:h-7 w-5 h-5 rounded-full bg-gray-300" loading="lazy" 
           />{" "}

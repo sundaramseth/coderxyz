@@ -16,7 +16,7 @@ export default function FooterCom() {
         <div className="mt-5">
        <Link to='/' 
         className="self-center whitespace-nowrap sm:text-xl font-semibold">
-        <img src="https://firebasestorage.googleapis.com/v0/b/adhyatma-ce6a3.appspot.com/o/1735566563733_coderxyz.png?alt=media&token=aa59cda9-b542-469f-9a36-9c73c87502e2" className="w-28"  />
+        <img alt="coderxyz" src="https://firebasestorage.googleapis.com/v0/b/adhyatma-ce6a3.appspot.com/o/1735566563733_coderxyz.png?alt=media&token=aa59cda9-b542-469f-9a36-9c73c87502e2" className="w-28"  />
         </Link>
        </div>
 
@@ -50,7 +50,7 @@ export default function FooterCom() {
        <div className="w-full flex flex-row items-center justify-start mt-2">
        <Link to='/' 
         className="self-center whitespace-nowrap sm:text-xl font-semibold">
-        <img src="https://firebasestorage.googleapis.com/v0/b/adhyatma-ce6a3.appspot.com/o/1735566563733_coderxyz.png?alt=media&token=aa59cda9-b542-469f-9a36-9c73c87502e2" className="w-16 pt-[2px]"  />
+        <img alt="coderxyz" src="https://firebasestorage.googleapis.com/v0/b/adhyatma-ce6a3.appspot.com/o/1735566563733_coderxyz.png?alt=media&token=aa59cda9-b542-469f-9a36-9c73c87502e2" className="w-16 pt-[2px]"  />
         </Link>&nbsp;
           <Footer.Copyright href='#' by='Coder XYZ' year={new Date().getFullYear()} className="text-xs" />
   

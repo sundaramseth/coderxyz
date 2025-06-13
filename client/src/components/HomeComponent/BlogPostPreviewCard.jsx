@@ -41,13 +41,13 @@ const BlogPostPreviewCard = memo(function BlogPostPreviewCard({ post }) {
     getComments();
   }, [post._id]);
 
-  function truncateContent(content, limit) {
-    const strippedContent = content.replace(/<[^>]*>?/gm, ""); // Remove HTML tags
-    if (strippedContent.length > limit) {
-      return strippedContent.substring(0, limit) + "...";
-    }
-    return strippedContent;
-  }
+  // function truncateContent(content, limit) {
+  //   const strippedContent = content.replace(/<[^>]*>?/gm, ""); // Remove HTML tags
+  //   if (strippedContent.length > limit) {
+  //     return strippedContent.substring(0, limit) + "...";
+  //   }
+  //   return strippedContent;
+  // }
 
   function calculateTimeAgo(updatedAt) {
     const now = new Date(); // Current time
@@ -77,6 +77,7 @@ const BlogPostPreviewCard = memo(function BlogPostPreviewCard({ post }) {
               <div className="w-7 h-7 bg-gray-300 rounded-full">
               <Link to={`/user/${user.username}`} rel="canonical">
               <img
+              alt="user profile"
                 src={user.profilePicture}
                 className="h-full rounded-full bg-gray-300"
                 loading="lazy" 
@@ -96,20 +97,24 @@ const BlogPostPreviewCard = memo(function BlogPostPreviewCard({ post }) {
               >{post.title}</h1>
             </Link>
 
-            <div
+            {/* <div
               className={`overflow-hidden text-sm text-ellipsis pt-2 open-sans-p`}  style={{
                 lineHeight: "1.2", // Prevent layout shifts
               }}
               dangerouslySetInnerHTML={{
                 __html: post && truncateContent(post.content, 112), // Limit to 100 characters
               }}
-            ></div>
+            ></div> */}
+
+            <div className="category-tags flex flex-row gap-2 mt-2">
+            <p>{post.category}</p>
+            </div>
 
           </div>
 
            <div className="w-2/6 flex flex-col mr-4 justify-start md:justify-center md:items-center items-start">
             <Link to={`/post/${post.slug}`} rel="canonical">
-              <img src={post.postImage} className="bg-gray-300 md:w-[160px] md:h-[107px] w-[80px] h-[53px]" loading="lazy"  />
+              <img alt="post image" src={post.postImage} className="bg-gray-300 md:w-[160px] md:h-[84px] w-[80px] h-[42px]" loading="lazy"  />
             </Link>
           </div>
            </div>
@@ -121,12 +126,12 @@ const BlogPostPreviewCard = memo(function BlogPostPreviewCard({ post }) {
                 <span>{calculateTimeAgo(post.updatedAt)}</span>
               </div>
 
-              <div className="flex text-sm text-gray-600 dark:text-gray-300 flex flex-row gap-2 items-center">
+              <div className="flex text-sm text-gray-600 dark:text-gray-300  flex-row gap-2 items-center">
                 <FcLike />
                 <span>{post.numberOfLikes}</span>
               </div>
 
-              <div className="flex text-sm text-gray-600 dark:text-gray-300 flex flex-row gap-2 items-center">
+              <div className="flex text-sm text-gray-600 dark:text-gray-300  flex-row gap-2 items-center">
                 {comments && comments.length === 0 ? (
                   <TfiCommentsSmiley />
                 ) : (
@@ -154,6 +159,7 @@ BlogPostPreviewCard.propTypes = {
     postImage: PropTypes.string.isRequired,
     updatedAt: PropTypes.string.isRequired,
     numberOfLikes: PropTypes.number.isRequired,
+    category: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
 };
 

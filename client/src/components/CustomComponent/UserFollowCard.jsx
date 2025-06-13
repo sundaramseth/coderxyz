@@ -109,8 +109,8 @@ const UserFollowCard = memo(function UserFollowCard({user}) {
     <div  className="flex flex-row py-2 border-b border-b-gray-100 dark:border-b-gray-600 ">
     <div className="flex flex-row w-full justify-between items-center text-left gap-2">
     
-    <div className="w-8 h-8 rounded-full">
-     <img src={user && user.profilePicture}  className="h-full bg-gray-300 rounded-full" loading="lazy" />
+    <div className="flex justify-center items-center w-auto h-8 rounded-full">
+     <img alt='profile picture' src={user && user.profilePicture}  className="h-full w-8 bg-gray-300 rounded-full" loading="lazy" />
     </div>
 
     <div className="w-2/5">

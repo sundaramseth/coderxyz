@@ -4,6 +4,7 @@ import {FaThumbsUp} from 'react-icons/fa';
 import { Button, Textarea } from 'flowbite-react';
 import { useSelector } from "react-redux";
 
+import PropTypes from 'prop-types';
 export default function Comment({comment, onLike, onEdit, onDelete}) {
    
   const API_URL = import.meta.env.VITE_API_URL;
@@ -164,3 +165,12 @@ export default function Comment({comment, onLike, onEdit, onDelete}) {
     </div>
   )
 }
+
+
+
+Comment.propTypes = {
+  comment: PropTypes.object.isRequired,
+  onLike: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};

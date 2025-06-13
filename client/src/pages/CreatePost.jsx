@@ -285,7 +285,7 @@ export default function CreatePost() {
           onChange={(value)=>setFormData({...formData, content:value})}
           style={{ height: "480px" }}
         >
-        </ReactQuill>
+        </ReactQuill>  
       </form>
       </div>
       <div className="flex flex-row justify-start items-center w-full gap-4 mt-4">

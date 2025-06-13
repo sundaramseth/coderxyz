@@ -235,7 +235,7 @@ export const profileView = async(req, res, next) =>{
 
 export const updatePostImpressions = async (req, res, next) => {
   try {
-    const { userId } = req.body.userId;
+    const { userId } = req.params.userId;
 
     // Find posts associated with this user and increment impressions
     await User.updateMany(

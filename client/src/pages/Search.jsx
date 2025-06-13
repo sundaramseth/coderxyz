@@ -123,7 +123,7 @@ export default function Search() {
           {showMore && (
             <button
               onClick={handleShowMore}
-              className='text-teal-500 text-lg hover:underline p-7 w-full'
+              className='text-teal-800 dark:text-teal-500 font-medium text-lg hover:underline p-7 w-full'
             >
               Show More
             </button>

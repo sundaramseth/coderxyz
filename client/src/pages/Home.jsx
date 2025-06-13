@@ -2,10 +2,10 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios'; // Import Axios
 import { useSelector } from 'react-redux'; // Import useSelector
-import ChannelFollowCardComponent from "../components/HomeComponent/ChannelFollowCardComponent";
+// import ChannelFollowCardComponent from "../components/HomeComponent/ChannelFollowCardComponent";
 import BlogPostPreviewCard from "../components/HomeComponent/BlogPostPreviewCard";
 import { Spinner } from 'flowbite-react';
-import StartPost from '../components/HomeComponent/StartPost';
+// import StartPost from '../components/HomeComponent/StartPost';
 import ProfileComponent from '../components/HomeComponent/ProfileComponent';
 import TopPostComponent from '../components/HomeComponent/TopPostComponent';
 import Footer from '../components/Footer';
@@ -25,21 +25,22 @@ export default function Home() {
 const loadInitialPosts = async () => {
   setLoading(true);
   try {
-    const initialPosts = await fetchPosts(0, 10);
+    const initialPosts = await fetchPosts(0, 5);
     setPosts(initialPosts);
+    setLoading(false);
 
-    if (initialPosts.length < 10) {
+    if (initialPosts.length < 5) {
       setShowMore(false);
     }
   } catch (error) {
     console.error("Error fetching initial posts:", error);
   } finally {
-    setLoading(false);
+    // setLoading(false);
   }
 };
 
   // Utility to fetch posts and cache them
-  const fetchPosts = async (startIndex = 0, limit = 10, order = -1) => {
+  const fetchPosts = async (startIndex = 0, limit = 6, order = -1) => {
     // alert("fetching posts")
     // const cacheKey = `posts_${startIndex}_${limit}`;
     // const cachedData = localStorage.getItem(cacheKey);
@@ -115,11 +116,11 @@ useEffect(() => {
  {/* mid section */}
  <div className="flex flex-col md:w-[580px] w-full min-h-screen">
   {/* First Section - Start Post */}
-  <div className="flex flex-row w-full justify-center">
+  {/* <div className="flex flex-row w-full justify-center">
     {currentUser && (
   <StartPost onPostCreated={loadInitialPosts}/>
     )}
-  </div>
+  </div> */}
   {/* Second Section - Blog Post Preview */}
   <div className="flex flex-col w-full justify-center items-center gap-2 mt-2">
     {loading ?
@@ -149,7 +150,7 @@ useEffect(() => {
 
 {showMore && (
   <div className="flex flex-col w-full min-h-5">
-  <button onClick={handleShowMoreForPost} className=" text-teal-500 self-center text-sm p-2">
+  <button onClick={handleShowMoreForPost} className=" text-teal-800 dark:text-teal-500 font-medium self-center text-sm p-2">
       Show more
   </button>
   </div>
@@ -160,7 +161,7 @@ useEffect(() => {
  {/* Right Section  */} 
  <div className="hidden md:flex flex-col w-[300px] min-h-screen gap-2 sticky top-20">
  <TopPostComponent/>
- <ChannelFollowCardComponent/>
+ {/* <ChannelFollowCardComponent/> */}
  <Footer/>
  </div>
 

@@ -17,6 +17,7 @@ export default function CallToAction() {
       <div className="md:w-1/2">
         <img 
         className="h-200 p-7"
+        alt="Java Course Banner"
         src="https://www.classcentral.com/report/wp-content/uploads/2022/05/Java-BCG-Banner.png" /> 
  
       </div>

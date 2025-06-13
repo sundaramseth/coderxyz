@@ -69,7 +69,7 @@ export default function PostPage() {
 
         // Fetch recent posts by the same author
         const resAuthorPosts = await axios.get(
-          `${API_URL}/api/post/getauthorposts/${post.userId}`
+          `${API_URL}/api/post/getauthorposts/${post.userId}?limit=4`
         );
         if (resAuthorPosts.status === 200) {
           setRecentPostAuthor(resAuthorPosts.data);
@@ -97,22 +97,19 @@ export default function PostPage() {
     try {
        if (!user) return;
      // Update User post impressions
-      await fetch(`${API_URL}/api/user/update-impressions`, {
+      await fetch(`${API_URL}/api/user/update-impressions/${post.userId}`, {
         method: "PUT",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: user._id }),
+        headers: { "Content-Type": "application/json" }
       });
 
       // Update post impressions
-      await fetch(`${API_URL}/api/post/update-impressions`, {
+      await fetch(`${API_URL}/api/post/update-impressions/${post._id}`, {
         method: "PUT",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: user._id }),
       });
 
-      console.log("Post impressions updated");
     } catch (error) {
       console.error("Error updating profile view or post impressions:", error);
     }
