@@ -1,6 +1,6 @@
 import express from 'express'
 import { verifyToken } from '../utils/verifyUser.js';
-import { create, getposts, deletepost, updatepost, likePost, savePost, getSavePost, unsavepost, getauthorposts  } from '../controllers/post.controler.js';
+import { create,toppost, getposts, deletepost, updatepost, likePost, savePost, getSavePost, unsavepost, getauthorposts, updatePostImpressions, mediapost  } from '../controllers/post.controler.js';
 
 const router = express.Router();
 
@@ -13,5 +13,8 @@ router.put('/likepost/:postId', verifyToken, likePost);
 router.post('/savepost/:postId/:userId', verifyToken, savePost);
 router.get('/getsavedpost/:userId', getSavePost);
 router.delete('/unsavepost/:postId/:userId', verifyToken, unsavepost);
+router.put("/update-impressions/:postId", updatePostImpressions);
+router.post('/mediapost',verifyToken, mediapost);
+router.get('/topposts', toppost); // Assuming this is for fetching top posts, you can modify the logic in the controller
 
 export default router;

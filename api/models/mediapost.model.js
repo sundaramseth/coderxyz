@@ -1,19 +1,10 @@
 import mongoose from "mongoose";
-import { type } from "os";
 
-const postScema = new mongoose.Schema({
+const mediaPostScema = new mongoose.Schema({
     userId:{
         type:String,
         required:true
     },
-    title:{
-        type:String,
-        required:true
-       },
-    category:{
-        type: Array,
-        default: [],
-       },
     postImage:{
         type:String,
         default:'https://t4.ftcdn.net/jpg/05/65/22/41/360_F_565224180_QNRiRQkf9Fw0dKRoZGwUknmmfk51SuSS.jpg',
@@ -25,6 +16,10 @@ const postScema = new mongoose.Schema({
     content:{
         type:String,
         required:true
+       },
+       hashtag:{
+        type: Array,
+        default: [],
        },
     slug:{
         type:String,
@@ -43,7 +38,7 @@ const postScema = new mongoose.Schema({
     usersavedpost: [String],
     },{timestamps:true});
 
-const Post = mongoose.model('Post',postScema);
+const MediaPost = mongoose.model('MediaPost',mediaPostScema);
 
-export default Post;
+export default MediaPost;
 

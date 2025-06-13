@@ -41,6 +41,8 @@ const userSchema = new mongoose.Schema({
         type:Array,
         default:[],
     },
+    views: { type: Number, default: 0 },
+    postImpressions: { type: Number, default: 0 }, // Track impressions
     isAdmin:{
         type:Boolean,
         default:true
