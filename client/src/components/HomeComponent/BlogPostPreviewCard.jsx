@@ -93,7 +93,7 @@ const BlogPostPreviewCard = memo(function BlogPostPreviewCard({ post }) {
             
 
             <Link to={`/post/${post.slug}`} className="link-container" rel="canonical">
-              <h1 className="open-sans-h1 text-lg md:text-2xl font-bold" 
+              <h1 className="open-sans-h1 text-lg md:text-xl font-bold" 
               >{post.title}</h1>
             </Link>
 

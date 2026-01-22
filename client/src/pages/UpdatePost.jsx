@@ -314,7 +314,7 @@ export default function UpdatePost() {
           placeholder="Write your content..."
           modules={modules}
           onChange={(value)=>setFormData({...formData, content:value})}
-          style={{ height: "500px" }}
+          style={{ height: "480px" }}
         >
         </ReactQuill>
       </form>
